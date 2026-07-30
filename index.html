@@ -1,0 +1,3661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="工作台">
+  <meta name="theme-color" content="#f0f4ff">
+  <title>依依的创作工作台</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================
+       LIQUID GLASS DESIGN SYSTEM
+       Light Mode — Creator Edition
+       ============================================ */
+
+    :root {
+      /* ── Glass Core Tokens (Light Fresh — Ultra Glass) ── */
+      --glass-bg: rgba(255, 255, 255, 0.38);
+      --glass-bg-hover: rgba(255, 255, 255, 0.55);
+      --glass-bg-active: rgba(255, 255, 255, 0.72);
+      --glass-border: rgba(255, 255, 255, 0.50);
+      --glass-border-hover: rgba(255, 255, 255, 0.65);
+      --glass-highlight: rgba(255, 255, 255, 0.95);
+      --glass-shadow: rgba(0, 0, 0, 0.04);
+
+      /* ── Blur Levels (Ultra Glass) ── */
+      --blur-sm: 12px;
+      --blur-md: 28px;
+      --blur-lg: 48px;
+      --blur-xl: 72px;
+
+      /* ── Brand / Accent Colors (Fresh Coral-Mint-Violet) ── */
+      --accent-coral: #ff7f6e;          /* 珊瑚橙 */
+      --accent-coral-glow: rgba(255, 127, 110, 0.20);
+      --accent-teal: #5ecfb0;           /* 薄荷绿 */
+      --accent-teal-glow: rgba(94, 207, 176, 0.18);
+      --accent-violet: #a78bfa;         /* 淡紫罗兰 */
+      --accent-violet-glow: rgba(167, 139, 250, 0.18);
+      --accent-amber: #f5c842;          /* 柠檬黄 */
+      --accent-amber-glow: rgba(245, 200, 66, 0.18);
+      --accent-red: #ff6b6b;            /* 柔和红 */
+      --accent-green: #51cf66;          /* 清新绿 */
+
+      /* Fresh accent for highlights */
+      --accent-warm-rose: #ffb4a2;     /* 浅珊瑚粉 */
+      --accent-caramel: #ffd166;       /* 暖金黄 */
+      --accent-sage: #74d7a1;          /* 薄荷青 */
+
+      /* Platform Colors */
+      --platform-xiaohongshu: #FE2C55;
+      --platform-bilibili: #00A1D6;
+      --platform-douyin: #25F4EE;
+      --platform-weixin: #07C160;
+      --platform-dewu: #303030;
+
+      /* ── Text (Dark on Light) ── */
+      --text-primary: #2d3436;           /* 深墨灰 */
+      --text-secondary: #636e72;         /* 中灰 */
+      --text-muted: #b2bec3;            /* 浅灰 */
+
+      /* ── Typography ── */
+      --font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --text-xs: 0.6875rem;
+      --text-sm: 0.8125rem;
+      --text-base: 0.9375rem;
+      --text-lg: 1.125rem;
+      --text-xl: 1.5rem;
+      --text-2xl: 2rem;
+      --text-3xl: 2.75rem;
+
+      /* ── Spacing ── */
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+
+      /* ── Radius ── */
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --radius-xl: 28px;
+      --radius-full: 9999px;
+
+      /* ── Easing ── */
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-glass: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============================================
+       RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    body {
+      font-family: var(--font-family);
+      color: var(--text-primary);
+      line-height: 1.55;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+
+    /* ============================================
+       LIQUID BACKGROUND
+       ============================================ */
+    .liquid-bg {
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 55% at 25% 0%, rgba(167, 139, 250, 0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 45% at 85% 10%, rgba(245, 200, 66, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 65% 50% at 50% 100%, rgba(94, 207, 176, 0.14) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 35% at 10% 80%, rgba(255, 127, 110, 0.12) 0%, transparent 50%),
+        linear-gradient(175deg, #e4eaf6 0%, #d9e3f1 30%, #e2efe8 60%, #f0e7d9 100%);
+      background-size: 200% 200%;
+      animation: bgShift 30s ease infinite alternate;
+    }
+
+    @keyframes bgShift {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    .orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(var(--blur-xl));
+      opacity: 0.25; pointer-events: none; z-index: -1;
+    }
+    .orb--1 { width: 420px; height: 420px; background: rgba(167, 139, 250, 0.28); top: -12%; left: -10%; animation: orbFloat1 28s ease-in-out infinite; }     /* 淡紫罗兰 */
+    .orb--2 { width: 380px; height: 380px; background: rgba(255, 127, 110, 0.24); bottom: -8%; right: -8%; animation: orbFloat2 32s ease-in-out infinite; }   /* 珊瑚橙 */
+    .orb--3 { width: 300px; height: 300px; background: rgba(94, 207, 176, 0.22); top: 45%; right: 15%; animation: orbFloat3 26s ease-in-out infinite; opacity: 0.18; } /* 薄荷绿 */
+
+    @keyframes orbFloat1 { 0%,100%{transform:translate(0,0)scale(1)} 33%{transform:translate(60px,40px)scale(1.08)} 66%{transform:translate(-30px,60px)scale(0.96)} }
+    @keyframes orbFloat2 { 0%,100%{transform:translate(0,0)scale(1)} 33%{transform:translate(-50px,-40px)scale(1.05)} 66%{transform:translate(40px,-70px)scale(0.94)} }
+    @keyframes orbFloat3 { 0%,100%{transform:translate(0,0)scale(1)} 50%{transform:translate(-40px,50px)scale(1.1)} }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .app-container {
+      max-width: 1200px; margin: 0 auto;
+      padding: var(--space-5) var(--space-5); position: relative; z-index: 1;
+    }
+    @media (min-width: 768px) { .app-container { padding: var(--space-8) var(--space-8); } }
+    @media (min-width: 1024px) { .app-container { padding: var(--space-10) var(--space-8); } }
+
+    /* ============================================
+       GLASS CARD
+       ============================================ */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
+      -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      position: relative; overflow: hidden;
+      transition: all 0.4s var(--ease-glass);
+    }
+    .glass::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1.5px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.9) 15%, var(--glass-highlight) 50%, rgba(255,255,255,0.9) 85%, transparent 100%);
+      opacity: 0.85;
+    }
+    .glass::after {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.8),
+        inset 0 -1px 2px rgba(0,0,0,0.03),
+        inset 1px 0 2px rgba(255,255,255,0.15),
+        inset -1px 0 2px rgba(255,255,255,0.10);
+      pointer-events: none;
+    }
+    .glass:hover {
+      background: var(--glass-bg-hover);
+      border-color: var(--glass-border-hover);
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.04),
+        0 2px 8px rgba(0,0,0,0.02),
+        0 0 0 1px rgba(255,255,255,0.7),
+        inset 0 1px 0 rgba(255,255,255,0.5);
+      transform: translateY(-2px);
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    .header { margin-bottom: var(--space-8); animation: glassReveal 0.8s var(--ease-glass) both; }
+    .greeting {
+      font-size: var(--text-3xl); font-weight: 600; letter-spacing: -0.03em;
+      line-height: 1.15; margin-bottom: var(--space-2);
+      background: linear-gradient(135deg, #4a3a6e 0%, #7b6095 45%, var(--accent-coral) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .date-display { font-size: var(--text-sm); color: var(--text-secondary); font-weight: 400; }
+    .date-display time { color: var(--text-primary); font-weight: 500; }
+
+    @keyframes glassReveal {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); filter: blur(8px); }
+      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+
+    /* ============================================
+       TAB NAVIGATION
+       ============================================ */
+    .tab-nav {
+      display: flex; gap: var(--space-2);
+      margin-bottom: var(--space-6);
+      padding: var(--space-2);
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
+      -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      overflow-x: auto;
+      animation: glassReveal 0.8s var(--ease-glass) both;
+    }
+    .tab-btn {
+      flex-shrink: 0;
+      padding: var(--space-2) var(--space-5);
+      font-family: var(--font-family); font-size: var(--text-sm); font-weight: 500;
+      color: var(--text-secondary); background: none; border: none;
+      border-radius: var(--radius-lg); cursor: pointer;
+      transition: all 0.3s var(--ease-glass);
+      white-space: nowrap;
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .tab-btn:hover { color: var(--text-primary); background: rgba(0,0,0,0.03); }
+    .tab-btn.active {
+      background: white; color: var(--text-primary);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .tab-btn .tab-icon { font-size: 16px; }
+    @media (max-width: 640px) {
+      .tab-btn { flex: 1 1 0; min-width: 0; justify-content: center; padding: var(--space-2) var(--space-2); font-size: var(--text-xs); gap: 4px; }
+      .tab-btn .tab-icon { font-size: 15px; }
+    }
+
+    .tab-panel { display: none; animation: fadeIn 0.4s var(--ease-glass); }
+    .tab-panel.active { display: block; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ============================================
+       SECTION
+       ============================================ */
+    .section { margin-bottom: var(--space-8); animation: glassReveal 0.8s var(--ease-glass) both; }
+    .section-title {
+      font-size: var(--text-xs); font-weight: 600; color: var(--text-secondary);
+      margin-bottom: var(--space-4); display: flex; align-items: center; gap: var(--space-2);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .section-icon {
+      width: 26px; height: 26px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center; font-size: 13px;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* ============================================
+       MAIN GRID
+       ============================================ */
+    @media (min-width: 768px) {
+      .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+      .section--full { grid-column: 1 / -1; }
+      .section--wide { grid-column: 1 / -1; }
+    }
+    @media (min-width: 1024px) {
+      .main-grid { grid-template-columns: 1.2fr 1fr 1fr; gap: var(--space-6); }
+      .section--full { grid-column: 1 / -1; }
+      .section--wide { grid-column: 1 / 3; }
+    }
+
+    /* ══════════════════════════════════════════
+       MODULE: CREATION TRACKER
+       ══════════════════════════════════════════ */
+
+    /* Project Card */
+    .project-card {
+      padding: var(--space-4); border-radius: var(--radius-md);
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
+      -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
+      border: 1px solid var(--glass-border);
+      margin-bottom: 0;
+      transition: all 0.4s var(--ease-glass);
+      position: relative; overflow: hidden;
+    }
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent);
+      opacity: 0.9;
+    }
+    .project-card:hover {
+      background: var(--glass-bg-hover);
+      border-color: var(--glass-border-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .project-card.clickable { cursor: pointer; }
+    .project-card.clickable:hover { border-color: var(--glass-border-hover); }
+
+    /* Projects Grid */
+    #projectsList {
+      display: grid; grid-template-columns: 1fr; gap: var(--space-3);
+    }
+    @media (min-width: 640px) { #projectsList { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1100px) { #projectsList { grid-template-columns: 1fr 1fr 1fr; } }
+
+    .project-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: var(--space-2);
+      gap: var(--space-2);
+    }
+    .project-name {
+      font-size: var(--text-base); font-weight: 600; color: var(--text-primary);
+      flex: 1; min-width: 0; line-height: 1.3;
+      overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+      -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    }
+    .project-header-right {
+      display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0;
+    }
+    .project-date-picker {
+      display: inline-flex; align-items: center;
+    }
+    /* Style the native date input as a pretty button */
+    .project-date-input {
+      font-family: var(--font-family);
+      font-size: 11px; font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(0,0,0,0.04);
+      color: var(--text-muted);
+      border: 1px solid rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .project-date-input:hover {
+      background: rgba(155,142,221,0.10);
+      color: var(--accent-violet);
+      border-color: rgba(155,142,221,0.2);
+    }
+    /* When date input has a value, style it differently */
+    .project-date-input[value=""], .project-date-input:not([value]) {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Crect x='3' y='4' width='18' height='18' rx='2'/%3E%3Cline x1='16' y1='2' x2='16' y2='6'/%3E%3Cline x1='8' y1='2' x2='8' y2='6'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 6px center;
+      padding-left: 24px;
+    }
+    .project-date-input::-webkit-calendar-picker-indicator {
+      opacity: 0.5; cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .project-date-input:hover::-webkit-calendar-picker-indicator {
+      opacity: 1;
+    }
+    .project-actions { display: flex; gap: var(--space-2); }
+    .project-action-btn {
+      width: 30px; height: 30px; border-radius: var(--radius-sm);
+      border: none; background: rgba(0,0,0,0.04); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .project-action-btn:hover { background: rgba(0,0,0,0.08); color: var(--text-secondary); }
+    .project-action-btn.delete:hover { color: var(--accent-red); background: rgba(224,85,85,0.08); }
+    .project-action-btn.hide:hover { color: var(--accent-violet); background: rgba(155,142,221,0.12); }
+
+    /* Stage Progress */
+    /* Stage Progress — Horizontal Compact Stepper */
+    .stage-tracker {
+      display: flex; align-items: flex-start;
+      margin-top: var(--space-3);
+    }
+    .stage-step {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      gap: 5px; position: relative; cursor: pointer;
+      padding: 2px 0; transition: all 0.3s var(--ease-glass);
+    }
+    .stage-step:hover { transform: translateY(-1px); }
+    .stage-dot-wrap {
+      position: relative; display: flex; justify-content: center; width: 100%;
+    }
+    .stage-step:not(:last-child) .stage-dot-wrap::after {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      width: 100%; height: 2px; background: rgba(0,0,0,0.07);
+      transform: translateY(-50%); z-index: 0; border-radius: 1px;
+    }
+    .stage-step.done:not(:last-child) .stage-dot-wrap::after,
+    .stage-step.active:not(:last-child) .stage-dot-wrap::after {
+      background: linear-gradient(90deg, var(--accent-teal), var(--accent-coral));
+    }
+
+    .stage-dot {
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 600; position: relative; z-index: 1;
+      flex-shrink: 0; transition: all 0.4s var(--ease-spring);
+    }
+    .stage-dot.pending { background: rgba(0,0,0,0.05); color: var(--text-muted); border: 1.5px solid rgba(0,0,0,0.10); }
+    .stage-dot.active {
+      background: linear-gradient(135deg, var(--accent-coral), var(--accent-violet));
+      color: white; box-shadow: 0 2px 8px var(--accent-coral-glow);
+      animation: pulse 2s infinite;
+    }
+    .stage-dot.done {
+      background: linear-gradient(135deg, var(--accent-teal), var(--accent-green));
+      color: white; box-shadow: 0 2px 6px var(--accent-teal-glow);
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 2px 8px var(--accent-coral-glow); }
+      50% { box-shadow: 0 2px 16px var(--accent-coral-glow), 0 0 0 4px rgba(255,127,110,0.12); }
+    }
+
+    .stage-mini-label { font-size: 10px; font-weight: 500; color: var(--text-secondary); letter-spacing: 0.02em; }
+    .stage-step.done .stage-mini-label { color: var(--accent-teal); }
+    .stage-step.active .stage-mini-label { color: var(--accent-coral); }
+
+    .project-note { font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-2); line-height: 1.4; }
+    .project-progress {
+      height: 4px; border-radius: var(--radius-full);
+      background: rgba(0,0,0,0.06); margin-top: var(--space-3); overflow: hidden;
+    }
+    .project-progress-fill {
+      height: 100%; border-radius: var(--radius-full);
+      background: linear-gradient(90deg, var(--accent-teal), var(--accent-coral));
+      transition: width 0.5s var(--ease-glass);
+    }
+
+    /* Hidden task list (in modal) */
+    /* ── Archive Page (已隐藏 · 按时间归档) ── */
+    .archive-page {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(238, 233, 226, 0.74);
+      backdrop-filter: blur(var(--blur-lg)) saturate(2.0);
+      -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(2.0);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s var(--ease-glass);
+      display: flex; flex-direction: column;
+    }
+    .archive-page.show { opacity: 1; pointer-events: auto; }
+    .archive-inner {
+      max-width: 1080px; width: 100%; margin: 0 auto;
+      padding: var(--space-7) var(--space-5) var(--space-8);
+      display: flex; flex-direction: column; height: 100%;
+      overflow: hidden;
+    }
+    .archive-header {
+      display: flex; align-items: center; gap: var(--space-4);
+      margin-bottom: var(--space-5); flex-shrink: 0;
+    }
+    .archive-back {
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur-md)); -webkit-backdrop-filter: blur(var(--blur-md));
+      color: var(--text-secondary);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm); font-weight: 600; font-family: var(--font-family);
+      cursor: pointer; white-space: nowrap;
+      transition: all 0.25s var(--ease-glass);
+    }
+    .archive-back:hover { background: var(--glass-bg-hover); color: var(--text-primary); transform: translateX(-2px); }
+    .archive-title-wrap { flex: 1; min-width: 0; }
+    .archive-title { font-size: var(--text-xl); font-weight: 700; color: var(--text-primary); margin: 0; }
+    .archive-sub { font-size: var(--text-xs); color: var(--text-muted); }
+    .archive-count { font-size: var(--text-sm); font-weight: 600; color: var(--accent-violet); white-space: nowrap; }
+
+    .archive-body { display: flex; gap: var(--space-6); flex: 1; overflow: hidden; }
+
+    /* Left timeline */
+    .archive-timeline {
+      width: 196px; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: var(--space-1);
+      overflow-y: auto; padding-right: var(--space-2);
+    }
+    .tl-item {
+      display: flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-3);
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      background: transparent; cursor: pointer; text-align: left;
+      transition: all 0.25s var(--ease-glass); position: relative;
+    }
+    .tl-item:hover { background: var(--glass-bg); }
+    .tl-item.active {
+      background: var(--glass-bg);
+      border-color: var(--glass-border-hover);
+      box-shadow: 0 2px 12px var(--glass-shadow);
+    }
+    .tl-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--accent-violet); flex-shrink: 0; transition: all 0.25s;
+    }
+    .tl-item.active .tl-dot {
+      background: var(--accent-coral);
+      box-shadow: 0 0 0 3px var(--accent-coral-glow);
+    }
+    .tl-label { flex: 1; font-size: var(--text-sm); font-weight: 500; color: var(--text-primary); }
+    .tl-count { font-size: var(--text-xs); color: var(--text-muted); font-weight: 600; }
+
+    /* Right tasks */
+    .archive-tasks {
+      flex: 1; overflow-y: auto;
+      display: flex; flex-direction: column; gap: var(--space-3);
+      padding-right: var(--space-2);
+    }
+    .arch-task-card {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-4);
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur-md)) saturate(2.0);
+      -webkit-backdrop-filter: blur(var(--blur-md)) saturate(2.0);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      position: relative; overflow: hidden;
+      transition: all 0.3s var(--ease-glass);
+    }
+    .arch-task-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent);
+      opacity: 0.9;
+    }
+    .arch-task-card:hover {
+      background: var(--glass-bg-hover);
+      transform: translateX(3px);
+      box-shadow: 0 4px 18px var(--glass-shadow);
+    }
+    .arch-task-date {
+      width: 60px; flex-shrink: 0; text-align: center;
+      font-size: var(--text-xs); color: var(--text-muted); font-weight: 600; line-height: 1.3;
+    }
+    .arch-task-main { flex: 1; min-width: 0; }
+    .arch-task-title {
+      font-size: var(--text-base); font-weight: 600; color: var(--text-primary);
+      margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .arch-task-meta { font-size: var(--text-xs); color: var(--text-secondary); margin-bottom: var(--space-2); }
+    .arch-task-progress { height: 4px; border-radius: var(--radius-full); background: rgba(0,0,0,0.06); overflow: hidden; }
+    .arch-task-progress-fill {
+      height: 100%; border-radius: var(--radius-full);
+      background: linear-gradient(90deg, var(--accent-teal), var(--accent-coral));
+      transition: width 0.5s var(--ease-glass);
+    }
+    .arch-task-progress-fill.full { background: linear-gradient(90deg, var(--accent-teal), var(--accent-green)); }
+    .hidden-restore-btn {
+      flex-shrink: 0; padding: 6px 14px; font-size: var(--text-xs); font-weight: 600;
+      font-family: var(--font-family);
+      border: 1px solid var(--glass-border); border-radius: var(--radius-full);
+      background: var(--glass-bg); color: var(--text-secondary); cursor: pointer;
+      white-space: nowrap; transition: all 0.2s;
+    }
+    .hidden-restore-btn:hover {
+      background: rgba(122,166,154,0.16); color: var(--accent-teal);
+      border-color: rgba(122,166,154,0.35);
+    }
+
+    /* Trash / Recycle Bin buttons */
+    .trash-actions { display: flex; flex-direction: column; gap: var(--space-2); flex-shrink: 0; }
+    .trash-restore-btn {
+      padding: 6px 14px; font-size: var(--text-xs); font-weight: 600;
+      font-family: var(--font-family);
+      border: 1px solid var(--glass-border); border-radius: var(--radius-full);
+      background: var(--glass-bg); color: var(--text-secondary); cursor: pointer;
+      white-space: nowrap; transition: all 0.2s;
+    }
+    .trash-restore-btn:hover { background: rgba(122,166,154,0.16); color: var(--accent-teal); border-color: rgba(122,166,154,0.35); }
+    .trash-purge-btn {
+      padding: 6px 14px; font-size: var(--text-xs); font-weight: 600;
+      font-family: var(--font-family);
+      border: 1px solid rgba(239,68,68,0.25); border-radius: var(--radius-full);
+      background: var(--glass-bg); color: #ef4444; cursor: pointer;
+      white-space: nowrap; transition: all 0.2s;
+    }
+    .trash-purge-btn:hover { background: rgba(239,68,68,0.12); color: #dc2626; border-color: rgba(239,68,68,0.45); }
+    .trash-days-left { font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 3px; }
+    .trash-days-left.urgent { color: var(--accent-coral); font-weight: 600; }
+
+    @media (max-width: 640px) {
+      .archive-inner { padding: var(--space-5) var(--space-4) var(--space-7); }
+      .archive-body { flex-direction: column; gap: var(--space-4); }
+      .archive-timeline {
+        width: 100%; flex-direction: row; overflow-x: auto;
+        padding-right: 0; padding-bottom: var(--space-2);
+      }
+      .tl-item { flex-shrink: 0; }
+    }
+
+    /* Stat card text (reused by 本周概览) */
+    .stage-label { font-size: var(--text-sm); font-weight: 500; color: var(--text-primary); }
+    .stage-desc { font-size: var(--text-xs); color: var(--text-muted); margin-top: 1px; }
+
+    /* Add Project Button */
+    .add-project-btn {
+      width: 100%; padding: var(--space-4);
+      border: 1.5px dashed rgba(0,0,0,0.10);
+      background: rgba(255,255,255,0.3);
+      border-radius: var(--radius-md);
+      font-family: var(--font-family); font-size: var(--text-sm);
+      color: var(--text-muted); cursor: pointer;
+      transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+    }
+    .add-project-btn:hover {
+      border-color: rgba(0,0,0,0.20);
+      background: rgba(255,255,255,0.55);
+      color: var(--text-secondary);
+    }
+
+    /* ══════════════════════════════════════════
+       MODULE: PLATFORM MANAGER
+       ══════════════════════════════════════════ */
+
+    .platform-grid { display: flex; flex-direction: column; gap: var(--space-2); }
+
+    .platform-item {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur-md)) saturate(2.0) brightness(1.02);
+      -webkit-backdrop-filter: blur(var(--blur-md)) saturate(2.0) brightness(1.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      transition: all 0.3s var(--ease-glass);
+    }
+    .platform-item:hover {
+      background: var(--glass-bg-hover);
+      transform: translateX(2px);
+    }
+
+    .platform-icon {
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: bold; color: white;
+      flex-shrink: 0;
+    }
+    .platform-icon.xhs { background: var(--platform-xiaohongshu); }
+    .platform-icon.bilibili { background: var(--platform-bilibili); }
+    .platform-icon.douyin { background: linear-gradient(135deg, #25F4EE, #FE2C55); }
+    .platform-icon.weixin { background: var(--platform-weixin); }
+    .platform-icon.dewu { background: var(--platform-dewu); }
+
+    .platform-info { flex: 1; min-width: 0; }
+    .platform-name { font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); }
+    .platform-link {
+      font-size: var(--text-xs); color: var(--text-muted);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      cursor: pointer;
+    }
+    .platform-link:hover { color: var(--accent-teal); }
+
+    .platform-badge {
+      font-size: 10px; font-weight: 700; padding: 3px 8px;
+      border-radius: var(--radius-full); text-transform: uppercase; letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+    .badge-draft { background: rgba(0,0,0,0.05); color: var(--text-muted); }
+    .badge-pending { background: var(--accent-amber-glow); color: var(--accent-amber); }
+    .badge-published { background: rgba(74,173,106,0.12); color: var(--accent-green); }
+    .badge-live { background: var(--accent-coral-glow); color: var(--accent-coral); }
+
+    /* ══════════════════════════════════════════
+       MODULE: CALENDAR
+       ══════════════════════════════════════════ */
+
+    .calendar-wrapper { padding: var(--space-5); }
+
+    /* Week Summary (bottom of calendar page) */
+    .week-summary {
+      margin-bottom: var(--space-4);
+      padding: var(--space-4);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
+      -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
+    }
+    .ws-head {
+      display: flex; align-items: center; gap: var(--space-2);
+      flex-wrap: wrap; margin-bottom: var(--space-3);
+    }
+    .ws-title { font-size: var(--text-base); font-weight: 600; color: var(--text-primary); }
+    .ws-range { font-size: var(--text-sm); color: var(--text-secondary); }
+    .ws-total { margin-left: auto; font-size: var(--text-sm); color: var(--text-secondary); }
+    .ws-total b { color: var(--accent-violet); font-size: var(--text-lg); margin: 0 2px; }
+    .ws-days {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: var(--space-2);
+    }
+    .ws-day {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      padding: var(--space-2) var(--space-1);
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px solid transparent;
+      cursor: pointer; transition: all 0.2s;
+      min-height: 54px; justify-content: center;
+    }
+    .ws-day:hover { background: rgba(255, 255, 255, 0.6); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .ws-day.today { border-color: rgba(255, 127, 110, 0.5); background: rgba(255, 127, 110, 0.1); }
+    .ws-day.has-event { background: rgba(167, 139, 250, 0.12); border-color: rgba(167, 139, 250, 0.25); }
+    .ws-dow { font-size: var(--text-xs); color: var(--text-secondary); }
+    .ws-date { font-size: var(--text-base); font-weight: 600; color: var(--text-primary); }
+    .ws-count {
+      font-size: 11px; font-weight: 700; color: #fff;
+      background: var(--accent-violet); border-radius: 999px;
+      min-width: 18px; height: 18px; line-height: 18px; text-align: center; padding: 0 5px;
+    }
+    .ws-day:not(.has-event) .ws-count { display: none; }
+    @media (max-width: 640px) {
+      .ws-day { min-height: 48px; padding: var(--space-1) 2px; }
+      .ws-date { font-size: var(--text-sm); }
+      .ws-days { gap: var(--space-1); }
+    }
+
+    /* Calendar Header */
+    .calendar-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: var(--space-5);
+    }
+    .calendar-month {
+      font-size: var(--text-lg); font-weight: 600; color: var(--text-primary);
+    }
+    .calendar-nav {
+      display: flex; gap: var(--space-2);
+    }
+    .cal-nav-btn {
+      width: 34px; height: 34px; border-radius: var(--radius-sm);
+      border: 1px solid var(--glass-border); background: var(--glass-bg);
+      backdrop-filter: blur(8px); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: var(--text-secondary);
+      transition: all 0.2s;
+    }
+    .cal-nav-btn:hover { background: var(--glass-bg-hover); color: var(--text-primary); }
+
+    /* View Toggle */
+    .view-toggle {
+      display: flex; background: rgba(0,0,0,0.04);
+      border-radius: var(--radius-sm); padding: 2px; margin-bottom: var(--space-4);
+    }
+    .view-toggle button {
+      flex: 1; padding: var(--space-1) var(--space-3);
+      font-family: var(--font-family); font-size: var(--text-xs); font-weight: 500;
+      border: none; background: none; border-radius: 6px;
+      color: var(--text-muted); cursor: pointer; transition: all 0.2s;
+    }
+    .view-toggle button.active { background: white; color: var(--text-primary); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+
+    /* Month View */
+    .month-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+    }
+    .weekday-label {
+      text-align: center; font-size: var(--text-xs); font-weight: 600;
+      color: var(--text-muted); padding: var(--space-2);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .day-cell {
+      aspect-ratio: 1; min-height: 52px;
+      display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start;
+      padding: var(--space-1) 2px;
+      border-radius: var(--radius-sm);
+      cursor: pointer; transition: all 0.2s;
+      position: relative;
+    }
+    .day-cell:hover { background: rgba(0,0,0,0.03); }
+    .day-cell.today { background: var(--accent-coral-glow); }
+    .day-cell.other-month { opacity: 0.35; }
+    .day-num { font-size: var(--text-sm); font-weight: 500; color: var(--text-primary); line-height: 1; text-align: center; }
+    .day-cell.today .day-num { color: var(--accent-coral); font-weight: 700; }
+    .day-cell.other-month .day-num { color: var(--text-muted); }
+
+    /* Day content area for event titles */
+    .day-content {
+      display: flex; flex-direction: column; gap: 1px;
+      margin-top: 2px; flex: 1; overflow: hidden;
+    }
+    .day-event-chip {
+      font-size: 9px; font-weight: 500; line-height: 1.3;
+      padding: 1px 4px; border-radius: 3px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      cursor: pointer; transition: all 0.15s;
+      text-align: center;
+    }
+    .day-event-chip:hover { filter: brightness(0.92); transform: scale(1.05); }
+    .day-event-chip.from-project {
+      background: linear-gradient(135deg, rgba(201,123,107,0.15), rgba(201,166,107,0.10));
+      color: #a05545; border: 0.5px solid rgba(201,123,107,0.25);
+    }
+    .day-event-chip.event-shoot { background: rgba(201,123,107,0.14); color: #a05545; }
+    .day-event-chip.event-edit { background: rgba(184,155,168,0.14); color: #8a6a78; }
+    .day-event-chip.event-publish { background: rgba(122,166,154,0.14); color: #4a7a68; }
+    .day-event-chip.event-deadline { background: rgba(251,191,36,0.12); color: #d97706; }
+    .day-event-chip.event-other { background: rgba(0,0,0,0.06); color: var(--text-secondary); }
+    .day-more {
+      font-size: 8px; color: var(--text-muted); text-align: center;
+      font-weight: 600; line-height: 1.2;
+    }
+    .day-dots {
+      display: flex; gap: 2px; margin-top: 2px; flex-wrap: wrap; justify-content: center;
+    }
+    .day-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+    }
+    .dot-shoot { background: var(--accent-coral); }
+    .dot-edit { background: var(--accent-violet); }
+    .dot-publish { background: var(--accent-teal); }
+    .dot-deadline { background: var(--accent-amber); }
+    .dot-other { background: var(--text-muted); }
+
+    /* Week View */
+    .week-grid {
+      display: grid; grid-template-columns: 52px repeat(7, 1fr); gap: 1px;
+      min-height: 400px;
+    }
+    .week-header {
+      text-align: center; font-size: var(--text-xs); font-weight: 600;
+      color: var(--text-muted); padding: var(--space-2);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex; flex-direction: column; align-items: center; gap: 1px;
+    }
+    .week-header.today { background: rgba(201,123,107,0.07); border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+    .week-header-day { font-size: 10px; font-weight: 500; letter-spacing: 0.02em; }
+    .week-header-date {
+      font-size: 15px; font-weight: 700; color: var(--text-primary);
+      line-height: 1.2;
+    }
+    .week-header.today .week-header-date { color: var(--accent-coral); }
+    .time-label {
+      font-size: var(--text-xs); color: var(--text-muted);
+      text-align: right; padding: var(--space-1) var(--space-2);
+      border-right: 1px solid var(--glass-border);
+    }
+    .week-cell {
+      min-height: 50px; border: 1px dashed rgba(0,0,0,0.04);
+      position: relative;
+    }
+    .week-cell.today { background: rgba(201,123,107,0.06); }
+
+    /* Week View - All-Day Row */
+    .all-day-label {
+      font-size: 10px; font-weight: 600; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      padding-top: var(--space-2);
+      border-bottom: 1px solid rgba(120,100,80,0.08);
+    }
+    .week-all-day-cell {
+      min-height: 36px; padding: 3px 4px;
+      border-bottom: 1px solid rgba(120,100,80,0.08);
+      display: flex; flex-direction: column; gap: 2px;
+      overflow-y: auto;
+    }
+    .all-day-chip {
+      background: linear-gradient(135deg, rgba(184,155,168,0.16), rgba(201,166,107,0.10)) !important;
+      color: #8a6a78 !important;
+      font-size: 11px; padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(184,155,168,0.15);
+    }
+    .all-day-chip.from-project {
+      background: linear-gradient(135deg, rgba(201,123,107,0.14), rgba(201,166,107,0.10)) !important;
+      color: #a05545 !important;
+      border-color: rgba(201,123,107,0.18);
+    }
+    .all-day-chip:hover {
+      transform: scale(1.03) !important;
+      box-shadow: 0 2px 8px rgba(160,85,69,0.12) !important;
+    }
+    .all-day-chip-icon { font-size: 10px; flex-shrink: 0; }
+
+    /* Day View - All-Day Section */
+    .day-all-day-section {
+      padding: var(--space-2) var(--space-4);
+      border-bottom: 1px solid rgba(120,100,80,0.08);
+      display: flex; flex-direction: column; gap: 4px;
+      background: rgba(201,166,107,0.04);
+    }
+    .day-view { max-height: 450px; overflow-y: auto; }
+    .day-view-header {
+      text-align: center; padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex; align-items: baseline; justify-content: center; gap: var(--space-2);
+    }
+    .day-view-header.today { background: rgba(201,123,107,0.06); }
+    .day-view-weekday {
+      font-size: var(--text-sm); font-weight: 600; color: var(--text-muted);
+    }
+    .day-view-date {
+      font-size: var(--text-xl); font-weight: 700; color: var(--text-primary);
+    }
+    .day-view-header.today .day-view-date { color: var(--accent-coral); }
+    .day-timeline {
+      position: relative; padding-left: 52px;
+    }
+    .day-time-slot {
+      display: flex; align-items: flex-start; gap: var(--space-3);
+      padding: var(--space-2) 0; min-height: 56px;
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+      position: relative;
+    }
+    .slot-time {
+      width: 44px; font-size: var(--text-xs); color: var(--text-muted);
+      text-align: right; flex-shrink: 0; font-variant-numeric: tabular-nums;
+    }
+    .slot-events { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .event-chip {
+      padding: var(--space-1) var(--space-3);
+      border-radius: 6px; font-size: var(--text-xs); font-weight: 500;
+      color: white; cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; gap: var(--space-2);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .event-chip:hover { transform: scale(1.02); filter: brightness(1.05); }
+    .event-shoot { background: var(--accent-coral); }
+    .event-edit { background: var(--accent-violet); }
+    .event-publish { background: var(--accent-teal); }
+    .event-deadline { background: var(--accent-amber); color: var(--text-primary); }
+    .event-other { background: var(--text-secondary); }
+
+    /* Add Event FAB */
+    .add-event-fab {
+      position: absolute; bottom: var(--space-4); right: var(--space-4);
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-coral), var(--accent-violet));
+      color: white; border: none; font-size: 22px;
+      cursor: pointer; box-shadow: 0 4px 20px var(--accent-coral-glow);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s var(--ease-spring);
+      z-index: 10;
+    }
+    .add-event-fab:hover { transform: scale(1.1) rotate(90deg); }
+
+    /* Event Modal */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      z-index: 100; display: flex; align-items: center; justify-content: center;
+      padding: var(--space-4); opacity: 0; visibility: hidden;
+      transition: all 0.3s;
+    }
+    .modal-overlay.show { opacity: 1; visibility: visible; }
+    .modal-content {
+      background: white; border-radius: var(--radius-xl);
+      padding: var(--space-6); width: 100%; max-width: 420px;
+      max-height: 88vh;
+      display: flex; flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      transform: scale(0.95) translateY(10px);
+      transition: all 0.3s var(--ease-spring);
+    }
+    .modal-scroll-body {
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      padding-right: var(--space-1);
+      margin-right: calc(-1 * var(--space-1));
+    }
+    .modal-actions {
+      display: flex; gap: var(--space-3); justify-content: flex-end;
+      margin-top: var(--space-5); padding-top: var(--space-4);
+      border-top: 1px solid rgba(0,0,0,0.06); flex-shrink: 0;
+    }
+    /* ══════════════════════════════════════════
+       MODULE: PUBLISH MANAGEMENT (Full Page)
+       ══════════════════════════════════════════ */
+
+    .publish-container {
+      display: flex; flex-direction: column; gap: var(--space-5);
+      animation: fadeIn 0.4s var(--ease-glass);
+    }
+    @media (min-width: 768px) {
+      .publish-container { flex-direction: column; }
+    }
+
+    /* Platform Tabs (Vertical on desktop, horizontal on mobile) */
+    .pub-platform-tabs {
+      display: flex; gap: var(--space-2);
+      overflow-x: auto;
+      padding-bottom: var(--space-2);
+    }
+    @media (min-width: 768px) {
+      .pub-platform-tabs {
+        flex-direction: column; width: 160px; flex-shrink: 0;
+        overflow-x: visible; padding-bottom: 0;
+      }
+    }
+
+    .pub-pf-tab {
+      flex-shrink: 0;
+      display: flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      font-family: var(--font-family); font-size: var(--text-sm); font-weight: 500;
+      color: var(--text-secondary); background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
+      -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
+      border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+      cursor: pointer; transition: all 0.3s var(--ease-glass);
+      white-space: nowrap;
+    }
+    .pub-pf-tab:hover { background: var(--glass-bg-hover); border-color: var(--glass-border-hover); }
+    .pub-pf-tab.active {
+      background: white; color: var(--text-primary);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      border-color: transparent;
+    }
+    .pub-pf-tab .ppt-icon {
+      width: 28px; height: 28px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: bold; color: white; flex-shrink: 0;
+    }
+
+    /* Content Area */
+    .pub-content-area { min-height: 400px; padding: var(--space-5); }
+    .pub-content-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: var(--space-5); padding-bottom: var(--space-4);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+    .pub-platform-title { font-size: var(--text-lg); font-weight: 600; color: var(--text-primary); }
+
+    .add-pub-btn {
+      padding: var(--space-2) var(--space-5);
+      font-family: var(--font-family); font-size: var(--text-sm); font-weight: 600;
+      color: white; background: linear-gradient(135deg, var(--accent-coral), var(--accent-violet));
+      border: none; border-radius: var(--radius-sm); cursor: pointer;
+      transition: all 0.3s var(--ease-spring);
+      display: flex; align-items: center; gap: var(--space-2);
+      box-shadow: 0 2px 12px var(--accent-coral-glow);
+    }
+    .add-pub-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px var(--accent-coral-glow); }
+
+    /* Publish Content Item */
+    .pub-list { display: flex; flex-direction: column; gap: var(--space-3); }
+
+    .pub-item {
+      display: flex; align-items: center; gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      background: rgba(0,0,0,0.02); border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      transition: all 0.3s var(--ease-glass);
+    }
+    .pub-item:hover {
+      background: rgba(0,0,0,0.03);
+      border-color: var(--glass-border-hover);
+    }
+
+    .pub-item-info { flex: 1; min-width: 0; }
+    .pub-item-title {
+      font-size: var(--text-base); font-weight: 600; color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+    .pub-item-meta {
+      font-size: var(--text-xs); color: var(--text-muted);
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .pub-item-link {
+      color: var(--accent-teal); cursor: pointer;
+      max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .pub-item-link:hover { text-decoration: underline; }
+
+    /* Status Cycle Button */
+    .pub-status-btn {
+      padding: 4px 12px; font-size: 11px; font-weight: 700;
+      border: none; border-radius: var(--radius-full); cursor: pointer;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      transition: all 0.3s var(--ease-spring);
+      position: relative; overflow: hidden;
+    }
+    .pub-status-btn::after {
+      content: '↻'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+      font-size: 10px; opacity: 0; transition: opacity 0.2s;
+    }
+    .pub-status-btn:hover::after { opacity: 0.5; right: -10px; }
+    .pub-status-btn.draft { background: rgba(0,0,0,0.06); color: var(--text-muted); }
+    .pub-status-btn.draft:hover { background: rgba(212,168,85,0.15); color: var(--accent-amber); }
+    .pub-status-btn.pending { background: var(--accent-amber-glow); color: var(--accent-amber); }
+    .pub-status-btn.pending:hover { background: rgba(74,173,106,0.12); color: var(--accent-green); }
+    .pub-status-btn.published { background: rgba(74,173,106,0.12); color: var(--accent-green); }
+    .pub-status-btn.published:hover { background: var(--accent-coral-glow); color: var(--accent-coral); }
+
+    .pub-item-actions { display: flex; gap: var(--space-1); }
+    .pub-action-btn {
+      width: 30px; height: 30px; border-radius: var(--radius-sm);
+      border: none; background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: var(--text-muted); transition: all 0.2s;
+    }
+    .pub-action-btn:hover { background: rgba(0,0,0,0.05); color: var(--text-secondary); }
+    .pub-action-btn.delete:hover { color: var(--accent-red); background: rgba(224,85,85,0.08); }
+
+    /* Publish — task-centric platform grid */
+    .pub-hint { font-size: var(--text-xs); color: var(--text-muted); font-weight: 500; }
+    .pub-list { display: flex; flex-direction: column; gap: var(--space-4); }
+    .pub-task-card {
+      background: rgba(255,255,255,0.5);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-5);
+      transition: all 0.3s var(--ease-glass);
+    }
+    .pub-task-card:hover { box-shadow: var(--shadow-sm); border-color: var(--glass-border-hover); }
+    .pub-task-head { display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); }
+    .pub-task-title { font-size: var(--text-base); font-weight: 600; color: var(--text-primary); }
+    .pub-archive-btn {
+      flex-shrink: 0; width: 32px; height: 32px; border-radius: var(--radius-sm);
+      border: none; background: transparent; cursor: pointer; font-size: 15px;
+      color: var(--text-muted); transition: all 0.2s;
+    }
+    .pub-archive-btn:hover { background: rgba(0,0,0,0.05); color: var(--accent-teal); }
+    .pub-task-meta { font-size: var(--text-xs); color: var(--text-muted); margin: var(--space-1) 0 var(--space-4); }
+    .pub-platform-grid { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .pub-pf-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 13px; border-radius: var(--radius-full);
+      font-family: var(--font-family); font-size: 13px; font-weight: 600;
+      background: rgba(255,255,255,0.55); border: 1px solid var(--glass-border);
+      color: var(--text-muted); cursor: pointer;
+      transition: all 0.25s var(--ease-spring);
+    }
+    .pub-pf-btn:hover { transform: translateY(-1px); border-color: var(--glass-border-hover); }
+    .pub-pf-btn .pf-ic { font-size: 15px; filter: grayscale(1) opacity(0.5); transition: filter 0.25s; }
+    .pub-pf-btn.on {
+      background: var(--pf); color: #fff; border-color: transparent;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.14);
+    }
+    .pub-pf-btn.on .pf-ic { filter: none; }
+    .pub-archive-entry {
+      display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+      width: 100%; padding: var(--space-4);
+      font-family: var(--font-family); font-size: var(--text-sm); font-weight: 600;
+      color: var(--accent-teal); background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur-lg)) saturate(2.2);
+      -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(2.2);
+      border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+      cursor: pointer; transition: all 0.3s var(--ease-glass);
+    }
+    .pub-archive-entry:hover { background: var(--glass-bg-hover); border-color: var(--glass-border-hover); }
+
+    /* ===== DEALS — 商单管理 ===== */
+    .deal-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-bottom: var(--space-5); }
+    .deal-stat-card {
+      background: var(--glass-bg); backdrop-filter: blur(var(--blur-lg)) saturate(2.2);
+      -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(2.2);
+      border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+      padding: var(--space-4); box-shadow: var(--shadow-sm); text-align: center;
+    }
+    .deal-stat-label { font-size: var(--text-xs); color: var(--text-secondary); font-weight: 500; margin-bottom: var(--space-2); }
+    .deal-stat-num { font-size: var(--text-xl); font-weight: 700; color: var(--text-primary); }
+
+    .deal-list { display: flex; flex-direction: column; gap: var(--space-4); }
+    .deal-card {
+      background: rgba(255,255,255,0.5); border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md); padding: var(--space-4) var(--space-5);
+      transition: all 0.3s var(--ease-glass);
+    }
+    .deal-card:hover { box-shadow: var(--shadow-sm); border-color: var(--glass-border-hover); }
+    .deal-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-3); }
+    .deal-card-title { font-size: var(--text-base); font-weight: 600; color: var(--text-primary); line-height: 1.4; }
+    .deal-card-actions { display: flex; gap: var(--space-1); flex-shrink: 0; }
+    .deal-card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); margin-top: var(--space-3); }
+    .deal-status-pill { padding: 3px 11px; border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; }
+    .deal-quote { font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); }
+    .deal-paid-tag { font-size: var(--text-xs); font-weight: 600; padding: 2px 9px; border-radius: var(--radius-full); }
+    .deal-paid-tag.unpaid { background: rgba(245,200,66,0.16); color: var(--accent-amber); }
+    .deal-paid-tag.paid { background: rgba(74,173,106,0.14); color: var(--accent-green); }
+    .deal-pf-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--space-3); }
+    .deal-pf-tag {
+      display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: var(--radius-full);
+      font-size: var(--text-xs); font-weight: 500; background: color-mix(in srgb, var(--pf) 14%, white);
+      color: var(--pf); border: 1px solid color-mix(in srgb, var(--pf) 30%, white);
+    }
+    .deal-card-foot { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); font-size: var(--text-xs); color: var(--text-secondary); }
+    .deal-date { display: inline-flex; align-items: center; gap: 4px; }
+    .deal-linked { display: inline-flex; align-items: center; gap: 4px; color: var(--accent-violet); }
+    .deal-note {
+      margin-top: var(--space-3); padding: var(--space-3); border-radius: var(--radius-sm);
+      background: rgba(0,0,0,0.03); font-size: var(--text-xs); color: var(--text-secondary); line-height: 1.6;
+    }
+    .deal-status-bar { display: flex; gap: 8px; margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid rgba(0,0,0,0.04); }
+    .deal-status-dot {
+      width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--c);
+      background: transparent; cursor: pointer; padding: 0; transition: all 0.2s; opacity: 0.45;
+    }
+    .deal-status-dot:hover { opacity: 0.8; transform: scale(1.15); }
+    .deal-status-dot.active { background: var(--c); opacity: 1; transform: scale(1.2); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 25%, transparent); }
+
+    .deal-pf-checks { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+    .deal-pf-check { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-sm); color: var(--text-secondary); cursor: pointer; }
+    .deal-pf-check input { accent-color: var(--accent-coral); }
+    .form-row { display: flex; gap: var(--space-4); }
+    .form-row .form-group { flex: 1; }
+    .form-check-row { margin: var(--space-2) 0 var(--space-2); }
+    .check-label { display: inline-flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--text-secondary); cursor: pointer; }
+    .check-label input { accent-color: var(--accent-coral); }
+    .deal-trash-entry { color: var(--accent-coral); margin-top: var(--space-3); }
+
+    /* Calendar event — deal type */
+    .event-deal { background: rgba(245,200,66,0.16); border-left: 3px solid var(--accent-amber); }
+    .dot-deal { background: var(--accent-amber); }
+
+    @media (max-width: 640px) {
+      .form-row { flex-direction: column; gap: var(--space-4); }
+      .deal-pf-checks { gap: var(--space-2) var(--space-3); }
+      .deal-stat-num { font-size: var(--text-lg); }
+    }
+    /* Archive card platform chips */
+    .arch-pf-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--space-2); }
+    .arch-pf-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 9px; border-radius: var(--radius-full);
+      font-size: 11px; font-weight: 600; color: #fff; background: var(--pf);
+    }
+
+    /* Auto-synced item styling */
+    .pub-item--autosynced {
+      border-left: 3px solid var(--accent-violet);
+      background: linear-gradient(135deg, rgba(155,142,221,0.04) 0%, rgba(0,0,0,0.02) 100%);
+    }
+    .auto-sync-badge {
+      display: inline-flex; align-items: center; gap: 2px;
+      font-size: 10px; font-weight: 600; padding: 2px 8px;
+      border-radius: var(--radius-full);
+      background: rgba(155,142,221,0.12); color: var(--accent-violet);
+      margin-left: var(--space-2);
+      vertical-align: middle;
+      letter-spacing: 0.02em;
+    }
+
+    /* Publish Content Modal */
+    .modal-overlay.show .modal-content { transform: scale(1) translateY(0); }
+    .modal-title { font-size: var(--text-lg); font-weight: 600; margin-bottom: var(--space-5); }
+    .form-group { margin-bottom: var(--space-4); }
+    .form-label { font-size: var(--text-xs); font-weight: 600; color: var(--text-secondary); margin-bottom: var(--space-2); display: block; text-transform: uppercase; letter-spacing: 0.05em; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: var(--space-3) var(--space-4);
+      font-family: var(--font-family); font-size: var(--text-sm);
+      color: var(--text-primary); background: rgba(0,0,0,0.03);
+      border: 1px solid rgba(0,0,0,0.08); border-radius: var(--radius-sm);
+      transition: all 0.3s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none; border-color: var(--accent-violet);
+      box-shadow: 0 0 0 3px var(--accent-violet-glow);
+    }
+    .form-textarea { resize: vertical; min-height: 72px; }
+    .modal-actions { display: flex; gap: var(--space-3); margin-top: var(--space-5); }
+    .btn {
+      flex: 1; padding: var(--space-3) var(--space-5);
+      font-family: var(--font-family); font-size: var(--text-sm); font-weight: 500;
+      border: none; border-radius: var(--radius-sm); cursor: pointer;
+      transition: all 0.3s var(--ease-glass);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-coral), var(--accent-violet));
+      color: white;
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px var(--accent-coral-glow); }
+    .btn-secondary { background: rgba(0,0,0,0.05); color: var(--text-secondary); }
+    .btn-secondary:hover { background: rgba(0,0,0,0.08); }
+
+    /* ══════════════════════════════════════════
+       MODULE: MEMOS
+       ══════════════════════════════════════════ */
+
+    .memo-tabs { display: flex; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .memo-tab {
+      flex: 1; padding: var(--space-2) var(--space-3);
+      font-family: var(--font-family); font-size: var(--text-xs); font-weight: 500;
+      border: 1px solid var(--glass-border); background: var(--glass-bg);
+      backdrop-filter: blur(8px); border-radius: var(--radius-sm);
+      cursor: pointer; color: var(--text-secondary);
+      transition: all 0.2s; text-align: center;
+    }
+    .memo-tab.active { background: white; color: var(--text-primary); border-color: transparent; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .memo-tab:hover:not(.active) { background: var(--glass-bg-hover); }
+
+    .memo-panel { display: none; }
+    .memo-panel.active { display: block; animation: fadeIn 0.3s var(--ease-glass); }
+
+    /* Built-in Notes */
+    .note-input-wrapper { margin-bottom: var(--space-4); }
+    .note-input {
+      width: 100%; padding: var(--space-4) var(--space-5);
+      font-family: var(--font-family); font-size: var(--text-sm);
+      color: var(--text-primary); background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
+      -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
+      border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+      resize: none; min-height: 88px; transition: all 0.4s var(--ease-glass);
+    }
+    .note-input::placeholder { color: var(--text-muted); }
+    .note-input:focus {
+      outline: none; background: var(--glass-bg-hover);
+      border-color: var(--glass-border-hover);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.06), 0 0 0 3px rgba(155,142,221,0.10);
+    }
+    .note-submit {
+      margin-top: var(--space-3); padding: var(--space-2) var(--space-5);
+      font-family: var(--font-family); font-size: var(--text-sm); font-weight: 500;
+      color: var(--text-primary);
+      background: linear-gradient(135deg, rgba(255,255,255,0.80) 0%, rgba(255,255,255,0.60) 100%);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,0.08); border-radius: var(--radius-sm);
+      cursor: pointer; transition: all 0.3s var(--ease-glass);
+      position: relative; overflow: hidden;
+    }
+    .note-submit::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+    }
+    .note-submit:hover {
+      background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 100%);
+      border-color: rgba(0,0,0,0.12); transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    }
+
+    .notes-list { display: flex; flex-direction: column; gap: var(--space-2); }
+    .note-item {
+      padding: var(--space-4) var(--space-5);
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur-md)) saturate(2.0) brightness(1.02);
+      -webkit-backdrop-filter: blur(var(--blur-md)) saturate(2.0) brightness(1.02);
+      border: 1px solid var(--glass-border);
+      border-left: 3px solid var(--accent-teal);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: var(--text-sm); color: var(--text-secondary);
+      animation: noteSlideIn 0.4s var(--ease-spring) both;
+    }
+    @keyframes noteSlideIn {
+      from { opacity: 0; transform: translateX(-12px); filter: blur(4px); }
+      to { opacity: 1; transform: translateX(0); filter: blur(0); }
+    }
+    .note-time { font-size: var(--text-xs); color: var(--text-muted); margin-top: var(--space-1); }
+    .note-footer { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-2); }
+    .note-text { white-space: pre-wrap; word-break: break-word; }
+    .note-actions { display: flex; gap: var(--space-1); flex-shrink: 0; }
+    .note-action-btn {
+      width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--glass-border); border-radius: 50%;
+      background: var(--glass-bg); cursor: pointer; font-size: var(--text-sm);
+      transition: all 0.2s var(--ease-glass);
+    }
+    .note-action-btn:hover { transform: translateY(-1px); }
+    .note-action-btn.archive:hover { background: rgba(122,166,154,0.16); border-color: rgba(122,166,154,0.4); }
+    .note-action-btn.delete:hover { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.45); }
+
+    .note-entry-row { display: flex; gap: var(--space-3); margin-top: var(--space-4); }
+    .note-entry-btn {
+      flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+      background: var(--glass-bg); backdrop-filter: blur(var(--blur-md)); -webkit-backdrop-filter: blur(var(--blur-md));
+      color: var(--text-secondary); font-size: var(--text-sm); font-weight: 600; font-family: var(--font-family);
+      cursor: pointer; transition: all 0.25s var(--ease-glass);
+    }
+    .note-entry-btn:hover { background: var(--glass-bg-hover); color: var(--text-primary); transform: translateY(-1px); box-shadow: 0 4px 16px var(--glass-shadow); }
+    .note-entry-btn .ne-ico { font-size: var(--text-base); }
+    .note-entry-btn.trash:hover { border-color: rgba(239,68,68,0.4); color: #dc2626; }
+    .note-entry-count { color: var(--text-muted); font-weight: 500; }
+    .empty-state { text-align: center; padding: var(--space-8) var(--space-4); color: var(--text-muted); font-size: var(--text-sm); }
+
+    /* Apple Notes Link */
+    .apple-notes-link {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: var(--space-4); padding: var(--space-10) var(--space-4);
+      min-height: 280px;
+    }
+    .apple-notes-icon {
+      width: 80px; height: 80px; border-radius: 20px;
+      background: linear-gradient(180deg, #FFD54F 0%, #FFB300 50%, #FF8F00 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px; box-shadow:
+        0 8px 24px rgba(255,179,0,0.3),
+        inset 0 -4px 8px rgba(0,0,0,0.1),
+        inset 0 4px 8px rgba(255,255,255,0.3);
+      transition: all 0.4s var(--ease-spring);
+    }
+    .apple-notes-link:hover .apple-notes-icon {
+      transform: scale(1.08) rotate(-3deg);
+      box-shadow: 0 12px 32px rgba(255,179,0,0.4),
+        inset 0 -4px 8px rgba(0,0,0,0.1),
+        inset 0 4px 8px rgba(255,255,255,0.3);
+    }
+    .apple-notes-title { font-size: var(--text-lg); font-weight: 600; color: var(--text-primary); }
+    .apple-notes-desc { font-size: var(--text-sm); color: var(--text-muted); text-align: center; max-width: 240px; line-height: 1.6; }
+    .open-notes-btn {
+      padding: var(--space-3) var(--space-6);
+      font-family: var(--font-family); font-size: var(--text-sm); font-weight: 600;
+      color: white; background: linear-gradient(180deg, #FFD54F 0%, #FFB300 100%);
+      border: none; border-radius: var(--radius-lg);
+      cursor: pointer; transition: all 0.3s var(--ease-spring);
+      box-shadow: 0 4px 16px rgba(255,179,0,0.3);
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .open-notes-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 24px rgba(255,179,0,0.4);
+    }
+
+    /* ══════════════════════════════════════════
+       SCROLLBAR & SELECTION & REDUCED MOTION
+       ══════════════════════════════════════════ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: var(--radius-full); border: 2px solid transparent; background-clip: content-box; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.22); background-clip: content-box; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .orb { animation: none !important; }
+    }
+
+    ::selection { background: rgba(155,142,221,0.25); color: var(--text-primary); }
+
+    /* Footer */
+    .footer { text-align: center; padding: var(--space-8) 0 var(--space-6); color: var(--text-muted); font-size: var(--text-xs); letter-spacing: 0.03em; }
+  </style>
+</head>
+<body>
+
+  <!-- Background -->
+  <div class="liquid-bg"></div>
+  <div class="orb orb--1"></div>
+  <div class="orb orb--2"></div>
+  <div class="orb orb--3"></div>
+
+  <!-- App Container -->
+  <div class="app-container">
+
+    <!-- Header -->
+    <header class="header">
+      <h1 class="greeting" id="greeting">早上好，<span class="greeting-name">依依</span></h1>
+      <p class="date-display" id="dateDisplay"><time id="currentDate"></time></p>
+    </header>
+
+    <!-- Tab Navigation -->
+    <nav class="tab-nav" role="tablist">
+      <button class="tab-btn active" data-tab="workspace" role="tab" aria-selected="true">
+        <span class="tab-icon">🎬</span> 创作台
+      </button>
+      <button class="tab-btn" data-tab="calendar" role="tab" aria-selected="false">
+        <span class="tab-icon">📅</span> 日历
+      </button>
+      <button class="tab-btn" data-tab="memos" role="tab" aria-selected="false">
+        <span class="tab-icon">📝</span> 备忘录
+      </button>
+      <button class="tab-btn" data-tab="publish" role="tab" aria-selected="false">
+        <span class="tab-icon">📤</span> 发布
+      </button>
+      <button class="tab-btn" data-tab="deals" role="tab" aria-selected="false">
+        <span class="tab-icon">💰</span> 商单
+      </button>
+    </nav>
+
+    <!-- Tab Panel: Workspace -->
+    <div class="tab-panel active" id="panel-workspace" role="tabpanel">
+      <main class="main-grid">
+
+        <!-- Creation Tracker -->
+        <section class="section section--wide" aria-labelledby="tracker-title">
+          <h2 class="section-title" id="tracker-title">
+            <span class="section-icon" style="background:rgba(201,123,107,0.12);border:1px solid rgba(201,123,107,0.18)">🎬</span>
+            内容创作进度
+          </h2>
+          <div id="projectsList"></div>
+          <button class="add-project-btn" onclick="showAddProjectModal()">
+            <span>＋</span> 新建视频项目
+          </button>
+        </section>
+
+        <!-- Quick Stats -->
+        <section class="section section--full" aria-labelledby="stats-title">
+          <h2 class="section-title" id="stats-title">
+            <span class="section-icon" style="background:rgba(122,166,154,0.12);border:1px solid rgba(122,166,154,0.18)">📊</span>
+            本周概览
+          </h2>
+          <div id="statsContent" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-3)"></div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- Tab Panel: Calendar -->
+    <div class="tab-panel" id="panel-calendar" role="tabpanel">
+      <div class="glass calendar-wrapper" style="position:relative">
+        <div class="week-summary" id="weekSummary"></div>
+        <div class="calendar-header">
+          <button class="cal-nav-btn" onclick="calNav(-1)" aria-label="上一个月">‹</button>
+          <span class="calendar-month" id="calMonthYear"></span>
+          <button class="cal-nav-btn" onclick="calNav(1)" aria-label="下一个月">›</button>
+        </div>
+        <div class="view-toggle">
+          <button class="active" data-view="month" onclick="switchCalView('month')">月</button>
+          <button data-view="week" onclick="switchCalView('week')">周</button>
+          <button data-view="day" onclick="switchCalView('day')">日</button>
+        </div>
+        <div id="calViewContainer"></div>
+        <button class="add-event-fab" onclick="showEventModal()" aria-label="添加日程">＋</button>
+      </div>
+    </div>
+
+    <!-- Tab Panel: Memos -->
+    <div class="tab-panel" id="panel-memos" role="tabpanel">
+      <main class="main-grid">
+        <section class="section section--full" aria-labelledby="memos-title">
+          <h2 class="section-title" id="memos-title">
+            <span class="section-icon" style="background:rgba(201,166,107,0.14);border:1px solid rgba(201,166,107,0.18)">📝</span>
+            备忘录
+          </h2>
+          <div class="memo-tabs">
+            <button class="memo-tab active" data-memo="builtin" onclick="switchMemoTab('builtin')">快速笔记</button>
+            <button class="memo-tab" data-memo="apple" onclick="switchMemoTab('apple')">苹果备忘录</button>
+          </div>
+
+          <!-- Built-in Notes -->
+          <div class="memo-panel active" id="memoPanel-builtin">
+            <div class="note-input-wrapper">
+              <textarea class="note-input" id="noteInput" placeholder="记录一个想法、灵感或待办..." aria-label="笔记输入"></textarea>
+              <button class="note-submit" id="noteSubmitBtn">保存笔记</button>
+            </div>
+            <div class="notes-list" id="notesList"></div>
+            <div class="note-entry-row">
+              <button class="note-entry-btn" onclick="openNoteArchive()" title="查看已归档的笔记">
+                <span class="ne-ico">📦</span><span class="ne-label">笔记归档</span><span class="ne-count">(<span id="noteArchiveCount">0</span>)</span>
+              </button>
+              <button class="note-entry-btn trash" onclick="openNoteTrash()" title="查看回收站">
+                <span class="ne-ico">🗑️</span><span class="ne-label">回收站</span><span class="ne-count">(<span id="noteTrashCount">0</span>)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Apple Notes -->
+          <div class="memo-panel" id="memoPanel-apple">
+            <div class="apple-notes-link">
+              <div class="apple-notes-icon">📒</div>
+              <p class="apple-notes-title">苹果备忘录</p>
+              <p class="apple-notes-desc">点击下方按钮直接打开苹果备忘录 App，所有内容自动同步到 iCloud，在 iPhone、Mac、iPad 上都能查看。</p>
+              <button class="open-notes-btn" onclick="openAppleNotes()">
+                <span>🍎</span> 打开苹果备忘录
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Tab Panel: Publish -->
+    <div class="tab-panel" id="panel-publish" role="tabpanel">
+      <div class="publish-container">
+        <div class="glass pub-content-area" style="position:relative">
+          <div class="pub-content-header">
+            <h3 class="pub-platform-title">📤 发布管理</h3>
+            <span class="pub-hint">点击平台按钮点亮「已发布」</span>
+          </div>
+          <div class="pub-list" id="pubTaskList"></div>
+        </div>
+        <button class="pub-archive-entry" onclick="openPubArchive()">
+          📦 已归档发布（<span id="pubArchiveCount">0</span>）
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab Panel: Deals -->
+    <div class="tab-panel" id="panel-deals" role="tabpanel">
+      <div class="deal-stats" id="dealStats"></div>
+      <div class="deal-list" id="dealList"></div>
+      <button class="pub-archive-entry deal-add-entry" onclick="showDealModal()">
+        ＋ 新增商单
+      </button>
+      <button class="pub-archive-entry deal-archive-entry" onclick="openDealArchive()">
+        📦 已归档商单（<span id="dealArchiveCount">0</span>）
+      </button>
+      <button class="pub-archive-entry deal-trash-entry" onclick="openDealTrash()">
+        🗑️ 回收站（<span id="dealTrashCount">0</span>）
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>依依的创作工作台 · 用心创作 ✨</p>
+    </footer>
+
+  </div>
+
+  <!-- Event Modal -->
+  <div class="modal-overlay" id="eventModal">
+    <div class="modal-content">
+      <h3 class="modal-title" id="modalTitle">添加日程</h3>
+      <div class="modal-scroll-body">
+        <input type="hidden" id="eventId">
+        <div class="form-group">
+        <label class="form-label" for="eventTitle">标题</label>
+        <input type="text" class="form-input" id="eventTitle" placeholder="例如：拍摄新品开箱视频">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="eventType">类型</label>
+        <select class="form-select" id="eventType">
+          <option value="shoot">🎬 拍摄</option>
+          <option value="edit">✂️ 剪辑/后期</option>
+          <option value="cover">🖼️ 封面设计</option>
+          <option value="publish">🚀 发布</option>
+          <option value="deadline">⏰ Deadline</option>
+          <option value="other">📌 其他</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="eventDate">日期</label>
+        <input type="date" class="form-input" id="eventDate">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="eventTimeStart">开始时间</label>
+        <input type="time" class="form-input" id="eventTimeStart">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="eventTimeEnd">结束时间</label>
+        <input type="time" class="form-input" id="eventTimeEnd">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="eventNote">备注</label>
+        <textarea class="form-textarea" id="eventNote" placeholder="可选备注..."></textarea>
+      </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" onclick="closeEventModal()">取消</button>
+        <button class="btn btn-primary" onclick="saveEvent()">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Modal -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal-content">
+      <h3 class="modal-title" id="projModalTitle">新建视频项目</h3>
+      <div class="modal-scroll-body">
+        <input type="hidden" id="projectId">
+        <div class="form-group">
+        <label class="form-label" for="projTitle">视频标题</label>
+        <input type="text" class="form-input" id="projTitle" placeholder="例如：iPhone 17 Pro 深度体验">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="projNote">备注</label>
+        <textarea class="form-textarea" id="projNote" placeholder="可选描述..."></textarea>
+      </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" onclick="closeProjectModal()">取消</button>
+        <button class="btn btn-primary" onclick="saveProject()">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deal Modal -->
+  <div class="modal-overlay" id="dealModal">
+    <div class="modal-content">
+      <h3 class="modal-title" id="dealModalTitle">新增商单</h3>
+      <div class="modal-scroll-body">
+        <input type="hidden" id="dealId">
+        <div class="form-group">
+        <label class="form-label" for="dealBrand">品牌 / 客户</label>
+        <input type="text" class="form-input" id="dealBrand" placeholder="例如：某数码品牌">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="dealProduct">产品 / 主题</label>
+        <input type="text" class="form-input" id="dealProduct" placeholder="例如：降噪耳机评测">
+      </div>
+      <div class="form-group">
+        <label class="form-label">投放平台</label>
+        <div class="deal-pf-checks" id="dealPfChecks"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="dealStart">档期开始</label>
+          <input type="date" class="form-input" id="dealStart">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="dealEnd">档期结束</label>
+          <input type="date" class="form-input" id="dealEnd">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="dealQuote">报价（元）</label>
+          <input type="number" class="form-input" id="dealQuote" placeholder="0" min="0">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="dealStatus">状态</label>
+          <select class="form-select" id="dealStatus">
+            <option value="contact">💬 洽谈中</option>
+            <option value="accepted">✅ 已接单</option>
+            <option value="producing">🎬 制作中</option>
+            <option value="published">🚀 已发布</option>
+            <option value="paid">💰 已结款</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="dealPaid">结款</label>
+          <select class="form-select" id="dealPaid">
+            <option value="unpaid">未结</option>
+            <option value="paid">已结</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="dealLinked">关联创作任务</label>
+          <select class="form-select" id="dealLinked">
+            <option value="">不关联</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="dealNote">备注</label>
+        <textarea class="form-textarea" id="dealNote" placeholder="档期要求、交付物、对接人等..."></textarea>
+      </div>
+      <div class="form-check-row">
+        <label class="check-label"><input type="checkbox" id="dealSyncCal"> 将档期同步到日历</label>
+      </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" onclick="closeDealModal()">取消</button>
+        <button class="btn btn-primary" onclick="saveDeal()">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden Projects Archive Page -->
+  <div class="archive-page" id="archivePage">
+    <div class="archive-inner">
+      <div class="archive-header">
+        <button class="archive-back" onclick="closeArchive()">‹ 返回</button>
+        <div class="archive-title-wrap">
+          <h2 class="archive-title">🙈 已隐藏的视频任务</h2>
+          <span class="archive-sub">按时间归档 · 点击左侧月份可筛选</span>
+        </div>
+        <span class="archive-count" id="archiveCount">0 个</span>
+      </div>
+      <div class="archive-body">
+        <aside class="archive-timeline" id="archiveTimeline"></aside>
+        <div class="archive-tasks" id="archiveTasks"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trash / Recycle Bin Page -->
+  <div class="archive-page" id="trashPage">
+    <div class="archive-inner">
+      <div class="archive-header">
+        <button class="archive-back" onclick="closeTrash()">‹ 返回</button>
+        <div class="archive-title-wrap">
+          <h2 class="archive-title">🗑️ 回收站</h2>
+          <span class="archive-sub">30天后自动彻底删除 · 可恢复或手动清空</span>
+        </div>
+        <span class="archive-count" id="trashCount" style="color:var(--accent-coral)">0 个</span>
+      </div>
+      <div class="archive-body">
+        <aside class="archive-timeline" id="trashTimeline"></aside>
+        <div class="archive-tasks" id="trashTasks"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Note Archive Page (笔记归档 · 按时间) -->
+  <div class="archive-page" id="noteArchivePage">
+    <div class="archive-inner">
+      <div class="archive-header">
+        <button class="archive-back" onclick="closeNoteArchive()">‹ 返回</button>
+        <div class="archive-title-wrap">
+          <h2 class="archive-title">📦 笔记归档</h2>
+          <span class="archive-sub">已归档的笔记 · 按时间整理，可随时恢复</span>
+        </div>
+        <span class="archive-count" id="noteArchiveTotal" style="color:var(--accent-teal)">0 个</span>
+      </div>
+      <div class="archive-body">
+        <aside class="archive-timeline" id="noteArchiveTimeline"></aside>
+        <div class="archive-tasks" id="noteArchiveTasks"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Note Trash Page (笔记回收站) -->
+  <div class="archive-page" id="noteTrashPage">
+    <div class="archive-inner">
+      <div class="archive-header">
+        <button class="archive-back" onclick="closeNoteTrash()">‹ 返回</button>
+        <div class="archive-title-wrap">
+          <h2 class="archive-title">🗑️ 回收站</h2>
+          <span class="archive-sub">30天后自动彻底删除 · 可恢复或手动清空</span>
+        </div>
+        <span class="archive-count" id="noteTrashTotal" style="color:var(--accent-coral)">0 个</span>
+      </div>
+      <div class="archive-body">
+        <aside class="archive-timeline" id="noteTrashTimeline"></aside>
+        <div class="archive-tasks" id="noteTrashTasks"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deal Trash Page (商单回收站) -->
+  <div class="archive-page" id="dealTrashPage">
+    <div class="archive-inner">
+      <div class="archive-header">
+        <button class="archive-back" onclick="closeDealTrash()">‹ 返回</button>
+        <div class="archive-title-wrap">
+          <h2 class="archive-title">🗑️ 回收站</h2>
+          <span class="archive-sub">30天后自动彻底删除 · 可恢复或手动清空</span>
+        </div>
+        <span class="archive-count" id="dealTrashTotal" style="color:var(--accent-coral)">0 个</span>
+      </div>
+      <div class="archive-body">
+        <aside class="archive-timeline" id="dealTrashTimeline"></aside>
+        <div class="archive-tasks" id="dealTrashTasks"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deal Archive Page (已归档商单) -->
+  <div class="archive-page" id="dealArchivePage">
+    <div class="archive-inner">
+      <div class="archive-header">
+        <button class="archive-back" onclick="closeDealArchive()">‹ 返回</button>
+        <div class="archive-title-wrap">
+          <h2 class="archive-title">📦 已归档商单</h2>
+          <span class="archive-sub">已归档的商单 · 按时间整理，可随时恢复</span>
+        </div>
+        <span class="archive-count" id="dealArchiveTotal" style="color:var(--accent-violet)">0 个</span>
+      </div>
+      <div class="archive-body">
+        <aside class="archive-timeline" id="dealArchiveTimeline"></aside>
+        <div class="archive-tasks" id="dealArchiveTasks"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Publish Archive Page (已归档发布) -->
+  <div class="archive-page" id="pubArchivePage">
+    <div class="archive-inner">
+      <div class="archive-header">
+        <button class="archive-back" onclick="closePubArchive()">‹ 返回</button>
+        <div class="archive-title-wrap">
+          <h2 class="archive-title">📦 已归档发布</h2>
+          <span class="archive-sub">已归档的发布任务 · 按时间整理，可随时恢复</span>
+        </div>
+        <span class="archive-count" id="pubArchiveTotal" style="color:var(--accent-teal)">0 个</span>
+      </div>
+      <div class="archive-body">
+        <aside class="archive-timeline" id="pubArchiveTimeline"></aside>
+        <div class="archive-tasks" id="pubArchiveTasks"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ========================================
+    // DATA STORE
+    // ========================================
+    const Store = {
+      get(key, fallback = null) {
+        try { const d = localStorage.getItem(`wb_${key}`); return d ? JSON.parse(d) : fallback; }
+        catch { return fallback; }
+      },
+      set(key, val) { localStorage.setItem(`wb_${key}`, JSON.stringify(val)); }
+    };
+
+    // Default Data
+    const DEFAULT_PROJECTS = [
+      {
+        id: 'p1', title: 'iPhone 17 Pro Max 深度评测', note: '重点测试影像系统',
+        stages: { shoot: 'done', edit: 'done', cover: 'done', publish: 'done' },
+        targetDate: getTodayOffset(2),
+        created: Date.now() - 86400000 * 3
+      },
+      {
+        id: 'p2', title: 'Sony A7V 开箱上手', note: '',
+        stages: { shoot: 'done', edit: 'active', cover: 'pending', publish: 'pending' },
+        targetDate: getTodayOffset(5),
+        created: Date.now() - 86400000
+      },
+      {
+        id: 'p3', title: 'AirPods Pro 3 对比测评', note: '和上一代对比',
+        stages: { shoot: 'pending', edit: 'pending', cover: 'pending', publish: 'pending' },
+        targetDate: null,
+        created: Date.now()
+      }
+    ];
+
+    // Helper: get date string N days from now
+    function getTodayOffset(days) {
+      const d = new Date();
+      d.setDate(d.getDate() + days);
+      return d.toISOString().split('T')[0];
+    }
+
+    const STAGE_CONFIG = [
+      { key: 'shoot', label: '拍摄', desc: '素材采集', icon: '🎬' },
+      { key: 'edit', label: '剪辑', desc: '剪辑/调色/特效', icon: '✂️' },
+      { key: 'cover', label: '封面', desc: '封面图制作', icon: '🖼️' },
+      { key: 'publish', label: '上传', desc: '分发到各平台', icon: '🚀' }
+    ];
+
+    const PLATFORM_CONFIG = [
+      { key: 'xhs',      name: '小红书',  icon: '📕', color: '#ff2442' },
+      { key: 'bilibili', name: 'B站',    icon: '📺', color: '#fb7299' },
+      { key: 'douyin',   name: '抖音',    icon: '🎵', color: '#00d8d8' },
+      { key: 'weibo',    name: '微博',    icon: '🌐', color: '#ff8200' },
+      { key: 'kuaishou', name: '快手',    icon: '🎬', color: '#ff4906' },
+      { key: 'gzh',      name: '公众号',  icon: '📖', color: '#07c160' },
+      { key: 'sjh',      name: '视频号',  icon: '💬', color: '#1aad19' },
+      { key: 'dewu',     name: '得物',    icon: '👟', color: '#12b886' },
+      { key: 'shihuo',   name: '识货',    icon: '🛍️', color: '#ff6a00' },
+      { key: 'toutiao',  name: '头条',    icon: '📰', color: '#ff2d20' },
+      { key: 'zhihu',    name: '知乎',    icon: '💡', color: '#0066ff' },
+      { key: 'xiwujie',  name: '西五街',  icon: '🏪', color: '#7b5cff' },
+      { key: 'zgc',      name: '中关村',  icon: '🖥️', color: '#1565ff' },
+      { key: 'youtube',  name: 'YouTube', icon: '▶️', color: '#ff0000' }
+    ];
+
+    const EVENT_TYPES = {
+      shoot: { label: '拍摄', cls: 'event-shoot', dotCls: 'dot-shoot' },
+      edit: { label: '剪辑', cls: 'event-edit', dotCls: 'dot-edit' },
+      cover: { label: '封面', cls: 'event-edit', dotCls: 'dot-edit' },
+      publish: { label: '发布', cls: 'event-publish', dotCls: 'dot-publish' },
+      deadline: { label: 'Deadline', cls: 'event-deadline', dotCls: 'dot-deadline' },
+      deal: { label: '商单', cls: 'event-deal', dotCls: 'dot-deal' },
+      other: { label: '其他', cls: 'event-other', dotCls: 'dot-other' }
+    };
+
+    // ========================================
+    // GREETING & DATE
+    // ========================================
+    function updateGreeting() {
+      const h = new Date().getHours();
+      let g = h < 6 ? '夜深了' : h < 9 ? '早上好' : h < 12 ? '上午好' : h < 14 ? '中午好' : h < 18 ? '下午好' : h < 22 ? '晚上好' : '夜深了';
+      document.getElementById('greeting').innerHTML = `${g}，<span class="greeting-name">依依</span>`;
+    }
+    function updateDate() {
+      const now = new Date();
+      document.getElementById('currentDate').textContent = now.toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+    }
+
+    // ========================================
+    // TABS
+    // ========================================
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+        btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        document.getElementById(`panel-${btn.dataset.tab}`).classList.add('active');
+        if (btn.dataset.tab === 'calendar') renderCalendar();
+        if (btn.dataset.tab === 'publish') { renderPubTasks(); }
+        if (btn.dataset.tab === 'deals') { renderDeals(); }
+      });
+    });
+
+    // ========================================
+    // PROJECTS — CREATION TRACKER
+    // ========================================
+    function getProjects() { return Store.get('projects', DEFAULT_PROJECTS); }
+    function saveProjects(p) { Store.set('projects', p); }
+
+    function renderProjects() {
+      const all = getProjects();
+      const projects = all.filter(p => !p.hidden && !p.trashed);
+      const container = document.getElementById('projectsList');
+
+      if (all.length === 0) {
+        container.innerHTML = '<p class="empty-state">还没有项目，点击下方按钮创建第一个吧～</p>';
+        return;
+      }
+      const hiddenCount = all.filter(p => p.hidden).length;
+      const trashedCount = all.filter(p => p.trashed).length;
+      if (projects.length === 0) {
+        if (trashedCount > 0 && hiddenCount === 0) {
+          container.innerHTML = '<p class="empty-state">已删除的任务都在回收站里 ♻️（共 ' + trashedCount + ' 个），30天内可找回</p>';
+        } else if (hiddenCount > 0 && trashedCount > 0) {
+          container.innerHTML = '<p class="empty-state">任务都已收起或移入回收站啦～ 在下方「本周概览」可找回 👀🗑️</p>';
+        } else {
+          container.innerHTML = '<p class="empty-state">所有任务都已隐藏啦～ 在下方「本周概览 · 已隐藏」里可以找回 👀（共 ' + hiddenCount + ' 个）</p>';
+        }
+        return;
+      }
+
+      // Stage state cycle: pending → active → done → pending
+      const STAGE_CYCLE = ['pending', 'active', 'done'];
+      const STAGE_LABELS = { pending: '待开始', active: '进行中', done: '已完成' };
+      const STAGE_ICONS = { pending: '○', active: '◐', done: '✓' };
+
+      container.innerHTML = projects.map((p, idx) => {
+        const total = STAGE_CONFIG.length;
+        const doneCount = STAGE_CONFIG.filter(s => (p.stages[s.key] || 'pending') === 'done').length;
+        const pct = Math.round(doneCount / total * 100);
+
+        const stageHtml = STAGE_CONFIG.map((s) => {
+          const status = p.stages[s.key] || 'pending';
+          return `
+            <div class="stage-step ${status}" onclick="cycleStage('${p.id}','${s.key}')" title="${STAGE_LABELS[status]}">
+              <div class="stage-dot-wrap">
+                <div class="stage-dot ${status}">${STAGE_ICONS[status] || s.icon}</div>
+              </div>
+              <div class="stage-mini-label">${s.label}</div>
+            </div>`;
+        }).join('');
+
+        return `
+          <div class="project-card" style="animation-delay:${idx * 0.04}s">
+            <div class="project-header">
+              <div class="project-name">${escapeHtml(p.title)}</div>
+              <div class="project-header-right">
+                <div class="project-date-picker" title="设置截止/发布日期">
+                  <input type="date" class="project-date-input"
+                         value="${p.targetDate || ''}"
+                         onchange="updateProjectDate('${p.id}', this.value)"
+                         ${p.targetDate ? `data-label="${formatProjectDate(p.targetDate)}"` : ''}>
+                </div>
+                <div class="project-actions">
+                  <button class="project-action-btn" onclick="showEditProjectModal('${p.id}')" title="编辑">✏️</button>
+                  <button class="project-action-btn hide" onclick="hideProject('${p.id}')" title="隐藏此任务">🙈</button>
+                  <button class="project-action-btn delete" onclick="trashProject('${p.id}')" title="移入回收站">🗑️</button>
+                </div>
+              </div>
+            </div>
+            ${p.note ? `<p class="project-note">${escapeHtml(p.note)}</p>` : ''}
+            <div class="stage-tracker">${stageHtml}</div>
+            <div class="project-progress">
+              <div class="project-progress-fill" style="width:${pct}%"></div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    // Cycle stage: pending → active → done → pending
+    function cycleStage(pid, sKey) {
+      const projects = getProjects();
+      const p = projects.find(x => x.id === pid);
+      if (p) {
+        const STAGE_CYCLE = ['pending', 'active', 'done'];
+        const current = p.stages[sKey] || 'pending';
+        const nextIdx = (STAGE_CYCLE.indexOf(current) + 1) % STAGE_CYCLE.length;
+        p.stages[sKey] = STAGE_CYCLE[nextIdx];
+        saveProjects(projects);
+        renderProjects();
+        renderStats();
+        // Auto-init publish state when a task becomes fully completed
+        ensurePubState();
+      }
+    }
+
+    // Format project date for display
+    function formatProjectDate(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr);
+      const month = d.getMonth() + 1;
+      const day = d.getDate();
+      return `${month}/${day}`;
+    }
+
+    // Update project date & sync to calendar
+    function updateProjectDate(pid, dateStr) {
+      const projects = getProjects();
+      const p = projects.find(x => x.id === pid);
+      if (!p) return;
+
+      p.targetDate = dateStr || null;
+      saveProjects(projects);
+
+      // Sync to calendar events
+      syncProjectToCalendar(p);
+
+      renderProjects();
+    }
+
+    // Hide / unhide a project
+    function hideProject(pid) {
+      const projects = getProjects();
+      const p = projects.find(x => x.id === pid);
+      if (p) {
+        p.hidden = true;
+        p.hiddenAt = Date.now();
+        saveProjects(projects);
+        renderProjects();
+        renderStats();
+      }
+    }
+    function unhideProject(pid) {
+      const projects = getProjects();
+      const p = projects.find(x => x.id === pid);
+      if (p) {
+        p.hidden = false;
+        delete p.hiddenAt;
+        saveProjects(projects);
+        renderProjects();
+        renderStats();
+        const ap = document.getElementById('archivePage');
+        if (ap.classList.contains('show')) renderArchive();
+      }
+    }
+
+    // Sync a project to calendar as an event
+    function syncProjectToCalendar(project) {
+      const events = getEvents();
+      const eventId = `proj_${project.id}`;
+
+      // Remove existing event for this project
+      const filtered = events.filter(e => e.id !== eventId);
+
+      // If project has a target date, create/update event
+      if (project.targetDate) {
+        filtered.push({
+          id: eventId,
+          title: project.title,
+          date: project.targetDate,
+          time: '',
+          type: 'publish', // use publish type for project deadlines
+          note: `视频项目 — ${project.note || ''}`.trim(),
+          fromProject: true,
+          projectId: project.id
+        });
+      }
+
+      saveEvents(filtered);
+    }
+
+    function showAddProjectModal() {
+      document.getElementById('projModalTitle').textContent = '新建视频项目';
+      document.getElementById('projectId').value = '';
+      document.getElementById('projTitle').value = '';
+      document.getElementById('projNote').value = '';
+      document.getElementById('projectModal').classList.add('show');
+    }
+
+    function showEditProjectModal(pid) {
+      const p = getProjects().find(x => x.id === pid);
+      if (!p) return;
+      document.getElementById('projModalTitle').textContent = '编辑项目';
+      document.getElementById('projectId').value = pid;
+      document.getElementById('projTitle').value = p.title;
+      document.getElementById('projNote').value = p.note || '';
+      document.getElementById('projectModal').classList.add('show');
+    }
+
+    function closeProjectModal() { document.getElementById('projectModal').classList.remove('show'); }
+
+    function saveProject() {
+      const title = document.getElementById('projTitle').value.trim();
+      if (!title) return;
+      const note = document.getElementById('projNote').value.trim();
+      const id = document.getElementById('projectId').value;
+      const projects = getProjects();
+
+      if (id) {
+        const p = projects.find(x => x.id === id);
+        if (p) { p.title = title; p.note = note; }
+      } else {
+        projects.unshift({
+          id: 'p' + Date.now(), title, note,
+          stages: { shoot: false, edit: false, cover: false, publish: false },
+          created: Date.now()
+        });
+      }
+      saveProjects(projects);
+      closeProjectModal();
+      renderProjects();
+      renderStats();
+      // Initialise publish state for the new project
+      ensurePubState();
+    }
+
+    // ── Trash / Recycle Bin ──
+    const TRASH_RETENTION_DAYS = 30;
+    const TRASH_RETENTION_MS = TRASH_RETENTION_DAYS * 86400000;
+
+    // Soft delete: move to trash (keep data so it can be restored)
+    function trashProject(pid) {
+      if (!confirm('确定删除？将移入回收站，' + TRASH_RETENTION_DAYS + '天内可恢复。')) return;
+      const projects = getProjects();
+      const p = projects.find(x => x.id === pid);
+      if (p) {
+        p.trashed = true;
+        p.trashedAt = Date.now();
+        p.hidden = false;          // leaving the hidden archive
+        delete p.hiddenAt;
+        saveProjects(projects);
+        renderProjects();
+        renderStats();
+      }
+    }
+
+    // Permanently delete one project + its calendar/publish links
+    function purgeProject(pid) {
+      if (!confirm('彻底删除？此操作不可恢复。')) return;
+      let projects = getProjects();
+      projects = projects.filter(x => x.id !== pid);
+      saveProjects(projects);
+      // Remove from calendar
+      const events = getEvents();
+      saveEvents(events.filter(e => e.projectId !== pid));
+      // publish state lives on the project — removed automatically with it
+      renderProjects();
+      renderStats();
+      const tp = document.getElementById('trashPage');
+      if (tp.classList.contains('show')) renderTrash();
+    }
+
+    // Restore from trash back to creation board
+    function restoreFromTrash(pid) {
+      const projects = getProjects();
+      const p = projects.find(x => x.id === pid);
+      if (p) {
+        p.trashed = false;
+        delete p.trashedAt;
+        p.hidden = false;
+        delete p.hiddenAt;
+        saveProjects(projects);
+        renderProjects();
+        renderStats();
+        const tp = document.getElementById('trashPage');
+        if (tp.classList.contains('show')) renderTrash();
+      }
+    }
+
+    // Auto-purge items older than retention period
+    function purgeOldTrash() {
+      const now = Date.now();
+      let projects = getProjects();
+      const expired = projects.filter(p => p.trashed && (now - (p.trashedAt || 0)) > TRASH_RETENTION_MS);
+      if (expired.length === 0) return;
+      const expiredIds = new Set(expired.map(p => p.id));
+      projects = projects.filter(p => !expiredIds.has(p.id));
+      saveProjects(projects);
+      // Clean up linked calendar data
+      const events = getEvents();
+      saveEvents(events.filter(e => !e.projectId || !expiredIds.has(e.projectId)));
+    }
+
+    let trashFilterMonth = 'all';
+    function openTrash() {
+      trashFilterMonth = 'all';
+      purgeOldTrash();          // clean expired items on open
+      renderTrash();
+      document.getElementById('trashPage').classList.add('show');
+    }
+    function closeTrash() {
+      document.getElementById('trashPage').classList.remove('show');
+    }
+    function setTrashMonth(key) {
+      trashFilterMonth = key;
+      renderTrash();
+    }
+    function renderTrash() {
+      const projects = getProjects();
+      const trashed = projects.filter(p => p.trashed);
+      const container = document.getElementById('trashTasks');
+      const timeline = document.getElementById('trashTimeline');
+
+      // Group by trash month
+      const monthMap = {};
+      trashed.forEach(p => {
+        const t = p.trashedAt || p.created || Date.now();
+        const d = new Date(t);
+        const key = d.getFullYear() + '-' + (d.getMonth() + 1);
+        if (!monthMap[key]) monthMap[key] = { key, year: d.getFullYear(), month: d.getMonth() + 1, list: [] };
+        monthMap[key].list.push(p);
+      });
+      const months = Object.values(monthMap).sort((a, b) => b.key.localeCompare(a.key));
+      months.forEach(m => m.list.sort((a, b) => (b.trashedAt || b.created || 0) - (a.trashedAt || b.created || 0)));
+
+      const total = trashed.length;
+      document.getElementById('trashCount').textContent = total + ' 个';
+
+      // Left timeline
+      const tlItems = [{ key: 'all', label: '全部', count: total }].concat(
+        months.map(m => ({ key: m.key, label: `${m.year}年${m.month}月`, count: m.list.length }))
+      );
+      timeline.innerHTML = tlItems.map(it => `
+        <button class="tl-item ${trashFilterMonth === it.key ? 'active' : ''}" onclick="setTrashMonth('${it.key}')">
+          <span class="tl-dot"></span>
+          <span class="tl-label">${it.label}</span>
+          <span class="tl-count">${it.count}</span>
+        </button>`).join('');
+
+      // Tasks to show
+      let showList;
+      if (trashFilterMonth === 'all') {
+        showList = trashed.slice().sort((a, b) => (b.trashedAt || b.created || 0) - (a.trashedAt || a.created || 0));
+      } else {
+        const m = months.find(x => x.key === trashFilterMonth);
+        showList = m ? m.list : [];
+      }
+
+      if (showList.length === 0) {
+        container.innerHTML = '<p class="empty-state">回收站是空的～ 删除的任务会先到这里，30天后自动清掉</p>';
+        return;
+      }
+
+      const now = Date.now();
+      container.innerHTML = showList.map(p => {
+        const total2 = STAGE_CONFIG.length;
+        const doneCount = STAGE_CONFIG.filter(s => (p.stages[s.key] || 'pending') === 'done').length;
+        const pct = Math.round(doneCount / total2 * 100);
+        const t = p.trashedAt || p.created || 0;
+        const dateStr = t ? new Date(t).toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' }) : '';
+        const daysLeft = Math.max(0, Math.ceil((t + TRASH_RETENTION_MS - now) / 86400000));
+        const urgent = daysLeft <= 7;
+        return `
+          <div class="arch-task-card">
+            <div class="arch-task-date">${dateStr}</div>
+            <div class="arch-task-main">
+              <div class="arch-task-title">${escapeHtml(p.title)}</div>
+              <div class="trash-days-left ${urgent ? 'urgent' : ''}">${daysLeft} 天后自动清除</div>
+              <div class="arch-task-meta">归档进度 ${pct}%</div>
+              <div class="arch-task-progress"><div class="arch-task-progress-fill ${pct === 100 ? 'full' : ''}" style="width:${pct}%"></div></div>
+            </div>
+            <div class="trash-actions">
+              <button class="trash-restore-btn" onclick="restoreFromTrash('${p.id}')">♻️ 恢复</button>
+              <button class="trash-purge-btn" onclick="purgeProject('${p.id}')">🗑️ 彻底删除</button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    // ========================================
+    // PUBLISH MANAGEMENT — Independent System
+    // ========================================
+
+    // ========================================
+    // PUBLISH — task-centric, platform toggle grid
+    // Each fully-completed creation task (all 4 stages done) auto-appears here.
+    // Per-task platform publish state lives on the project:
+    //   p.published{ key: bool }, p.publishedAt{ key: ts }, p.pubArchived, p.pubArchivedAt
+    // ========================================
+
+    let pubArchiveMonth = 'all';
+
+    // Lazily initialise publish state for eligible (4-stage-done) projects
+    function ensurePubState() {
+      const projects = getProjects();
+      let changed = false;
+      projects.forEach(p => {
+        const allDone = STAGE_CONFIG.every(s => p.stages[s.key] === 'done');
+        if (!allDone) return;
+        if (!p.published) { p.published = {}; changed = true; }
+        if (!p.publishedAt) { p.publishedAt = {}; changed = true; }
+        PLATFORM_CONFIG.forEach(pf => {
+          if (!(pf.key in p.published)) { p.published[pf.key] = false; changed = true; }
+        });
+      });
+      if (changed) saveProjects(projects);
+    }
+
+    function renderPubTasks() {
+      ensurePubState();
+      const projects = getProjects();
+      const eligible = projects.filter(p =>
+        STAGE_CONFIG.every(s => p.stages[s.key] === 'done') &&
+        !p.hidden && !p.trashed && !p.pubArchived
+      );
+      const container = document.getElementById('pubTaskList');
+      const acEl = document.getElementById('pubArchiveCount');
+      if (acEl) acEl.textContent = projects.filter(p => p.pubArchived).length;
+
+      if (eligible.length === 0) {
+        container.innerHTML = '<p class="empty-state">还没有已完成的任务～ 在创作台把「拍摄 / 剪辑 / 封面 / 上传」都打勾完成，就会自动出现在这里 ✨</p>';
+        return;
+      }
+
+      container.innerHTML = eligible.map(p => {
+        const total = PLATFORM_CONFIG.length;
+        const done = PLATFORM_CONFIG.filter(pf => p.published && p.published[pf.key]).length;
+        const btns = PLATFORM_CONFIG.map(pf => `
+          <button class="pub-pf-btn ${p.published && p.published[pf.key] ? 'on' : ''}"
+                  style="--pf:${pf.color}"
+                  onclick="togglePubPlatform('${p.id}','${pf.key}')"
+                  aria-pressed="${p.published && p.published[pf.key] ? 'true' : 'false'}"
+                  title="${pf.name}">
+            <span class="pf-ic">${pf.icon}</span>${pf.name}
+          </button>`).join('');
+        return `
+          <div class="pub-task-card">
+            <div class="pub-task-head">
+              <div class="pub-task-title">${escapeHtml(p.title)}</div>
+              <button class="pub-archive-btn" onclick="pubArchiveTask('${p.id}')" title="归档">📦</button>
+            </div>
+            <div class="pub-task-meta">${formatTime(p.created)} · 已发布 ${done}/${total} 个平台</div>
+            <div class="pub-platform-grid">${btns}</div>
+          </div>`;
+      }).join('');
+    }
+
+    function togglePubPlatform(pid, key) {
+      const projects = getProjects();
+      const p = projects.find(x => x.id === pid);
+      if (!p) return;
+      if (!p.published) p.published = {};
+      if (!p.publishedAt) p.publishedAt = {};
+      const on = !p.published[key];
+      p.published[key] = on;
+      if (on) p.publishedAt[key] = Date.now();
+      else delete p.publishedAt[key];
+      saveProjects(projects);
+      renderPubTasks();
+    }
+
+    function pubArchiveTask(pid) {
+      const projects = getProjects();
+      const p = projects.find(x => x.id === pid);
+      if (!p) return;
+      p.pubArchived = true;
+      p.pubArchivedAt = Date.now();
+      saveProjects(projects);
+      renderPubTasks();
+    }
+
+    function openPubArchive() {
+      pubArchiveMonth = 'all';
+      renderPubArchive();
+      document.getElementById('pubArchivePage').classList.add('show');
+    }
+    function closePubArchive() {
+      document.getElementById('pubArchivePage').classList.remove('show');
+    }
+    function setPubArchiveMonth(key) { pubArchiveMonth = key; renderPubArchive(); }
+
+    function renderPubArchive() {
+      const projects = getProjects();
+      const archived = projects.filter(p => p.pubArchived);
+      const container = document.getElementById('pubArchiveTasks');
+      const timeline = document.getElementById('pubArchiveTimeline');
+      if (!container) return;
+
+      const monthMap = {};
+      archived.forEach(p => {
+        const t = p.pubArchivedAt || p.created;
+        const d = new Date(t);
+        const key = d.getFullYear() + '-' + (d.getMonth() + 1);
+        if (!monthMap[key]) monthMap[key] = { key, year: d.getFullYear(), month: d.getMonth() + 1, list: [] };
+        monthMap[key].list.push(p);
+      });
+      const months = Object.values(monthMap).sort((a, b) => b.key.localeCompare(a.key));
+      months.forEach(m => m.list.sort((a, b) => (b.pubArchivedAt || b.created) - (a.pubArchivedAt || a.created)));
+
+      const totalEl = document.getElementById('pubArchiveTotal');
+      if (totalEl) totalEl.textContent = archived.length + ' 个';
+      const acEl = document.getElementById('pubArchiveCount');
+      if (acEl) acEl.textContent = archived.length;
+
+      const tlItems = [{ key: 'all', label: '全部', count: archived.length }].concat(
+        months.map(m => ({ key: m.key, label: m.year + '年' + m.month + '月', count: m.list.length }))
+      );
+      timeline.innerHTML = tlItems.map(it => `
+        <button class="tl-item ${pubArchiveMonth === it.key ? 'active' : ''}" onclick="setPubArchiveMonth('${it.key}')">
+          <span class="tl-dot"></span>
+          <span class="tl-label">${it.label}</span>
+          <span class="tl-count">${it.count}</span>
+        </button>`).join('');
+
+      let showList;
+      if (pubArchiveMonth === 'all') showList = archived.slice().sort((a, b) => (b.pubArchivedAt || b.created) - (a.pubArchivedAt || a.created));
+      else { const m = months.find(x => x.key === pubArchiveMonth); showList = m ? m.list : []; }
+
+      if (showList.length === 0) {
+        container.innerHTML = '<p class="empty-state">还没有归档的发布任务～ 在任务卡点 📦 就能收起来</p>';
+        return;
+      }
+      container.innerHTML = showList.map(p => {
+        const t = p.pubArchivedAt || p.created;
+        const dateStr = new Date(t).toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' });
+        const total = PLATFORM_CONFIG.length;
+        const done = PLATFORM_CONFIG.filter(pf => p.published && p.published[pf.key]).length;
+        const chips = PLATFORM_CONFIG.filter(pf => p.published && p.published[pf.key]).map(pf =>
+          `<span class="arch-pf-chip" style="--pf:${pf.color}">${pf.icon}${pf.name}</span>`
+        ).join('');
+        return `
+          <div class="arch-task-card">
+            <div class="arch-task-date">${dateStr}</div>
+            <div class="arch-task-main">
+              <div class="arch-task-title">${escapeHtml(p.title)}</div>
+              <div class="arch-task-meta">已发布 ${done}/${total} 个平台</div>
+              <div class="arch-pf-row">${chips || '<span class="arch-task-meta">暂未发布任何平台</span>'}</div>
+            </div>
+            <button class="hidden-restore-btn" onclick="restoreFromPubArchive('${p.id}')">👁️ 恢复</button>
+          </div>`;
+      }).join('');
+    }
+
+    function restoreFromPubArchive(pid) {
+      const projects = getProjects();
+      const p = projects.find(x => x.id === pid);
+      if (!p) return;
+      p.pubArchived = false;
+      delete p.pubArchivedAt;
+      saveProjects(projects);
+      renderPubArchive();
+      renderPubTasks();
+    }
+
+
+    // ========================================
+    // STATS
+    // ========================================
+    function renderStats() {
+      const projects = getProjects();
+      const container = document.getElementById('statsContent');
+
+      const inProgress = projects.filter(p => Object.values(p.stages).some(v => v !== 'done')).length;
+      const completed = projects.filter(p => Object.values(p.stages).every(v => v === 'done')).length;
+      const hiddenCount = projects.filter(p => p.hidden).length;
+      const trashedCount = projects.filter(p => p.trashed).length;
+
+      container.innerHTML = `
+        <div class="project-card" style="cursor:default">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><div class="stage-label">进行中的项目</div><div class="stage-desc">正在制作的内容</div></div>
+            <div style="font-size:var(--text-2xl);font-weight:700;color:var(--accent-coral)">${inProgress}</div>
+          </div>
+        </div>
+        <div class="project-card" style="cursor:default">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><div class="stage-label">已完成</div><div class="stage-desc">全流程完成的项目</div></div>
+            <div style="font-size:var(--text-2xl);font-weight:700;color:var(--accent-teal)">${completed}</div>
+          </div>
+        </div>
+        <div class="project-card clickable" onclick="openArchive()" title="查看已隐藏的任务">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><div class="stage-label">🙈 已隐藏</div><div class="stage-desc">收起的视频任务</div></div>
+            <div style="font-size:var(--text-2xl);font-weight:700;color:var(--accent-violet)">${hiddenCount}</div>
+          </div>
+        </div>
+        <div class="project-card clickable" onclick="openTrash()" title="查看回收站">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><div class="stage-label">🗑️ 回收站</div><div class="stage-desc">30天后自动清除</div></div>
+            <div style="font-size:var(--text-2xl);font-weight:700;color:var(--accent-coral)">${trashedCount}</div>
+          </div>
+        </div>`;
+    }
+
+    // Hidden projects archive page
+    let archiveFilterMonth = 'all';
+
+    function openArchive() {
+      archiveFilterMonth = 'all';
+      renderArchive();
+      document.getElementById('archivePage').classList.add('show');
+    }
+    function closeArchive() {
+      document.getElementById('archivePage').classList.remove('show');
+    }
+    function setArchiveMonth(key) {
+      archiveFilterMonth = key;
+      renderArchive();
+    }
+    function renderArchive() {
+      const projects = getProjects();
+      const hidden = projects.filter(p => p.hidden);
+      const container = document.getElementById('archiveTasks');
+      const timeline = document.getElementById('archiveTimeline');
+
+      // Group by archive month (hiddenAt preferred, fallback created)
+      const monthMap = {};
+      hidden.forEach(p => {
+        const t = p.hiddenAt || p.created || Date.now();
+        const d = new Date(t);
+        const key = d.getFullYear() + '-' + (d.getMonth() + 1);
+        if (!monthMap[key]) monthMap[key] = { key, year: d.getFullYear(), month: d.getMonth() + 1, list: [] };
+        monthMap[key].list.push(p);
+      });
+      const months = Object.values(monthMap).sort((a, b) => b.key.localeCompare(a.key));
+      months.forEach(m => m.list.sort((a, b) => (b.hiddenAt || b.created || 0) - (a.hiddenAt || a.created || 0)));
+
+      const total = hidden.length;
+      document.getElementById('archiveCount').textContent = total + ' 个';
+
+      // Left timeline
+      const tlItems = [{ key: 'all', label: '全部', count: total }].concat(
+        months.map(m => ({ key: m.key, label: `${m.year}年${m.month}月`, count: m.list.length }))
+      );
+      timeline.innerHTML = tlItems.map(it => `
+        <button class="tl-item ${archiveFilterMonth === it.key ? 'active' : ''}" onclick="setArchiveMonth('${it.key}')">
+          <span class="tl-dot"></span>
+          <span class="tl-label">${it.label}</span>
+          <span class="tl-count">${it.count}</span>
+        </button>`).join('');
+
+      // Tasks to show
+      let showList;
+      if (archiveFilterMonth === 'all') {
+        showList = hidden.slice().sort((a, b) => (b.hiddenAt || b.created || 0) - (a.hiddenAt || a.created || 0));
+      } else {
+        const m = months.find(x => x.key === archiveFilterMonth);
+        showList = m ? m.list : [];
+      }
+
+      if (showList.length === 0) {
+        container.innerHTML = '<p class="empty-state">暂时没有隐藏的任务～</p>';
+        return;
+      }
+
+      container.innerHTML = showList.map(p => {
+        const total2 = STAGE_CONFIG.length;
+        const doneCount = STAGE_CONFIG.filter(s => (p.stages[s.key] || 'pending') === 'done').length;
+        const pct = Math.round(doneCount / total2 * 100);
+        const t = p.hiddenAt || p.created || 0;
+        const dateStr = t ? new Date(t).toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' }) : '';
+        return `
+          <div class="arch-task-card">
+            <div class="arch-task-date">${dateStr}</div>
+            <div class="arch-task-main">
+              <div class="arch-task-title">${escapeHtml(p.title)}</div>
+              <div class="arch-task-meta">归档进度 ${pct}%</div>
+              <div class="arch-task-progress"><div class="arch-task-progress-fill ${pct === 100 ? 'full' : ''}" style="width:${pct}%"></div></div>
+            </div>
+            <button class="hidden-restore-btn" onclick="unhideProject('${p.id}')">👁️ 恢复</button>
+          </div>`;
+      }).join('');
+    }
+
+    // ========================================
+    // CALENDAR
+    // ========================================
+    let calDate = new Date();
+    let calView = 'month';
+
+    function getEvents() { return Store.get('events', []); }
+    function saveEvents(e) { Store.set('events', e); }
+
+    function renderCalendar() {
+      const container = document.getElementById('calViewContainer');
+      const y = calDate.getFullYear();
+      const m = calDate.getMonth();
+
+      document.getElementById('calMonthYear').textContent =
+        calDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long' });
+
+      if (calView === 'month') renderMonthView(container, y, m);
+      else if (calView === 'week') renderWeekView(container, y, m);
+      else renderDayView(container, y, m);
+      renderWeekSummary();
+    }
+
+    function renderWeekSummary() {
+      const container = document.getElementById('weekSummary');
+      if (!container) return;
+      const events = getEvents();
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      // 本周一（周一为一周起点）
+      const monday = new Date(today);
+      monday.setDate(today.getDate() - ((today.getDay() + 6) % 7));
+      const sunday = new Date(monday);
+      sunday.setDate(monday.getDate() + 6);
+      const startStr = formatDateStr(monday);
+      const endStr = formatDateStr(sunday);
+      const count = events.filter(e => e.date >= startStr && e.date <= endStr).length;
+      const weekdays = ['一', '二', '三', '四', '五', '六', '日'];
+      let daysHtml = '';
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(monday);
+        d.setDate(monday.getDate() + i);
+        const ds = formatDateStr(d);
+        const c = events.filter(e => e.date === ds).length;
+        const isToday = d.toDateString() === today.toDateString();
+        daysHtml += `<div class="ws-day${isToday ? ' today' : ''}${c > 0 ? ' has-event' : ''}" role="button" tabindex="0" onclick="jumpToDate('${ds}')" onkeydown="if(event.key==='Enter')jumpToDate('${ds}')">
+          <span class="ws-dow">${weekdays[i]}</span>
+          <span class="ws-date">${d.getDate()}</span>
+          <span class="ws-count">${c > 0 ? c : ''}</span>
+        </div>`;
+      }
+      container.innerHTML = `
+        <div class="ws-head">
+          <span class="section-icon" style="background:rgba(167,139,250,0.14);border:1px solid rgba(167,139,250,0.2)">📅</span>
+          <span class="ws-title">本周日程</span>
+          <span class="ws-range">${monday.getMonth() + 1}/${monday.getDate()} – ${sunday.getMonth() + 1}/${sunday.getDate()}</span>
+          <span class="ws-total">共 <b>${count}</b> 项安排</span>
+        </div>
+        <div class="ws-days">${daysHtml}</div>`;
+    }
+
+    function jumpToDate(dateStr) {
+      const [y, m, d] = dateStr.split('-').map(Number);
+      calDate = new Date(y, m - 1, d);
+      switchCalView('day');
+    }
+
+    function renderMonthView(container, y, m) {
+      const first = new Date(y, m, 1);
+      const last = new Date(y, m + 1, 0);
+      const startPad = first.getDay(); // 0=Sun
+      const days = last.getDate();
+      const prevLast = new Date(y, m, 0).getDate();
+      const events = getEvents();
+
+      const weekdays = ['日','一','二','三','四','五','六'];
+      let html = `<div class="month-grid"><div class="weekday-label">${weekdays.join('</div><div class="weekday-label">')}</div>`;
+
+      // Previous month padding
+      for (let i = startPad - 1; i >= 0; i--) {
+        html += `<div class="day-cell other-month"><span class="day-num">${prevLast - i}</span></div>`;
+      }
+      // Current month
+      const today = new Date();
+      for (let d = 1; d <= days; d++) {
+        const dateStr = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const isToday = today.getFullYear()===y && today.getMonth()===m && today.getDate()===d;
+        const dayEvents = events.filter(e => e.date === dateStr);
+
+        // Separate events: no-time (show title) vs timed (show dot)
+        const noTimeEvents = dayEvents.filter(e => !e.time);
+        const timedEvents = dayEvents.filter(e => e.time);
+
+        // Build no-time event titles (max 2, truncate long names)
+        const titleHtml = noTimeEvents.slice(0, 2).map(e => {
+          const typeCls = EVENT_TYPES[e.type]?.cls || 'event-other';
+          const displayName = e.title.length > 6 ? e.title.slice(0, 5) + '…' : e.title;
+          return `<div class="day-event-chip ${typeCls}${e.fromProject ? ' from-project' : ''}" onclick="event.stopPropagation();editEvent('${e.id}')">${escapeHtml(displayName)}</div>`;
+        }).join('');
+        const moreCount = noTimeEvents.length - 2;
+        const moreHtml = moreCount > 0 ? `<div class="day-more">+${moreCount}</div>` : '';
+
+        // Timed events as dots
+        const dots = timedEvents.slice(0, 3).map(e =>
+          `<span class="day-dot ${EVENT_TYPES[e.type]?.dotCls || 'dot-other'}" title="${escapeHtml(e.title)} ${e.time}"></span>`
+        ).join('');
+
+        html += `<div class="day-cell${isToday ? ' today' : ''}" onclick="showEventModalForDate('${dateStr}')">
+          <span class="day-num">${d}</span>
+          <div class="day-content">${titleHtml}${moreHtml}</div>
+          ${dots ? `<div class="day-dots">${dots}</div>` : ''}
+        </div>`;
+      }
+      // Next month padding
+      const totalCells = startPad + days;
+      const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+      for (let i = 1; i <= remaining; i++) {
+        html += `<div class="day-cell other-month"><span class="day-num">${i}</span></div>`;
+      }
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    function renderWeekView(container, y, m) {
+      const startOfWeek = new Date(calDate);
+      startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+      const weekdays = ['周日','周一','周二','周三','周四','周五','周六'];
+      const events = getEvents();
+      const today = new Date();
+
+      // Build week headers with dates
+      const weekHeaders = weekdays.map((w, i) => {
+        const d = new Date(startOfWeek);
+        d.setDate(d.getDate() + i);
+        const dayNum = d.getDate();
+        const monthNum = d.getMonth() + 1;
+        const isTodayCol = d.toDateString() === today.toDateString();
+        return `<div class="week-header${isTodayCol ? ' today' : ''}">
+          <span class="week-header-day">${w}</span>
+          <span class="week-header-date">${monthNum}/${dayNum}</span>
+        </div>`;
+      });
+
+      let html = '<div class="week-grid">';
+      html += '<div></div>' + weekHeaders.join('');
+
+      // All-day / no-time events row (above time grid)
+      const allDayRow = '<div class="time-label all-day-label">全天</div>' +
+        weekdays.map((w, i) => {
+          const d = new Date(startOfWeek);
+          d.setDate(d.getDate() + i);
+          const dateStr = formatDateStr(d);
+          const noTimeEvents = events.filter(e => e.date === dateStr && !e.timeStart);
+          if (noTimeEvents.length === 0) return '<div class="week-all-day-cell"></div>';
+          const chips = noTimeEvents.map(e => {
+            const typeCls = EVENT_TYPES[e.type]?.cls || 'event-other';
+            const displayName = e.title.length > 10 ? e.title.slice(0, 9) + '…' : e.title;
+            return `<div class="event-chip ${typeCls} all-day-chip${e.fromProject ? ' from-project' : ''}" onclick="editEvent('${e.id}')">${escapeHtml(displayName)}</div>`;
+          }).join('');
+          return `<div class="week-all-day-cell">${chips}</div>`;
+        }).join('');
+      html += allDayRow;
+
+      // Time slots 6:00 - 23:00
+      for (let h = 6; h <= 23; h++) {
+        html += `<div class="time-label">${String(h).padStart(2,'0')}:00</div>`;
+        for (let dow = 0; dow < 7; dow++) {
+          const d = new Date(startOfWeek);
+          d.setDate(d.getDate() + dow);
+          const dateStr = formatDateStr(d);
+          const isToday = d.toDateString() === today.toDateString();
+          const hourEvents = events.filter(e => e.date === dateStr && e.timeStart && parseInt(e.timeStart.split(':')[0]) === h);
+          const chips = hourEvents.map(e =>
+            `<div class="event-chip ${EVENT_TYPES[e.type]?.cls || 'event-other'}" onclick="editEvent('${e.id}')">${escapeHtml(e.title)}</div>`
+          ).join('');
+          html += `<div class="week-cell${isToday ? ' today' : ''}">${chips}</div>`;
+        }
+      }
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    function renderDayView(container, y, m) {
+      const events = getEvents();
+      const dateStr = formatDateStr(calDate);
+      const dayEvents = events.filter(e => e.date === dateStr).sort((a,b) => (a.timeStart||'').localeCompare(b.timeStart||''));
+
+      // Date header for day view
+      const d = new Date(calDate);
+      const weekdayNames = ['周日','周一','周二','周三','周四','周五','周六'];
+      const weekday = weekdayNames[d.getDay()];
+      const monthNum = d.getMonth() + 1;
+      const dayNum = d.getDate();
+      const today = new Date();
+      const isTodayView = d.toDateString() === today.toDateString();
+
+      let html = `<div class="day-view">
+        <div class="day-view-header${isTodayView ? ' today' : ''}">
+          <span class="day-view-weekday">${weekday}</span>
+          <span class="day-view-date">${monthNum}月${dayNum}日</span>
+        </div>`;
+
+      // All-day / no-time events section
+      const noTimeEvents = dayEvents.filter(e => !e.timeStart);
+      if (noTimeEvents.length > 0) {
+        html += '<div class="day-all-day-section">';
+        html += noTimeEvents.map(e => {
+          const typeCls = EVENT_TYPES[e.type]?.cls || 'event-other';
+          return `<div class="event-chip ${typeCls} all-day-chip${e.fromProject ? ' from-project' : ''}" onclick="editEvent('${e.id}')">
+            <span class="all-day-chip-icon">📌</span>${escapeHtml(e.title)}
+          </div>`;
+        }).join('');
+        html += '</div>';
+      }
+
+      html += '<div class="day-timeline">';
+      for (let h = 6; h <= 23; h++) {
+        const hourEvents = dayEvents.filter(e => e.timeStart && parseInt(e.timeStart.split(':')[0]) === h);
+        const chips = hourEvents.map(e =>
+          `<div class="event-chip ${EVENT_TYPES[e.type]?.cls || 'event-other'}" onclick="editEvent('${e.id}')">
+            ${e.timeStart || ''} ${escapeHtml(e.title)}
+          </div>`
+        ).join('');
+        html += `<div class="day-time-slot">
+          <span class="slot-time">${String(h).padStart(2,'0')}:00</span>
+          <div class="slot-events">${chips}</div>
+        </div>`;
+      }
+      html += '</div></div>';
+
+      if (dayEvents.length === 0) {
+        html = '<p class="empty-state">今天还没有安排日程，点击右下角 ＋ 添加</p>' + html;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function calNav(dir) {
+      if (calView === 'month') calDate.setMonth(calDate.getMonth() + dir);
+      else if (calView === 'week') calDate.setDate(calDate.getDate() + dir * 7);
+      else calDate.setDate(calDate.getDate() + dir);
+      renderCalendar();
+    }
+
+    function switchCalView(v) {
+      calView = v;
+      document.querySelectorAll('.view-toggle button').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+      renderCalendar();
+    }
+
+    function showEventModalForDate(dateStr) {
+      document.getElementById('eventDate').value = dateStr;
+      showEventModal();
+    }
+
+    function showEventModal(id) {
+      document.getElementById('modalTitle').textContent = id ? '编辑日程' : '添加日程';
+      document.getElementById('eventId').value = id || '';
+      document.getElementById('eventTitle').value = '';
+      document.getElementById('eventType').value = 'shoot';
+      document.getElementById('eventDate').value = formatDateStr(new Date());
+      document.getElementById('eventTimeStart').value = '';
+      document.getElementById('eventTimeEnd').value = '';
+      document.getElementById('eventNote').value = '';
+      if (id) {
+        const ev = getEvents().find(e => e.id === id);
+        if (ev) {
+          document.getElementById('eventTitle').value = ev.title;
+          document.getElementById('eventType').value = ev.type;
+          document.getElementById('eventDate').value = ev.date;
+          document.getElementById('eventTimeStart').value = ev.timeStart || '';
+          document.getElementById('eventTimeEnd').value = ev.timeEnd || '';
+          document.getElementById('eventNote').value = ev.note || '';
+        }
+      }
+      document.getElementById('eventModal').classList.add('show');
+    }
+    function editEvent(id) { showEventModal(id); }
+
+    function closeEventModal() { document.getElementById('eventModal').classList.remove('show'); }
+
+    function saveEvent() {
+      const title = document.getElementById('eventTitle').value.trim();
+      if (!title) return;
+      const id = document.getElementById('eventId').value;
+      const events = getEvents();
+      const eventData = {
+        id: id || 'e' + Date.now(),
+        title,
+        type: document.getElementById('eventType').value,
+        date: document.getElementById('eventDate').value,
+        timeStart: document.getElementById('eventTimeStart').value,
+        timeEnd: document.getElementById('eventTimeEnd').value,
+        note: document.getElementById('eventNote').value,
+        created: Date.now()
+      };
+      if (id) {
+        const idx = events.findIndex(e => e.id === id);
+        if (idx >= 0) events[idx] = eventData;
+      } else {
+        events.push(eventData);
+      }
+      saveEvents(events);
+      closeEventModal();
+      renderCalendar();
+      renderStats();
+    }
+
+    // ========================================
+    // DEALS — 商单管理
+    // ========================================
+    const DEAL_STATUS = [
+      { key: 'contact',   label: '洽谈中', color: 'var(--accent-violet)' },
+      { key: 'accepted',  label: '已接单', color: 'var(--accent-teal)' },
+      { key: 'producing', label: '制作中', color: 'var(--accent-amber)' },
+      { key: 'published', label: '已发布', color: 'var(--accent-coral)' },
+      { key: 'paid',      label: '已结款', color: 'var(--accent-green)' }
+    ];
+    const DEAL_STATUS_MAP = Object.fromEntries(DEAL_STATUS.map(s => [s.key, s]));
+
+    function getTodayOffsetStr(days) {
+      const d = new Date(); d.setDate(d.getDate() + days);
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    const DEFAULT_DEALS = [
+      {
+        id: 'd1', brand: '极客数码', product: '旗舰降噪耳机评测',
+        platforms: ['xhs', 'bilibili'], start: getTodayOffsetStr(1), end: getTodayOffsetStr(5),
+        quote: 8000, status: 'producing', paid: 'unpaid', linkedProjectId: 'p1',
+        note: '需横评3款竞品，15天内交付', created: Date.now() - 86400000 * 2
+      },
+      {
+        id: 'd2', brand: '光影科技', product: '便携投影仪种草',
+        platforms: ['douyin', 'weixin'], start: getTodayOffsetStr(8), end: getTodayOffsetStr(12),
+        quote: 12000, status: 'accepted', paid: 'unpaid', linkedProjectId: '',
+        note: '双平台投放，含脚本审核', created: Date.now() - 86400000
+      }
+    ];
+
+    function getDeals() { return Store.get('deals', DEFAULT_DEALS); }
+    function saveDeals(d) { Store.set('deals', d); }
+    function ensureDealIds() {
+      const deals = getDeals(); let changed = false;
+      deals.forEach(d => { if (!d.id) { d.id = genDealId(); changed = true; } });
+      if (changed) saveDeals(deals);
+    }
+    function genDealId() { return 'd' + Date.now() + Math.random().toString(36).slice(2, 7); }
+
+    function renderDeals() {
+      const deals = getDeals().filter(d => !d.trashed && !d.archived);
+      const dealsList = document.getElementById('dealList');
+      const stats = document.getElementById('dealStats');
+      const tc = document.getElementById('dealTrashCount');
+      if (tc) tc.textContent = getDeals().filter(d => d.trashed).length;
+      const ac = document.getElementById('dealArchiveCount');
+      if (ac) ac.textContent = getDeals().filter(d => d.archived).length;
+
+      const now = new Date();
+      const y = now.getFullYear(), m = now.getMonth();
+      const inProgress = deals.filter(d => ['contact', 'accepted', 'producing', 'published'].includes(d.status));
+      const monthDeals = deals.filter(d => {
+        if (!d.start) return false;
+        const sd = new Date(d.start);
+        return sd.getFullYear() === y && sd.getMonth() === m;
+      });
+      const monthIncome = monthDeals.reduce((s, d) => s + (Number(d.quote) || 0), 0);
+      const unpaid = deals.filter(d => d.paid === 'unpaid').reduce((s, d) => s + (Number(d.quote) || 0), 0);
+
+      if (stats) stats.innerHTML = `
+        <div class="deal-stat-card">
+          <div class="deal-stat-label">进行中</div>
+          <div class="deal-stat-num" style="color:var(--accent-violet)">${inProgress.length}</div>
+        </div>
+        <div class="deal-stat-card">
+          <div class="deal-stat-label">本月预计收入</div>
+          <div class="deal-stat-num" style="color:var(--accent-coral)">¥${monthIncome.toLocaleString()}</div>
+        </div>
+        <div class="deal-stat-card">
+          <div class="deal-stat-label">待结款</div>
+          <div class="deal-stat-num" style="color:var(--accent-amber)">¥${unpaid.toLocaleString()}</div>
+        </div>`;
+
+      if (deals.length === 0) {
+        dealsList.innerHTML = '<p class="empty-state">还没有商单，点下方「＋ 新增商单」记录第一笔合作吧～</p>';
+        return;
+      }
+
+      dealsList.innerHTML = deals.slice().sort((a, b) => (b.created || 0) - (a.created || 0)).map(d => {
+        const st = DEAL_STATUS_MAP[d.status] || DEAL_STATUS[0];
+        const pfTags = (d.platforms || []).map(k => {
+          const p = PLATFORM_CONFIG.find(x => x.key === k);
+          return p ? `<span class="deal-pf-tag" style="--pf:${p.color}">${p.icon} ${p.name}</span>` : '';
+        }).join('');
+        const linked = d.linkedProjectId ? getProjects().find(x => x.id === d.linkedProjectId) : null;
+        const dateStr = (d.start && d.end) ? `${d.start} ~ ${d.end}` : (d.start || d.end || '未设档期');
+        return `
+          <div class="deal-card">
+            <div class="deal-card-head">
+              <div class="deal-card-title">${escapeHtml(d.brand)} · ${escapeHtml(d.product)}</div>
+              <div class="deal-card-actions">
+                <button class="pub-action-btn" onclick="showDealModal('${d.id}')" title="编辑">✏️</button>
+                <button class="pub-action-btn" onclick="archiveDeal('${d.id}')" title="归档">📦</button>
+                <button class="pub-action-btn delete" onclick="trashDeal('${d.id}')" title="删除">🗑️</button>
+              </div>
+            </div>
+            <div class="deal-card-meta">
+              <span class="deal-status-pill" style="background:${st.color}1a;color:${st.color}">${st.label}</span>
+              <span class="deal-quote">¥${(Number(d.quote) || 0).toLocaleString()}</span>
+            </div>
+            <div class="deal-pf-row">${pfTags}</div>
+            <div class="deal-card-foot">
+              <span class="deal-date">📅 ${escapeHtml(dateStr)}</span>
+              ${linked ? `<span class="deal-linked">🔗 ${escapeHtml(linked.title)}</span>` : ''}
+            </div>
+            ${d.note ? `<div class="deal-note">${escapeHtml(d.note)}</div>` : ''}
+            <div class="deal-status-bar">
+              ${DEAL_STATUS.map(s => `<button class="deal-status-dot ${s.key === d.status ? 'active' : ''}" style="--c:${s.color}" onclick="setDealStatus('${d.id}','${s.key}')" title="${s.label}"></button>`).join('')}
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function setDealStatus(id, status) {
+      const deals = getDeals();
+      const d = deals.find(x => x.id === id);
+      if (!d) return;
+      d.status = status;
+      if (status === 'paid') d.paid = 'paid';
+      saveDeals(deals);
+      renderDeals();
+    }
+
+    function showDealModal(id) {
+      document.getElementById('dealId').value = '';
+      document.getElementById('dealBrand').value = '';
+      document.getElementById('dealProduct').value = '';
+      document.getElementById('dealStart').value = '';
+      document.getElementById('dealEnd').value = '';
+      document.getElementById('dealQuote').value = '';
+      document.getElementById('dealStatus').value = 'contact';
+      document.getElementById('dealPaid').value = 'unpaid';
+      document.getElementById('dealNote').value = '';
+      document.getElementById('dealSyncCal').checked = false;
+
+      const pfWrap = document.getElementById('dealPfChecks');
+      pfWrap.innerHTML = PLATFORM_CONFIG.map(p =>
+        `<label class="deal-pf-check"><input type="checkbox" value="${p.key}"> ${p.icon} ${p.name}</label>`
+      ).join('');
+
+      const linkedSel = document.getElementById('dealLinked');
+      const projects = getProjects().filter(p => !p.trashed && !p.hidden);
+      linkedSel.innerHTML = '<option value="">不关联</option>' + projects.map(p =>
+        `<option value="${p.id}">${escapeHtml(p.title)}</option>`
+      ).join('');
+
+      if (id) {
+        const d = getDeals().find(x => x.id === id);
+        if (d) {
+          document.getElementById('dealModalTitle').textContent = '编辑商单';
+          document.getElementById('dealId').value = d.id;
+          document.getElementById('dealBrand').value = d.brand || '';
+          document.getElementById('dealProduct').value = d.product || '';
+          document.getElementById('dealStart').value = d.start || '';
+          document.getElementById('dealEnd').value = d.end || '';
+          document.getElementById('dealQuote').value = d.quote || '';
+          document.getElementById('dealStatus').value = d.status || 'contact';
+          document.getElementById('dealPaid').value = d.paid || 'unpaid';
+          document.getElementById('dealNote').value = d.note || '';
+          (d.platforms || []).forEach(k => {
+            const cb = pfWrap.querySelector(`input[value="${k}"]`);
+            if (cb) cb.checked = true;
+          });
+          linkedSel.value = d.linkedProjectId || '';
+        }
+      } else {
+        document.getElementById('dealModalTitle').textContent = '新增商单';
+      }
+      document.getElementById('dealModal').classList.add('show');
+    }
+    function closeDealModal() { document.getElementById('dealModal').classList.remove('show'); }
+
+    function saveDeal() {
+      const brand = document.getElementById('dealBrand').value.trim();
+      const product = document.getElementById('dealProduct').value.trim();
+      if (!brand && !product) { alert('请至少填写品牌或产品'); return; }
+      const id = document.getElementById('dealId').value;
+      const platforms = Array.from(document.querySelectorAll('#dealPfChecks input:checked')).map(cb => cb.value);
+      const start = document.getElementById('dealStart').value;
+      const end = document.getElementById('dealEnd').value;
+      const quote = Number(document.getElementById('dealQuote').value) || 0;
+      const status = document.getElementById('dealStatus').value;
+      const paid = document.getElementById('dealPaid').value;
+      const linkedProjectId = document.getElementById('dealLinked').value;
+      const note = document.getElementById('dealNote').value.trim();
+      const syncCal = document.getElementById('dealSyncCal').checked;
+
+      const deals = getDeals();
+      if (id) {
+        const d = deals.find(x => x.id === id);
+        if (d) Object.assign(d, { brand, product, platforms, start, end, quote, status, paid, linkedProjectId, note });
+      } else {
+        deals.push({ id: genDealId(), brand, product, platforms, start, end, quote, status, paid, linkedProjectId, note, created: Date.now() });
+      }
+      saveDeals(deals);
+
+      if (syncCal && start) {
+        const events = getEvents();
+        const title = (brand || '') + (product ? ' · ' + product : '') + ' 商单';
+        events.push({
+          id: 'e' + Date.now(), title, type: 'deal', date: start,
+          timeStart: '', timeEnd: '', note: '商单档期' + (end ? ' 至 ' + end : ''),
+          dealId: id || (deals[deals.length - 1] && deals[deals.length - 1].id) || genDealId(), created: Date.now()
+        });
+        saveEvents(events);
+      }
+
+      closeDealModal();
+      renderDeals();
+    }
+
+    function trashDeal(id) {
+      if (!confirm('确定删除？将移入回收站，30天内可恢复。')) return;
+      const deals = getDeals();
+      const d = deals.find(x => x.id === id);
+      if (d) { d.trashed = true; d.trashedAt = Date.now(); saveDeals(deals); renderDeals(); }
+    }
+    function purgeDeal(id) {
+      if (!confirm('彻底删除？此操作不可恢复。')) return;
+      let deals = getDeals();
+      deals = deals.filter(x => x.id !== id);
+      saveDeals(deals);
+      const tp = document.getElementById('dealTrashPage');
+      if (tp.classList.contains('show')) renderDealTrash();
+    }
+    function restoreDeal(id) {
+      const deals = getDeals();
+      const d = deals.find(x => x.id === id);
+      if (d) { d.trashed = false; delete d.trashedAt; saveDeals(deals); renderDeals(); const tp = document.getElementById('dealTrashPage'); if (tp.classList.contains('show')) renderDealTrash(); }
+    }
+    function purgeOldDealTrash() {
+      const now = Date.now();
+      let deals = getDeals();
+      const expiredIds = new Set(deals.filter(d => d.trashed && (now - (d.trashedAt || 0)) > TRASH_RETENTION_MS).map(d => d.id));
+      if (expiredIds.size === 0) return;
+      deals = deals.filter(d => !expiredIds.has(d.id));
+      saveDeals(deals);
+    }
+
+    let dealTrashMonth = 'all';
+    function openDealTrash() {
+      dealTrashMonth = 'all';
+      purgeOldDealTrash();
+      renderDealTrash();
+      document.getElementById('dealTrashPage').classList.add('show');
+    }
+    function closeDealTrash() { document.getElementById('dealTrashPage').classList.remove('show'); }
+    function setDealTrashMonth(key) { dealTrashMonth = key; renderDealTrash(); }
+    function renderDealTrash() {
+      const deals = getDeals();
+      const trashed = deals.filter(d => d.trashed);
+      const container = document.getElementById('dealTrashTasks');
+      const timeline = document.getElementById('dealTrashTimeline');
+      const monthMap = {};
+      trashed.forEach(d => {
+        const t = d.trashedAt || d.created || Date.now();
+        const dt = new Date(t);
+        const key = dt.getFullYear() + '-' + (dt.getMonth() + 1);
+        if (!monthMap[key]) monthMap[key] = { key, year: dt.getFullYear(), month: dt.getMonth() + 1, list: [] };
+        monthMap[key].list.push(d);
+      });
+      const months = Object.values(monthMap).sort((a, b) => b.key.localeCompare(a.key));
+      months.forEach(m => m.list.sort((a, b) => (b.trashedAt || b.created || 0) - (a.trashedAt || a.created || 0)));
+      const total = trashed.length;
+      const tt = document.getElementById('dealTrashTotal');
+      if (tt) tt.textContent = total + ' 个';
+
+      timeline.innerHTML = [{ key: 'all', label: '全部', count: total }].concat(
+        months.map(m => ({ key: m.key, label: `${m.year}年${m.month}月`, count: m.list.length }))
+      ).map(it => `<button class="tl-item ${dealTrashMonth === it.key ? 'active' : ''}" onclick="setDealTrashMonth('${it.key}')"><span class="tl-dot"></span><span class="tl-label">${it.label}</span><span class="tl-count">${it.count}</span></button>`).join('');
+
+      let showList;
+      if (dealTrashMonth === 'all') showList = trashed.slice().sort((a, b) => (b.trashedAt || b.created || 0) - (a.trashedAt || a.created || 0));
+      else { const m = months.find(x => x.key === dealTrashMonth); showList = m ? m.list : []; }
+
+      if (showList.length === 0) { container.innerHTML = '<p class="empty-state">回收站是空的～ 删除的商单会先到这里，30天后自动清掉</p>'; return; }
+      const now = Date.now();
+      container.innerHTML = showList.map(d => {
+        const t = d.trashedAt || d.created || 0;
+        const dateStr = t ? new Date(t).toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' }) : '';
+        const daysLeft = Math.max(0, Math.ceil((t + TRASH_RETENTION_MS - now) / 86400000));
+        const urgent = daysLeft <= 7;
+        const st = DEAL_STATUS_MAP[d.status] || DEAL_STATUS[0];
+        return `
+          <div class="arch-task-card">
+            <div class="arch-task-date">${dateStr}</div>
+            <div class="arch-task-main">
+              <div class="arch-task-title">${escapeHtml(d.brand || '')} · ${escapeHtml(d.product || '')}</div>
+              <div class="trash-days-left ${urgent ? 'urgent' : ''}">${daysLeft} 天后自动清除</div>
+              <div class="arch-task-meta">报价 ¥${(Number(d.quote) || 0).toLocaleString()} · ${st.label}</div>
+            </div>
+            <div class="trash-actions">
+              <button class="trash-restore-btn" onclick="restoreDeal('${d.id}')">♻️ 恢复</button>
+              <button class="trash-purge-btn" onclick="purgeDeal('${d.id}')">🗑️ 彻底删除</button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    let dealArchiveMonth = 'all';
+    function archiveDeal(id) {
+      const deals = getDeals();
+      const d = deals.find(x => x.id === id);
+      if (!d) return;
+      d.archived = true;
+      d.archivedAt = Date.now();
+      saveDeals(deals);
+      renderDeals();
+    }
+    function openDealArchive() {
+      dealArchiveMonth = 'all';
+      renderDealArchive();
+      document.getElementById('dealArchivePage').classList.add('show');
+    }
+    function closeDealArchive() {
+      document.getElementById('dealArchivePage').classList.remove('show');
+    }
+    function setDealArchiveMonth(key) { dealArchiveMonth = key; renderDealArchive(); }
+    function renderDealArchive() {
+      const deals = getDeals();
+      const archived = deals.filter(d => d.archived);
+      const container = document.getElementById('dealArchiveTasks');
+      const timeline = document.getElementById('dealArchiveTimeline');
+      if (!container) return;
+
+      const monthMap = {};
+      archived.forEach(d => {
+        const t = d.archivedAt || d.created || Date.now();
+        const dt = new Date(t);
+        const key = dt.getFullYear() + '-' + (dt.getMonth() + 1);
+        if (!monthMap[key]) monthMap[key] = { key, year: dt.getFullYear(), month: dt.getMonth() + 1, list: [] };
+        monthMap[key].list.push(d);
+      });
+      const months = Object.values(monthMap).sort((a, b) => b.key.localeCompare(a.key));
+      months.forEach(m => m.list.sort((a, b) => (b.archivedAt || b.created || 0) - (a.archivedAt || a.created || 0)));
+
+      const totalEl = document.getElementById('dealArchiveTotal');
+      if (totalEl) totalEl.textContent = archived.length + ' 个';
+      const acEl = document.getElementById('dealArchiveCount');
+      if (acEl) acEl.textContent = archived.length;
+
+      timeline.innerHTML = [{ key: 'all', label: '全部', count: archived.length }].concat(
+        months.map(m => ({ key: m.key, label: `${m.year}年${m.month}月`, count: m.list.length }))
+      ).map(it => `<button class="tl-item ${dealArchiveMonth === it.key ? 'active' : ''}" onclick="setDealArchiveMonth('${it.key}')"><span class="tl-dot"></span><span class="tl-label">${it.label}</span><span class="tl-count">${it.count}</span></button>`).join('');
+
+      let showList;
+      if (dealArchiveMonth === 'all') showList = archived.slice().sort((a, b) => (b.archivedAt || b.created || 0) - (a.archivedAt || a.created || 0));
+      else { const m = months.find(x => x.key === dealArchiveMonth); showList = m ? m.list : []; }
+
+      if (showList.length === 0) { container.innerHTML = '<p class="empty-state">还没有归档的商单～ 在商单卡点 📦 就能收起来</p>'; return; }
+      container.innerHTML = showList.map(d => {
+        const t = d.archivedAt || d.created || 0;
+        const dateStr = t ? new Date(t).toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' }) : '';
+        const st = DEAL_STATUS_MAP[d.status] || DEAL_STATUS[0];
+        const pfTags = (d.platforms || []).map(k => {
+          const p = PLATFORM_CONFIG.find(x => x.key === k);
+          return p ? `<span class="arch-pf-chip" style="--pf:${p.color}">${p.icon}${p.name}</span>` : '';
+        }).join('');
+        const dateRng = (d.start && d.end) ? `${d.start} ~ ${d.end}` : (d.start || d.end || '');
+        return `
+          <div class="arch-task-card">
+            <div class="arch-task-date">${dateStr}</div>
+            <div class="arch-task-main">
+              <div class="arch-task-title">${escapeHtml(d.brand || '')} · ${escapeHtml(d.product || '')}</div>
+              <div class="arch-task-meta">${st.label} · 报价 ¥${(Number(d.quote) || 0).toLocaleString()}${dateRng ? ' · 📅 ' + escapeHtml(dateRng) : ''}</div>
+              <div class="arch-pf-row">${pfTags || '<span class="arch-task-meta">无投放平台</span>'}</div>
+            </div>
+            <button class="hidden-restore-btn" onclick="restoreFromDealArchive('${d.id}')">👁️ 恢复</button>
+          </div>`;
+      }).join('');
+    }
+    function restoreFromDealArchive(id) {
+      const deals = getDeals();
+      const d = deals.find(x => x.id === id);
+      if (!d) return;
+      d.archived = false;
+      delete d.archivedAt;
+      saveDeals(deals);
+      renderDealArchive();
+      renderDeals();
+    }
+
+    // ========================================
+    // MEMOS
+    // ========================================
+    function switchMemoTab(tab) {
+      document.querySelectorAll('.memo-tab').forEach(t => t.classList.toggle('active', t.dataset.memo === tab));
+      document.querySelectorAll('.memo-panel').forEach(p => p.classList.toggle('active', p.id === `memoPanel-${tab}`));
+    }
+
+    function openAppleNotes() {
+      // Try Apple Notes URL scheme
+      window.location.href = 'applenotes://new';
+      // Fallback: show instructions
+      setTimeout(() => {
+        alert('如果备忘录没有打开，请确保你的设备支持 URL Scheme。\n\n提示：在 iPhone 上可以长按此按钮选择「拷贝链接」，然后在 Safari 地址栏粘贴打开。');
+      }, 1500);
+    }
+
+    function renderNotes() {
+      const notes = Store.get('notes', []);
+      const list = document.getElementById('notesList');
+      const active = notes.filter(n => !n.archived && !n.trashed);
+      if (active.length === 0) {
+        list.innerHTML = notes.length === 0
+          ? '<p class="empty-state">还没有笔记，写下第一条吧～</p>'
+          : '<p class="empty-state">笔记都收起来啦～ 在下方「📦 笔记归档」「🗑️ 回收站」里可以找回 👀</p>';
+        return;
+      }
+      list.innerHTML = active.slice().reverse().map(n => `
+        <div class="note-item">
+          <div class="note-text">${escapeHtml(n.text)}</div>
+          <div class="note-footer">
+            <span class="note-time">${formatTime(n.created)}</span>
+            <span class="note-actions">
+              <button class="note-action-btn archive" onclick="archiveNote('${n.id}')" title="归档">📦</button>
+              <button class="note-action-btn delete" onclick="trashNote('${n.id}')" title="删除">🗑️</button>
+            </span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderNoteEntryCounts() {
+      const notes = Store.get('notes', []);
+      const archivedCount = notes.filter(n => n.archived && !n.trashed).length;
+      const trashedCount = notes.filter(n => n.trashed).length;
+      const ac = document.getElementById('noteArchiveCount');
+      const tc = document.getElementById('noteTrashCount');
+      if (ac) ac.textContent = archivedCount;
+      if (tc) tc.textContent = trashedCount;
+    }
+
+    function addNote() {
+      const input = document.getElementById('noteInput');
+      const text = input.value.trim();
+      if (!text) return;
+      const notes = Store.get('notes', []);
+      notes.push({ id: genId(), text, created: Date.now() });
+      Store.set('notes', notes);
+      input.value = '';
+      renderNotes();
+      renderNoteEntryCounts();
+    }
+
+    // ========================================
+    // UTILITIES
+    // ========================================
+    function escapeHtml(str) {
+      const d = document.createElement('div'); d.textContent = str; return d.innerHTML;
+    }
+    function genId() {
+      return 'n_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+    }
+    function ensureNoteIds() {
+      const notes = Store.get('notes', []);
+      let changed = false;
+      notes.forEach(n => { if (!n.id) { n.id = genId(); changed = true; } });
+      if (changed) Store.set('notes', notes);
+    }
+    function formatTime(ts) {
+      const d = new Date(ts);
+      const now = new Date();
+      const isToday = d.toDateString() === now.toDateString();
+      if (isToday) return `今天 ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+      return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+    }
+    function formatDateStr(d) {
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    }
+
+    // ========================================
+    // NOTE ARCHIVE & TRASH (笔记归档 / 回收站)
+    // ========================================
+    let noteArchiveMonth = 'all';
+    function archiveNote(nid) {
+      const notes = Store.get('notes', []);
+      const n = notes.find(x => x.id === nid);
+      if (n) {
+        n.archived = true; n.trashed = false; delete n.trashedAt;
+        Store.set('notes', notes);
+        renderNotes(); renderNoteEntryCounts();
+      }
+    }
+    function unarchiveNote(nid) {
+      const notes = Store.get('notes', []);
+      const n = notes.find(x => x.id === nid);
+      if (n) {
+        n.archived = false;
+        Store.set('notes', notes);
+        renderNotes(); renderNoteEntryCounts();
+        if (document.getElementById('noteArchivePage').classList.contains('show')) renderNoteArchive();
+      }
+    }
+    function openNoteArchive() {
+      noteArchiveMonth = 'all';
+      renderNoteArchive();
+      document.getElementById('noteArchivePage').classList.add('show');
+    }
+    function closeNoteArchive() {
+      document.getElementById('noteArchivePage').classList.remove('show');
+    }
+    function setNoteArchiveMonth(key) {
+      noteArchiveMonth = key;
+      renderNoteArchive();
+    }
+    function renderNoteArchive() {
+      const notes = Store.get('notes', []);
+      const archived = notes.filter(n => n.archived && !n.trashed);
+      const container = document.getElementById('noteArchiveTasks');
+      const timeline = document.getElementById('noteArchiveTimeline');
+      if (!container) return;
+
+      const monthMap = {};
+      archived.forEach(n => {
+        const d = new Date(n.created);
+        const key = d.getFullYear() + '-' + (d.getMonth() + 1);
+        if (!monthMap[key]) monthMap[key] = { key, year: d.getFullYear(), month: d.getMonth() + 1, list: [] };
+        monthMap[key].list.push(n);
+      });
+      const months = Object.values(monthMap).sort((a, b) => b.key.localeCompare(a.key));
+      months.forEach(m => m.list.sort((a, b) => b.created - a.created));
+
+      const totalEl = document.getElementById('noteArchiveTotal');
+      if (totalEl) totalEl.textContent = archived.length + ' 个';
+      renderNoteEntryCounts();
+
+      const tlItems = [{ key: 'all', label: '全部', count: archived.length }].concat(
+        months.map(m => ({ key: m.key, label: m.year + '年' + m.month + '月', count: m.list.length }))
+      );
+      timeline.innerHTML = tlItems.map(it => `
+        <button class="tl-item ${noteArchiveMonth === it.key ? 'active' : ''}" onclick="setNoteArchiveMonth('${it.key}')">
+          <span class="tl-dot"></span>
+          <span class="tl-label">${it.label}</span>
+          <span class="tl-count">${it.count}</span>
+        </button>`).join('');
+
+      let showList;
+      if (noteArchiveMonth === 'all') showList = archived.slice().sort((a, b) => b.created - a.created);
+      else { const m = months.find(x => x.key === noteArchiveMonth); showList = m ? m.list : []; }
+
+      if (showList.length === 0) {
+        container.innerHTML = '<p class="empty-state">还没有归档的笔记～ 在列表里点 📦 就能收起来</p>';
+        return;
+      }
+      container.innerHTML = showList.map(n => {
+        const dateStr = new Date(n.created).toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' });
+        const preview = (n.text || '').replace(/\n/g, ' ');
+        const title = preview.length > 40 ? escapeHtml(preview.slice(0, 40)) + '…' : escapeHtml(preview);
+        return `
+          <div class="arch-task-card">
+            <div class="arch-task-date">${dateStr}</div>
+            <div class="arch-task-main">
+              <div class="arch-task-title">${title}</div>
+              <div class="arch-task-meta">${formatTime(n.created)}</div>
+            </div>
+            <button class="hidden-restore-btn" onclick="unarchiveNote('${n.id}')">👁️ 恢复</button>
+          </div>`;
+      }).join('');
+    }
+
+    let noteTrashMonth = 'all';
+    function trashNote(nid) {
+      if (!confirm('确定删除？将移入回收站，' + TRASH_RETENTION_DAYS + '天内可恢复。')) return;
+      const notes = Store.get('notes', []);
+      const n = notes.find(x => x.id === nid);
+      if (n) {
+        n.trashed = true; n.trashedAt = Date.now();
+        n.archived = false; delete n.archived;
+        Store.set('notes', notes);
+        renderNotes(); renderNoteEntryCounts();
+      }
+    }
+    function purgeNote(nid) {
+      if (!confirm('彻底删除？此操作不可恢复。')) return;
+      let notes = Store.get('notes', []);
+      notes = notes.filter(x => x.id !== nid);
+      Store.set('notes', notes);
+      renderNoteEntryCounts();
+      if (document.getElementById('noteTrashPage').classList.contains('show')) renderNoteTrash();
+    }
+    function restoreFromNoteTrash(nid) {
+      const notes = Store.get('notes', []);
+      const n = notes.find(x => x.id === nid);
+      if (n) {
+        n.trashed = false; delete n.trashedAt;
+        Store.set('notes', notes);
+        renderNoteEntryCounts();
+        if (document.getElementById('noteTrashPage').classList.contains('show')) renderNoteTrash();
+      }
+    }
+    function purgeOldNoteTrash() {
+      const now = Date.now();
+      let notes = Store.get('notes', []);
+      const expired = notes.filter(n => n.trashed && (now - (n.trashedAt || 0)) > TRASH_RETENTION_MS);
+      if (expired.length === 0) return;
+      notes = notes.filter(n => !(n.trashed && (now - (n.trashedAt || 0)) > TRASH_RETENTION_MS));
+      Store.set('notes', notes);
+    }
+    function openNoteTrash() {
+      noteTrashMonth = 'all';
+      purgeOldNoteTrash();
+      renderNoteTrash();
+      document.getElementById('noteTrashPage').classList.add('show');
+    }
+    function closeNoteTrash() {
+      document.getElementById('noteTrashPage').classList.remove('show');
+    }
+    function setNoteTrashMonth(key) {
+      noteTrashMonth = key;
+      renderNoteTrash();
+    }
+    function renderNoteTrash() {
+      const notes = Store.get('notes', []);
+      const trashed = notes.filter(n => n.trashed);
+      const container = document.getElementById('noteTrashTasks');
+      const timeline = document.getElementById('noteTrashTimeline');
+      if (!container) return;
+
+      const monthMap = {};
+      trashed.forEach(n => {
+        const t = n.trashedAt || n.created || Date.now();
+        const d = new Date(t);
+        const key = d.getFullYear() + '-' + (d.getMonth() + 1);
+        if (!monthMap[key]) monthMap[key] = { key, year: d.getFullYear(), month: d.getMonth() + 1, list: [] };
+        monthMap[key].list.push(n);
+      });
+      const months = Object.values(monthMap).sort((a, b) => b.key.localeCompare(a.key));
+      months.forEach(m => m.list.sort((a, b) => (b.trashedAt || b.created || 0) - (a.trashedAt || a.created || 0)));
+
+      const totalEl = document.getElementById('noteTrashTotal');
+      if (totalEl) totalEl.textContent = trashed.length + ' 个';
+      renderNoteEntryCounts();
+
+      const tlItems = [{ key: 'all', label: '全部', count: trashed.length }].concat(
+        months.map(m => ({ key: m.key, label: m.year + '年' + m.month + '月', count: m.list.length }))
+      );
+      timeline.innerHTML = tlItems.map(it => `
+        <button class="tl-item ${noteTrashMonth === it.key ? 'active' : ''}" onclick="setNoteTrashMonth('${it.key}')">
+          <span class="tl-dot"></span>
+          <span class="tl-label">${it.label}</span>
+          <span class="tl-count">${it.count}</span>
+        </button>`).join('');
+
+      let showList;
+      if (noteTrashMonth === 'all') showList = trashed.slice().sort((a, b) => (b.trashedAt || b.created || 0) - (a.trashedAt || a.created || 0));
+      else { const m = months.find(x => x.key === noteTrashMonth); showList = m ? m.list : []; }
+
+      if (showList.length === 0) {
+        container.innerHTML = '<p class="empty-state">回收站是空的～ 删除的笔记会先到这里，30天后自动清掉</p>';
+        return;
+      }
+      const now = Date.now();
+      container.innerHTML = showList.map(n => {
+        const t = n.trashedAt || n.created || 0;
+        const dateStr = t ? new Date(t).toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' }) : '';
+        const daysLeft = Math.max(0, Math.ceil((t + TRASH_RETENTION_MS - now) / 86400000));
+        const urgent = daysLeft <= 7;
+        const preview = (n.text || '').replace(/\n/g, ' ');
+        const title = preview.length > 40 ? escapeHtml(preview.slice(0, 40)) + '…' : escapeHtml(preview);
+        return `
+          <div class="arch-task-card">
+            <div class="arch-task-date">${dateStr}</div>
+            <div class="arch-task-main">
+              <div class="arch-task-title">${title}</div>
+              <div class="trash-days-left ${urgent ? 'urgent' : ''}">${daysLeft} 天后自动清除</div>
+              <div class="arch-task-meta">${formatTime(n.created)}</div>
+            </div>
+            <div class="trash-actions">
+              <button class="trash-restore-btn" onclick="restoreFromNoteTrash('${n.id}')">♻️ 恢复</button>
+              <button class="trash-purge-btn" onclick="purgeNote('${n.id}')">🗑️ 彻底删除</button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    // ========================================
+    // INIT
+    // ========================================
+    document.addEventListener('DOMContentLoaded', () => {
+      purgeOldTrash();           // auto-clear expired project trash
+      ensureNoteIds();           // backfill ids for older notes
+      purgeOldNoteTrash();       // auto-clear expired note trash
+      ensureDealIds();           // backfill ids for older deals
+      purgeOldDealTrash();       // auto-clear expired deal trash
+      updateGreeting(); updateDate();
+      renderProjects(); renderStats(); renderNotes(); renderNoteEntryCounts();
+
+      // Sync all existing projects to calendar on init
+      const projects = getProjects();
+      projects.forEach(p => { if (p.targetDate) syncProjectToCalendar(p); });
+
+      setInterval(updateDate, 60000);
+
+      // Note submit
+      document.getElementById('noteSubmitBtn').addEventListener('click', addNote);
+      document.getElementById('noteInput').addEventListener('keydown', e => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') addNote();
+      });
+
+      // Close modals on overlay click
+      document.getElementById('eventModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeEventModal(); });
+      document.getElementById('projectModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeProjectModal(); });
+    });
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(function() {});
+    }
+  </script>
+</body>
+</html>
