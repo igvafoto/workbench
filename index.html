@@ -399,9 +399,9 @@
     @media (min-width: 1100px) { #projectsList { grid-template-columns: 1fr 1fr 1fr; } }
 
     .project-header {
-      display: flex; justify-content: space-between; align-items: flex-start;
+      display: flex; justify-content: space-between; align-items: center;
       margin-bottom: var(--space-2);
-      gap: var(--space-2);
+      gap: var(--space-3);
     }
     .project-name {
       font-size: var(--text-base); font-weight: 600; color: var(--text-primary);
@@ -411,42 +411,45 @@
     }
     .project-header-right {
       display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0;
+      padding-right: var(--space-2);
     }
     .project-date-picker {
+      position: relative;
       display: inline-flex; align-items: center;
+      width: 80px; height: 30px;
+      flex-shrink: 0;
     }
-    /* Style the native date input as a pretty button */
-    .project-date-input {
+    /* Unified date trigger: always shows the calendar icon + label */
+    .project-date-trigger {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      gap: 4px;
       font-family: var(--font-family);
       font-size: 11px; font-weight: 600;
-      padding: 4px 10px;
       border-radius: var(--radius-full);
       background: rgba(0,0,0,0.04);
       color: var(--text-muted);
       border: 1px solid rgba(0,0,0,0.06);
-      cursor: pointer;
+      pointer-events: none;
       transition: all 0.2s ease;
+    }
+    .date-trigger-icon { font-size: 12px; }
+    .date-trigger-text { min-width: 2em; text-align: center; }
+    /* Invisible native date input sits on top and catches clicks */
+    .project-date-input {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      opacity: 0;
+      cursor: pointer;
       -webkit-appearance: none;
       appearance: none;
+      border: none; background: transparent;
     }
-    .project-date-input:hover {
+    .project-date-picker:hover .project-date-trigger,
+    .project-date-input:focus + .project-date-trigger {
       background: rgba(155,142,221,0.10);
       color: var(--accent-violet);
       border-color: rgba(155,142,221,0.2);
-    }
-    /* When date input has a value, style it differently */
-    .project-date-input[value=""], .project-date-input:not([value]) {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Crect x='3' y='4' width='18' height='18' rx='2'/%3E%3Cline x1='16' y1='2' x2='16' y2='6'/%3E%3Cline x1='8' y1='2' x2='8' y2='6'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: 6px center;
-      padding-left: 24px;
-    }
-    .project-date-input::-webkit-calendar-picker-indicator {
-      opacity: 0.5; cursor: pointer;
-      transition: opacity 0.2s;
-    }
-    .project-date-input:hover::-webkit-calendar-picker-indicator {
-      opacity: 1;
     }
     .project-actions { display: flex; gap: var(--space-2); }
     .project-action-btn {
@@ -2254,10 +2257,13 @@
               <div class="project-name">${escapeHtml(p.title)}</div>
               <div class="project-header-right">
                 <div class="project-date-picker" title="设置截止/发布日期">
+                  <div class="project-date-trigger">
+                    <span class="date-trigger-icon">📅</span>
+                    <span class="date-trigger-text">${p.targetDate ? formatProjectDate(p.targetDate) : '未设'}</span>
+                  </div>
                   <input type="date" class="project-date-input"
                          value="${p.targetDate || ''}"
-                         onchange="updateProjectDate('${p.id}', this.value)"
-                         ${p.targetDate ? `data-label="${formatProjectDate(p.targetDate)}"` : ''}>
+                         onchange="updateProjectDate('${p.id}', this.value)">
                 </div>
                 <div class="project-actions">
                   <button class="project-action-btn" onclick="showEditProjectModal('${p.id}')" title="编辑">✏️</button>
