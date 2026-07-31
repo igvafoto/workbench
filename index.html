@@ -1977,19 +1977,19 @@
     const DEFAULT_PROJECTS = [
       {
         id: 'p1', title: 'iPhone 17 Pro Max 深度评测', note: '重点测试影像系统',
-        stages: { shoot: 'done', edit: 'done', cover: 'done', publish: 'done' },
+        stages: { script: 'done', shoot: 'done', edit: 'done', cover: 'done', publish: 'done' },
         targetDate: getTodayOffset(2),
         created: Date.now() - 86400000 * 3
       },
       {
         id: 'p2', title: 'Sony A7V 开箱上手', note: '',
-        stages: { shoot: 'done', edit: 'active', cover: 'pending', publish: 'pending' },
+        stages: { script: 'done', shoot: 'done', edit: 'active', cover: 'pending', publish: 'pending' },
         targetDate: getTodayOffset(5),
         created: Date.now() - 86400000
       },
       {
         id: 'p3', title: 'AirPods Pro 3 对比测评', note: '和上一代对比',
-        stages: { shoot: 'pending', edit: 'pending', cover: 'pending', publish: 'pending' },
+        stages: { script: 'pending', shoot: 'pending', edit: 'pending', cover: 'pending', publish: 'pending' },
         targetDate: null,
         created: Date.now()
       }
@@ -2003,6 +2003,7 @@
     }
 
     const STAGE_CONFIG = [
+      { key: 'script', label: '脚本', desc: '选题/脚本撰写', icon: '📝' },
       { key: 'shoot', label: '拍摄', desc: '素材采集', icon: '🎬' },
       { key: 'edit', label: '剪辑', desc: '剪辑/调色/特效', icon: '✂️' },
       { key: 'cover', label: '封面', desc: '封面图制作', icon: '🖼️' },
@@ -2265,7 +2266,7 @@
       } else {
         projects.unshift({
           id: 'p' + Date.now(), title, note,
-          stages: { shoot: false, edit: false, cover: false, publish: false },
+          stages: { script: false, shoot: false, edit: false, cover: false, publish: false },
           created: Date.now()
         });
       }
@@ -2471,7 +2472,7 @@
       if (acEl) acEl.textContent = projects.filter(p => p.pubArchived).length;
 
       if (eligible.length === 0) {
-        container.innerHTML = '<p class="empty-state">还没有已完成的任务～ 在创作台把「拍摄 / 剪辑 / 封面 / 上传」都打勾完成，就会自动出现在这里 ✨</p>';
+        container.innerHTML = '<p class="empty-state">还没有已完成的任务～ 在创作台把「脚本 / 拍摄 / 剪辑 / 封面 / 上传」都打勾完成，就会自动出现在这里 ✨</p>';
         return;
       }
 
