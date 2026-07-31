@@ -287,6 +287,47 @@
       .tab-btn .tab-icon { font-size: 15px; }
     }
 
+    /* ══════════════════════════════════════════
+       APP SHELL — responsive sidebar (desktop)
+       ══════════════════════════════════════════ */
+    .app-shell { display: block; }
+    .tab-panels { display: block; }
+    @media (min-width: 1024px) {
+      .app-container { max-width: 1440px; }
+      .app-shell {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-6);
+      }
+      .tab-nav {
+        flex-direction: column;
+        width: 236px;
+        flex-shrink: 0;
+        position: sticky;
+        top: var(--space-6);
+        margin-bottom: 0;
+        padding: var(--space-3);
+      }
+      .tab-btn {
+        width: 100%;
+        justify-content: flex-start;
+        padding: var(--space-3) var(--space-4);
+        font-size: var(--text-sm);
+        gap: var(--space-3);
+        border-left: 3px solid transparent;
+      }
+      .tab-btn.active {
+        background: white;
+        color: var(--text-primary);
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        border-left: 3px solid var(--accent-coral);
+        border-radius: var(--radius-lg);
+      }
+      .tab-panels {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+    }
     .tab-panel { display: none; animation: fadeIn 0.4s var(--ease-glass); }
     .tab-panel.active { display: block; }
 
@@ -1530,6 +1571,7 @@
     </header>
 
     <!-- Tab Navigation -->
+    <div class="app-shell">
     <nav class="tab-nav" role="tablist">
       <button class="tab-btn active" data-tab="workspace" role="tab" aria-selected="true">
         <span class="tab-icon">🎬</span> 创作台
@@ -1549,6 +1591,7 @@
     </nav>
 
     <!-- Tab Panel: Workspace -->
+    <div class="tab-panels">
     <div class="tab-panel active" id="panel-workspace" role="tabpanel">
       <div class="data-tools">
         <span class="dt-label">🛡️ 数据安全</span>
@@ -1841,6 +1884,9 @@
         <div class="archive-tasks" id="archiveTasks"></div>
       </div>
     </div>
+  </div>
+
+  </div>
   </div>
 
   <!-- Trash / Recycle Bin Page -->
