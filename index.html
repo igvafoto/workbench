@@ -204,6 +204,39 @@
        HEADER
        ============================================ */
     .header { margin-bottom: var(--space-8); animation: glassReveal 0.8s var(--ease-glass) both; }
+    .header-row { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
+    .header-text { min-width: 0; }
+    .search-box {
+      position: relative; display: flex; align-items: center;
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur-md)) saturate(1.8);
+      -webkit-backdrop-filter: blur(var(--blur-md)) saturate(1.8);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-full);
+      padding: 0 var(--space-3); height: 40px; min-width: 200px;
+      transition: all 0.3s var(--ease-glass); flex-shrink: 0;
+    }
+    .search-box:focus-within { border-color: var(--accent-violet); box-shadow: 0 0 0 3px rgba(167,139,250,0.18); }
+    .search-box .search-icon { font-size: 15px; opacity: 0.6; margin-right: 6px; pointer-events: none; }
+    .search-box input {
+      border: none; background: transparent; outline: none;
+      font-family: var(--font-family); font-size: var(--text-sm); color: var(--text-primary);
+      width: 100%; min-width: 0;
+    }
+    .search-box input::placeholder { color: var(--text-muted); }
+    .search-box .search-clear {
+      border: none; background: rgba(0,0,0,0.06); color: var(--text-secondary);
+      width: 20px; height: 20px; border-radius: 50%; font-size: 12px; line-height: 1;
+      cursor: pointer; display: none; align-items: center; justify-content: center; flex-shrink: 0;
+      margin-left: 6px; padding: 0;
+    }
+    .search-box .search-clear:hover { background: rgba(0,0,0,0.12); color: var(--text-primary); }
+    .search-box.has-text .search-clear { display: flex; }
+    .search-hint { font-size: var(--text-xs); color: var(--text-muted); margin-top: var(--space-2); }
+    @media (max-width: 560px) {
+      .header-row { flex-direction: column; align-items: stretch; }
+      .search-box { min-width: 0; width: 100%; }
+    }
     .greeting {
       font-size: var(--text-3xl); font-weight: 600; letter-spacing: -0.03em;
       line-height: 1.15; margin-bottom: var(--space-2);
@@ -1483,8 +1516,17 @@
 
     <!-- Header -->
     <header class="header">
-      <h1 class="greeting" id="greeting">早上好，<span class="greeting-name">依依</span></h1>
-      <p class="date-display" id="dateDisplay"><time id="currentDate"></time></p>
+      <div class="header-row">
+        <div class="header-text">
+          <h1 class="greeting" id="greeting">早上好，<span class="greeting-name">依依</span></h1>
+          <p class="date-display" id="dateDisplay"><time id="currentDate"></time></p>
+        </div>
+        <div class="search-box" id="searchBox">
+          <span class="search-icon">🔍</span>
+          <input type="search" id="globalSearch" placeholder="搜索标题 / 备注 / 品牌…" autocomplete="off" aria-label="搜索内容" oninput="onSearchInput(this.value)">
+          <button class="search-clear" id="searchClear" type="button" aria-label="清除搜索" onclick="clearSearch()">✕</button>
+        </div>
+      </div>
     </header>
 
     <!-- Tab Navigation -->
@@ -2062,18 +2104,60 @@
         if (btn.dataset.tab === 'calendar') renderCalendar();
         if (btn.dataset.tab === 'publish') { renderPubTasks(); }
         if (btn.dataset.tab === 'deals') { renderDeals(); }
+        if (btn.dataset.tab === 'memos') { renderNotes(); }
+        if (btn.dataset.tab === 'workspace') { renderProjects(); }
       });
     });
 
+    // ---- Global search (filters the active module's content) ----
+    let searchTerm = '';
+
+    function matchTerm(haystack, term) {
+      if (!term) return true;
+      if (!haystack) return false;
+      return String(haystack).toLowerCase().indexOf(term.toLowerCase()) !== -1;
+    }
+    function filterByTerm(arr, fields) {
+      if (!searchTerm) return arr;
+      return arr.filter(item => fields.some(f => matchTerm(item[f], searchTerm)));
+    }
+    function activeTab() {
+      const btn = document.querySelector('.tab-btn.active');
+      return btn ? btn.dataset.tab : 'workspace';
+    }
+    function rerenderActiveTab() {
+      const tab = activeTab();
+      if (tab === 'calendar') renderCalendar();
+      else if (tab === 'publish') renderPubTasks();
+      else if (tab === 'deals') renderDeals();
+      else if (tab === 'memos') renderNotes();
+      else { renderProjects(); }
+    }
+    function onSearchInput(v) {
+      searchTerm = (v || '').trim();
+      const box = document.getElementById('searchBox');
+      if (box) box.classList.toggle('has-text', searchTerm.length > 0);
+      rerenderActiveTab();
+    }
+    function clearSearch() {
+      searchTerm = '';
+      const inp = document.getElementById('globalSearch');
+      if (inp) inp.value = '';
+      const box = document.getElementById('searchBox');
+      if (box) box.classList.remove('has-text');
+      rerenderActiveTab();
+    }
+
     // ========================================
-    // PROJECTS — CREATION TRACKER
+    // PROJECTS - CREATION TRACKER
     // ========================================
     function getProjects() { return Store.get('projects', DEFAULT_PROJECTS); }
     function saveProjects(p) { Store.set('projects', p); }
 
     function renderProjects() {
       const all = getProjects();
-      const projects = all.filter(p => !p.hidden && !p.trashed);
+      let projects = all.filter(p => !p.hidden && !p.trashed);
+      if (searchTerm) projects = filterByTerm(projects, ['title', 'note']);
       const container = document.getElementById('projectsList');
 
       if (all.length === 0) {
@@ -2083,6 +2167,10 @@
       const hiddenCount = all.filter(p => p.hidden).length;
       const trashedCount = all.filter(p => p.trashed).length;
       if (projects.length === 0) {
+        if (searchTerm) {
+          container.innerHTML = '<p class="empty-state">没有找到包含「' + escapeHtml(searchTerm) + '」的创作任务 🔍</p>';
+          return;
+        }
         if (trashedCount > 0 && hiddenCount === 0) {
           container.innerHTML = '<p class="empty-state">已删除的任务都在回收站里 ♻️（共 ' + trashedCount + ' 个），30天内可找回</p>';
         } else if (hiddenCount > 0 && trashedCount > 0) {
@@ -2463,15 +2551,20 @@
     function renderPubTasks() {
       ensurePubState();
       const projects = getProjects();
-      const eligible = projects.filter(p =>
+      let eligible = projects.filter(p =>
         STAGE_CONFIG.every(s => p.stages[s.key] === 'done') &&
         !p.hidden && !p.trashed && !p.pubArchived
       );
+      if (searchTerm) eligible = filterByTerm(eligible, ['title', 'note']);
       const container = document.getElementById('pubTaskList');
       const acEl = document.getElementById('pubArchiveCount');
       if (acEl) acEl.textContent = projects.filter(p => p.pubArchived).length;
 
       if (eligible.length === 0) {
+        if (searchTerm) {
+          container.innerHTML = '<p class="empty-state">没有找到包含「' + escapeHtml(searchTerm) + '」的发布任务 🔍</p>';
+          return;
+        }
         container.innerHTML = '<p class="empty-state">还没有已完成的任务～ 在创作台把「脚本 / 拍摄 / 剪辑 / 封面 / 上传」都打勾完成，就会自动出现在这里 ✨</p>';
         return;
       }
@@ -2734,6 +2827,11 @@
 
     function getEvents() { return Store.get('events', []); }
     function saveEvents(e) { Store.set('events', e); }
+    function searchEvents() {
+      const evs = getEvents();
+      if (!searchTerm) return evs;
+      return evs.filter(e => matchTerm(e.title, searchTerm));
+    }
 
     function renderCalendar() {
       const container = document.getElementById('calViewContainer');
@@ -2752,7 +2850,7 @@
     function renderWeekSummary() {
       const container = document.getElementById('weekSummary');
       if (!container) return;
-      const events = getEvents();
+      const events = searchEvents();
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       // 本周一（周一为一周起点）
@@ -2799,7 +2897,7 @@
       const startPad = first.getDay(); // 0=Sun
       const days = last.getDate();
       const prevLast = new Date(y, m, 0).getDate();
-      const events = getEvents();
+      const events = searchEvents();
 
       const weekdays = ['日','一','二','三','四','五','六'];
       let html = `<div class="month-grid"><div class="weekday-label">${weekdays.join('</div><div class="weekday-label">')}</div>`;
@@ -2853,7 +2951,7 @@
       const startOfWeek = new Date(calDate);
       startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
       const weekdays = ['周日','周一','周二','周三','周四','周五','周六'];
-      const events = getEvents();
+      const events = searchEvents();
       const today = new Date();
 
       // Build week headers with dates
@@ -2909,7 +3007,7 @@
     }
 
     function renderDayView(container, y, m) {
-      const events = getEvents();
+      const events = searchEvents();
       const dateStr = formatDateStr(calDate);
       const dayEvents = events.filter(e => e.date === dateStr).sort((a,b) => (a.timeStart||'').localeCompare(b.timeStart||''));
 
@@ -3076,7 +3174,8 @@
     function genDealId() { return 'd' + Date.now() + Math.random().toString(36).slice(2, 7); }
 
     function renderDeals() {
-      const deals = getDeals().filter(d => !d.trashed && !d.archived);
+      let deals = getDeals().filter(d => !d.trashed && !d.archived);
+      if (searchTerm) deals = filterByTerm(deals, ['brand', 'product', 'note']);
       const dealsList = document.getElementById('dealList');
       const stats = document.getElementById('dealStats');
       const tc = document.getElementById('dealTrashCount');
@@ -3094,6 +3193,12 @@
       });
       const monthIncome = monthDeals.reduce((s, d) => s + (Number(d.quote) || 0), 0);
       const unpaid = deals.filter(d => d.paid === 'unpaid').reduce((s, d) => s + (Number(d.quote) || 0), 0);
+
+      if (searchTerm && deals.length === 0) {
+        if (dealsList) dealsList.innerHTML = '<p class="empty-state">没有找到包含「' + escapeHtml(searchTerm) + '」的商单 🔍</p>';
+        if (stats) stats.innerHTML = '';
+        return;
+      }
 
       if (stats) stats.innerHTML = `
         <div class="deal-stat-card">
@@ -3438,8 +3543,13 @@
     function renderNotes() {
       const notes = Store.get('notes', []);
       const list = document.getElementById('notesList');
-      const active = notes.filter(n => !n.archived && !n.trashed);
+      let active = notes.filter(n => !n.archived && !n.trashed);
+      if (searchTerm) active = filterByTerm(active, ['text']);
       if (active.length === 0) {
+        if (searchTerm) {
+          list.innerHTML = '<p class="empty-state">没有找到包含「' + escapeHtml(searchTerm) + '」的笔记 🔍</p>';
+          return;
+        }
         list.innerHTML = notes.length === 0
           ? '<p class="empty-state">还没有笔记，写下第一条吧～</p>'
           : '<p class="empty-state">笔记都收起来啦～ 在下方「📦 笔记归档」「🗑️ 回收站」里可以找回 👀</p>';
