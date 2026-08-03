@@ -2676,20 +2676,12 @@
       openProjectModal();
     }
 
-    // 延迟一帧显示弹窗：避免某些受限 webview 把"打开弹窗"的点击手势
-    // 重新派发到全屏遮罩，触发"点遮罩关闭"而误关弹窗
+    // 同步显示弹窗：遮罩关闭已彻底移除，无需延迟或 armed 守卫。
+    // 同步 add('show') 在所有 webview / Safari 中均立即生效且不会被误关。
     function openProjectModal() {
-      const el = document.getElementById('projectModal');
-      setTimeout(function () {
-        el.classList.add('show');
-        projectModalArmed = false;
-        setTimeout(function () { projectModalArmed = true; }, 300);
-      }, 0);
+      document.getElementById('projectModal').classList.add('show');
     }
 
-    // 弹窗守卫：打开后 300ms 内忽略遮罩点击，避免 webview 把"打开弹窗"的手势误判为"点击遮罩关闭"
-    let projectModalArmed = false;
-    let eventModalArmed = false;
     function closeProjectModal() { document.getElementById('projectModal').classList.remove('show'); }
 
     function saveProject() {
@@ -3421,14 +3413,9 @@
       openEventModal();
     }
 
-    // 延迟一帧显示弹窗（同 projectModal：根治受限 webview 的点击手势重派发误关）
+    // 同步显示弹窗（同 projectModal）
     function openEventModal() {
-      const el = document.getElementById('eventModal');
-      setTimeout(function () {
-        el.classList.add('show');
-        eventModalArmed = false;
-        setTimeout(function () { eventModalArmed = true; }, 300);
-      }, 0);
+      document.getElementById('eventModal').classList.add('show');
     }
     function editEvent(id) { showEventModal(id); }
 
