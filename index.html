@@ -419,9 +419,9 @@
       width: 80px; height: 30px;
       flex-shrink: 0;
     }
-    /* Unified date trigger: always shows the calendar icon + label */
+    /* Unified, clickable date trigger (opens custom calendar popover) */
     .project-date-trigger {
-      position: absolute; inset: 0;
+      width: 100%; height: 100%;
       display: flex; align-items: center; justify-content: center;
       gap: 4px;
       font-family: var(--font-family);
@@ -430,27 +430,64 @@
       background: rgba(0,0,0,0.04);
       color: var(--text-muted);
       border: 1px solid rgba(0,0,0,0.06);
-      pointer-events: none;
+      cursor: pointer;
+      padding: 0;
       transition: all 0.2s ease;
     }
-    .date-trigger-icon { font-size: 12px; }
-    .date-trigger-text { min-width: 2em; text-align: center; }
-    /* Invisible native date input sits on top and catches clicks */
-    .project-date-input {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      opacity: 0;
-      cursor: pointer;
-      -webkit-appearance: none;
-      appearance: none;
-      border: none; background: transparent;
-    }
-    .project-date-picker:hover .project-date-trigger,
-    .project-date-input:focus + .project-date-trigger {
+    .project-date-trigger:hover,
+    .project-date-trigger.active {
       background: rgba(155,142,221,0.10);
       color: var(--accent-violet);
       border-color: rgba(155,142,221,0.2);
     }
+    .date-trigger-icon { font-size: 12px; }
+    .date-trigger-text { min-width: 2em; text-align: center; }
+
+    /* Custom calendar popover (works in all contexts, no native picker) */
+    .date-popover {
+      position: fixed; z-index: 2000;
+      display: none;
+      width: 260px; padding: 12px;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.65);
+      border-radius: 18px;
+      box-shadow: 0 16px 48px rgba(31,38,135,0.20);
+      font-family: var(--font-family);
+      color: var(--text-primary);
+    }
+    .date-popover.open { display: block; }
+    .dp-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .dp-title { font-size: 13px; font-weight: 600; }
+    .dp-nav {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.06); background: rgba(0,0,0,0.03);
+      color: var(--text-primary); font-size: 16px; line-height: 1; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .dp-nav:hover { background: rgba(155,142,221,0.12); color: var(--accent-violet); }
+    .dp-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+    .dp-dow { font-size: 10px; text-align: center; color: var(--text-muted); padding: 4px 0; }
+    .dp-day {
+      aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; border-radius: 9px; cursor: pointer; color: var(--text-primary);
+      transition: background 0.15s ease;
+    }
+    .dp-day:not(.empty):hover { background: rgba(155,142,221,0.15); }
+    .dp-day.selected { background: var(--accent-violet); color: #fff; font-weight: 600; }
+    .dp-day.today { box-shadow: inset 0 0 0 1.5px var(--accent-violet); }
+    .dp-day.empty { visibility: hidden; }
+    .dp-footer { display: flex; gap: 8px; margin-top: 10px; }
+    .dp-foot-btn {
+      flex: 1; padding: 7px 0; border-radius: 10px; cursor: pointer;
+      font-size: 12px; font-weight: 600; font-family: var(--font-family);
+      border: 1px solid rgba(0,0,0,0.08); background: rgba(0,0,0,0.03); color: var(--text-primary);
+      transition: all 0.15s ease;
+    }
+    .dp-foot-btn:hover { background: rgba(155,142,221,0.12); color: var(--accent-violet); border-color: rgba(155,142,221,0.25); }
+    .dp-foot-btn.primary { background: var(--accent-violet); color: #fff; border-color: transparent; }
     .project-actions { display: flex; gap: var(--space-2); }
     .project-action-btn {
       width: 30px; height: 30px; border-radius: var(--radius-sm);
@@ -2257,13 +2294,10 @@
               <div class="project-name">${escapeHtml(p.title)}</div>
               <div class="project-header-right">
                 <div class="project-date-picker" title="设置截止/发布日期">
-                  <div class="project-date-trigger">
+                  <button type="button" class="project-date-trigger" onclick="openDatePopover('${p.id}', this)">
                     <span class="date-trigger-icon">📅</span>
                     <span class="date-trigger-text">${p.targetDate ? formatProjectDate(p.targetDate) : '未设'}</span>
-                  </div>
-                  <input type="date" class="project-date-input"
-                         value="${p.targetDate || ''}"
-                         onchange="updateProjectDate('${p.id}', this.value)">
+                  </button>
                 </div>
                 <div class="project-actions">
                   <button class="project-action-btn" onclick="showEditProjectModal('${p.id}')" title="编辑">✏️</button>
@@ -2321,6 +2355,85 @@
 
       renderProjects();
     }
+
+    // ---- Custom date popover (replaces native date picker for cross-context reliability) ----
+    let dpState = { pid: null, y: 0, m: 0 };
+    function openDatePopover(pid, anchor) {
+      const p = getProjects().find(x => x.id === pid);
+      const base = (p && p.targetDate) ? new Date(p.targetDate) : new Date();
+      dpState.pid = pid;
+      dpState.y = base.getFullYear();
+      dpState.m = base.getMonth();
+      renderDatePopover();
+      const pop = document.getElementById('datePopover');
+      pop.classList.add('open');
+      anchor.classList.add('active');
+      const r = anchor.getBoundingClientRect();
+      const w = 260, h = 340;
+      let left = r.left;
+      let top = r.bottom + 6;
+      if (left + w > window.innerWidth - 8) left = window.innerWidth - w - 8;
+      if (left < 8) left = 8;
+      if (top + h > window.innerHeight - 8) top = r.top - h - 6;
+      if (top < 8) top = 8;
+      pop.style.left = left + 'px';
+      pop.style.top = top + 'px';
+    }
+    function renderDatePopover() {
+      const pop = document.getElementById('datePopover');
+      const p = getProjects().find(x => x.id === dpState.pid);
+      const selStr = (p && p.targetDate) ? p.targetDate : null;
+      const y = dpState.y, m = dpState.m;
+      const startDow = new Date(y, m, 1).getDay();
+      const daysInMonth = new Date(y, m + 1, 0).getDate();
+      const dow = ['日','一','二','三','四','五','六'];
+      const today = new Date();
+      const todayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+      let h = '<div class="dp-header"><button type="button" class="dp-nav" onclick="dpShift(-1)">‹</button>'
+            + '<span class="dp-title">' + y + '年 ' + (m + 1) + '月</span>'
+            + '<button type="button" class="dp-nav" onclick="dpShift(1)">›</button></div>';
+      h += '<div class="dp-grid">';
+      dow.forEach(d => { h += '<div class="dp-dow">' + d + '</div>'; });
+      for (let i = 0; i < startDow; i++) h += '<div class="dp-day empty"></div>';
+      for (let d = 1; d <= daysInMonth; d++) {
+        const ds = y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+        const cls = 'dp-day' + (ds === selStr ? ' selected' : '') + (ds === todayStr ? ' today' : '');
+        h += '<div class="' + cls + '" onclick="dpPick(\'' + ds + '\')">' + d + '</div>';
+      }
+      h += '</div>';
+      h += '<div class="dp-footer">'
+         + '<button type="button" class="dp-foot-btn" onclick="dpClear()">清除</button>'
+         + '<button type="button" class="dp-foot-btn primary" onclick="dpPick(\'' + todayStr + '\')">今天</button>'
+         + '</div>';
+      pop.innerHTML = h;
+    }
+    function dpShift(dir) {
+      dpState.m += dir;
+      if (dpState.m < 0) { dpState.m = 11; dpState.y--; }
+      else if (dpState.m > 11) { dpState.m = 0; dpState.y++; }
+      renderDatePopover();
+    }
+    function dpPick(ds) {
+      if (dpState.pid) updateProjectDate(dpState.pid, ds);
+      closeDatePopover();
+    }
+    function dpClear() {
+      if (dpState.pid) updateProjectDate(dpState.pid, '');
+      closeDatePopover();
+    }
+    function closeDatePopover() {
+      const pop = document.getElementById('datePopover');
+      if (pop) pop.classList.remove('open');
+      document.querySelectorAll('.project-date-trigger.active').forEach(function (el) { el.classList.remove('active'); });
+      dpState.pid = null;
+    }
+    document.addEventListener('click', function (e) {
+      const pop = document.getElementById('datePopover');
+      if (!pop || !pop.classList.contains('open')) return;
+      if (pop.contains(e.target)) return;
+      if (e.target.closest && e.target.closest('.project-date-trigger')) return;
+      closeDatePopover();
+    });
 
     // Hide / unhide a project
     function hideProject(pid) {
@@ -3908,5 +4021,6 @@
       navigator.serviceWorker.register('sw.js').catch(function() {});
     }
   </script>
+  <div id="datePopover" class="date-popover"></div>
 </body>
 </html>
