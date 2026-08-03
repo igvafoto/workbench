@@ -2657,39 +2657,35 @@
     }
 
     function showAddProjectModal() {
-      document.getElementById('projModalTitle').textContent = '新建视频项目';
-      document.getElementById('projectId').value = '';
-      document.getElementById('projTitle').value = '';
-      document.getElementById('projNote').value = '';
-      renderProjPfChecks([]);
       openProjectModal();
+      try {
+        document.getElementById('projModalTitle').textContent = '新建视频项目';
+        document.getElementById('projectId').value = '';
+        document.getElementById('projTitle').value = '';
+        document.getElementById('projNote').value = '';
+        renderProjPfChecks([]);
+      } catch (e) { console.error('add modal fill error', e); }
     }
 
     function showEditProjectModal(pid) {
-      const p = getProjects().find(x => x.id === pid);
-      if (!p) return;
-      document.getElementById('projModalTitle').textContent = '编辑项目';
-      document.getElementById('projectId').value = pid;
-      document.getElementById('projTitle').value = p.title;
-      document.getElementById('projNote').value = p.note || '';
-      renderProjPfChecks(p.platforms || []);
       openProjectModal();
+      try {
+        const p = getProjects().find(x => x.id === pid);
+        if (!p) return;
+        document.getElementById('projModalTitle').textContent = '编辑项目';
+        document.getElementById('projectId').value = pid;
+        document.getElementById('projTitle').value = p.title;
+        document.getElementById('projNote').value = p.note || '';
+        renderProjPfChecks(p.platforms || []);
+      } catch (e) { console.error('edit modal fill error', e); }
     }
 
-    // 延迟一帧显示弹窗：避免某些受限 webview 把"打开弹窗"的点击手势
-    // 重新派发到全屏遮罩，触发"点遮罩关闭"而误关弹窗
+    // 同步显示弹窗：遮罩关闭已彻底移除，无需延迟或 armed 守卫。
+    // 同步 add('show') 在所有 webview / Safari 中均立即生效且不会被误关。
     function openProjectModal() {
-      const el = document.getElementById('projectModal');
-      setTimeout(function () {
-        el.classList.add('show');
-        projectModalArmed = false;
-        setTimeout(function () { projectModalArmed = true; }, 300);
-      }, 0);
+      try { document.getElementById('projectModal').classList.add('show'); } catch (e) {}
     }
 
-    // 弹窗守卫：打开后 300ms 内忽略遮罩点击，避免 webview 把"打开弹窗"的手势误判为"点击遮罩关闭"
-    let projectModalArmed = false;
-    let eventModalArmed = false;
     function closeProjectModal() { document.getElementById('projectModal').classList.remove('show'); }
 
     function saveProject() {
@@ -3399,36 +3395,33 @@
     }
 
     function showEventModal(id) {
-      document.getElementById('modalTitle').textContent = id ? '编辑日程' : '添加日程';
-      document.getElementById('eventId').value = id || '';
-      document.getElementById('eventTitle').value = '';
-      document.getElementById('eventType').value = 'shoot';
-      document.getElementById('eventDate').value = formatDateStr(new Date());
-      document.getElementById('eventTimeStart').value = '';
-      document.getElementById('eventTimeEnd').value = '';
-      document.getElementById('eventNote').value = '';
-      if (id) {
-        const ev = getEvents().find(e => e.id === id);
-        if (ev) {
-          document.getElementById('eventTitle').value = ev.title;
-          document.getElementById('eventType').value = ev.type;
-          document.getElementById('eventDate').value = ev.date;
-          document.getElementById('eventTimeStart').value = ev.timeStart || '';
-          document.getElementById('eventTimeEnd').value = ev.timeEnd || '';
-          document.getElementById('eventNote').value = ev.note || '';
-        }
-      }
       openEventModal();
+      try {
+        document.getElementById('modalTitle').textContent = id ? '编辑日程' : '添加日程';
+        document.getElementById('eventId').value = id || '';
+        document.getElementById('eventTitle').value = '';
+        document.getElementById('eventType').value = 'shoot';
+        document.getElementById('eventDate').value = formatDateStr(new Date());
+        document.getElementById('eventTimeStart').value = '';
+        document.getElementById('eventTimeEnd').value = '';
+        document.getElementById('eventNote').value = '';
+        if (id) {
+          const ev = getEvents().find(e => e.id === id);
+          if (ev) {
+            document.getElementById('eventTitle').value = ev.title;
+            document.getElementById('eventType').value = ev.type;
+            document.getElementById('eventDate').value = ev.date;
+            document.getElementById('eventTimeStart').value = ev.timeStart || '';
+            document.getElementById('eventTimeEnd').value = ev.timeEnd || '';
+            document.getElementById('eventNote').value = ev.note || '';
+          }
+        }
+      } catch (e) { console.error('event modal fill error', e); }
     }
 
-    // 延迟一帧显示弹窗（同 projectModal：根治受限 webview 的点击手势重派发误关）
+    // 同步显示弹窗（同 projectModal）
     function openEventModal() {
-      const el = document.getElementById('eventModal');
-      setTimeout(function () {
-        el.classList.add('show');
-        eventModalArmed = false;
-        setTimeout(function () { eventModalArmed = true; }, 300);
-      }, 0);
+      try { document.getElementById('eventModal').classList.add('show'); } catch (e) {}
     }
     function editEvent(id) { showEventModal(id); }
 
@@ -4176,8 +4169,9 @@
       });
 
       // Close modals on overlay click
-      document.getElementById('eventModal').addEventListener('click', e => { if (eventModalArmed && e.target === e.currentTarget) closeEventModal(); });
-      document.getElementById('projectModal').addEventListener('click', e => { if (projectModalArmed && e.target === e.currentTarget) closeProjectModal(); });
+      // 弹窗关闭统一由按钮触发（取消 / 保存 / ✕），不再监听遮罩点击。
+      // 受限 webview 会把"打开弹窗"的点击手势重派发到全屏遮罩，导致误关弹窗。
+
     });
   </script>
   <script>
