@@ -368,7 +368,7 @@
 
     /* Project Card */
     .project-card {
-      padding: var(--space-4); border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-5); border-radius: var(--radius-md);
       background: var(--glass-bg);
       backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
       -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(2.2) brightness(1.02);
@@ -501,60 +501,111 @@
     .project-action-btn.archive:hover { color: var(--accent-violet); background: rgba(155,142,221,0.12); }
 
     /* Stage Progress */
-    /* Stage Progress — Horizontal Compact Stepper */
+    /* Stage Progress — Circular Stepper (参考图中排版) */
     .stage-tracker {
-      display: flex; align-items: flex-start;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: var(--space-2);
       margin-top: var(--space-3);
     }
     .stage-step {
-      flex: 1; display: flex; flex-direction: column; align-items: center;
-      gap: 5px; position: relative; cursor: pointer;
-      padding: 2px 0; transition: all 0.3s var(--ease-glass);
+      display: flex; flex-direction: column; align-items: center;
+      gap: 6px; cursor: pointer;
+      padding: 4px 0; transition: all 0.3s var(--ease-glass);
     }
-    .stage-step:hover { transform: translateY(-1px); }
-    .stage-dot-wrap {
-      position: relative; display: flex; justify-content: center; width: 100%;
-    }
-    .stage-step:not(:last-child) .stage-dot-wrap::after {
-      content: ''; position: absolute; top: 50%; left: 50%;
-      width: 100%; height: 2px; background: rgba(0,0,0,0.07);
-      transform: translateY(-50%); z-index: 0; border-radius: 1px;
-    }
-    .stage-step.done:not(:last-child) .stage-dot-wrap::after,
-    .stage-step.active:not(:last-child) .stage-dot-wrap::after {
-      background: linear-gradient(90deg, var(--accent-teal), var(--accent-coral));
-    }
+    .stage-step:hover { transform: translateY(-2px); }
 
     .stage-dot {
-      width: 22px; height: 22px; border-radius: 50%;
+      width: 42px; height: 42px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 600; position: relative; z-index: 1;
+      position: relative; z-index: 1;
       flex-shrink: 0; transition: all 0.4s var(--ease-spring);
     }
-    .stage-dot.pending { background: rgba(0,0,0,0.05); color: var(--text-muted); border: 1.5px solid rgba(0,0,0,0.10); }
+    /* 待开始：空心圆环 */
+    .stage-dot.pending {
+      background: transparent;
+      border: 2.5px solid rgba(0,0,0,0.12);
+    }
+    /* 进行中：实心橙 + 中心白点 */
     .stage-dot.active {
-      background: linear-gradient(135deg, var(--accent-coral), var(--accent-violet));
-      color: white; box-shadow: 0 2px 8px var(--accent-coral-glow);
+      background: linear-gradient(135deg, var(--accent-coral), #ffb347);
+      box-shadow: 0 4px 14px rgba(255,127,110,0.35);
       animation: pulse 2s infinite;
     }
+    .stage-dot.active::after {
+      content: ''; width: 10px; height: 10px;
+      border-radius: 50%; background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    }
+    /* 已完成：绿色渐变 + 白勾 */
     .stage-dot.done {
       background: linear-gradient(135deg, var(--accent-teal), var(--accent-green));
-      color: white; box-shadow: 0 2px 6px var(--accent-teal-glow);
+      box-shadow: 0 4px 12px rgba(94,207,176,0.32);
+    }
+    .stage-dot.done::after {
+      content: '✓'; position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 700; color: #fff;
     }
 
     @keyframes pulse {
-      0%, 100% { box-shadow: 0 2px 8px var(--accent-coral-glow); }
-      50% { box-shadow: 0 2px 16px var(--accent-coral-glow), 0 0 0 4px rgba(255,127,110,0.12); }
+      0%, 100% { box-shadow: 0 4px 14px rgba(255,127,110,0.35); }
+      50% { box-shadow: 0 4px 20px rgba(255,127,110,0.45), 0 0 0 5px rgba(255,127,110,0.10); }
     }
 
-    .stage-mini-label { font-size: 10px; font-weight: 500; color: var(--text-secondary); letter-spacing: 0.02em; }
-    .stage-step.done .stage-mini-label { color: var(--accent-teal); }
-    .stage-step.active .stage-mini-label { color: var(--accent-coral); }
+    .stage-mini-label {
+      font-size: 11px; font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+    .stage-step.done .stage-mini-label { color: var(--accent-teal); font-weight: 600; }
+    .stage-step.active .stage-mini-label { color: var(--accent-coral); font-weight: 700; }
 
     .project-note { font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-2); line-height: 1.4; }
+    .project-type {
+      display: inline-flex; align-items: center;
+      padding: 3px 10px; border-radius: var(--radius-full);
+      font-size: 11px; font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+    /* 商单 = 测评同款浅紫 */
+    .project-type.type-deal { background: #f3e8ff; color: #9333ea; }
+    /* 笔记 = 教程同款浅绿 */
+    .project-type.type-note { background: #dcfce7; color: #16a34a; }
+    /* 评测：浅紫 */
+    .project-type.type-review { background: #f3e8ff; color: #9333ea; }
+    /* 教程：浅绿 */
+    .project-type.type-tutorial { background: #dcfce7; color: #16a34a; }
+    /* 开箱：暖橙 */
+    .project-type.type-unbox { background: #ffedd5; color: #ea580c; }
+    /* 对比：淡蓝 */
+    .project-type.type-compare { background: #dbeafe; color: #2563eb; }
+    /* 自定义/其他：沿用原紫 */
+    .project-type.type-other { background: var(--accent-violet); color: #fff; box-shadow: 0 2px 8px rgba(167,139,250,0.22); }
+    .project-filter-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 12px; margin-bottom: var(--space-3);
+      background: rgba(255,255,255,0.5); border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md); font-size: var(--text-sm); color: var(--text-secondary);
+    }
+    .project-filter-clear {
+      background: transparent; border: none; color: var(--accent-coral);
+      font-size: var(--text-xs); font-weight: 600; cursor: pointer; padding: 2px 6px;
+    }
+    .project-filter-clear:hover { text-decoration: underline; }
+
+    .project-progress-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: var(--space-3);
+      font-size: var(--text-sm);
+    }
+    .progress-current { color: var(--text-secondary); font-weight: 500; }
+    .progress-pct { color: var(--text-primary); font-weight: 700; }
+
     .project-progress {
-      height: 4px; border-radius: var(--radius-full);
-      background: rgba(0,0,0,0.06); margin-top: var(--space-3); overflow: hidden;
+      height: 8px; border-radius: var(--radius-full);
+      background: rgba(0,0,0,0.06); margin-top: var(--space-2); overflow: hidden;
     }
     .project-progress-fill {
       height: 100%; border-radius: var(--radius-full);
@@ -1274,7 +1325,8 @@
     /* ===== PROJECT PLATFORM CHIPS ===== */
     .project-platforms {
       display: flex; flex-wrap: wrap; align-items: center;
-      gap: var(--space-2); margin-top: var(--space-3);
+      gap: var(--space-2);
+      margin-top: var(--space-3); margin-bottom: 0;
     }
     .proj-pf-chip {
       display: inline-flex; align-items: center; gap: 5px;
@@ -1286,12 +1338,27 @@
       user-select: none;
     }
     .proj-pf-chip:hover { transform: translateY(-1px); border-color: var(--glass-border-hover); background: rgba(255,255,255,0.65); }
-    .proj-pf-chip .pf-ic { font-size: 13px; filter: grayscale(1) opacity(0.5); transition: filter 0.25s; }
-    .proj-pf-chip.on { background: var(--pf); color: #fff; border-color: transparent; box-shadow: 0 3px 10px rgba(0,0,0,0.12); }
-    .proj-pf-chip.on .pf-ic { filter: none; }
-    .proj-pf-checks { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
-    .proj-pf-check { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-sm); color: var(--text-secondary); cursor: pointer; }
-    .proj-pf-check input { accent-color: var(--accent-coral); }
+    .proj-pf-chip.on {
+      background: var(--accent-violet);
+      color: #fff; border-color: transparent;
+      box-shadow: 0 3px 10px rgba(167,139,250,0.25);
+    }
+    .proj-pf-checks { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .proj-pf-select-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 12px; border-radius: var(--radius-full);
+      font-family: var(--font-family); font-size: 13px; font-weight: 600;
+      background: rgba(255,255,255,0.45); border: 1.5px solid var(--glass-border);
+      color: var(--text-secondary); cursor: pointer;
+      transition: all 0.25s var(--ease-spring);
+      user-select: none;
+    }
+    .proj-pf-select-chip:hover { transform: translateY(-1px); background: rgba(255,255,255,0.65); }
+    .proj-pf-select-chip.selected {
+      background: var(--accent-violet);
+      color: #fff; border-color: transparent;
+      box-shadow: 0 3px 10px rgba(167,139,250,0.25);
+    }
 
     /* ===== GEAR — 器材库 ===== */
     .gear-container { display: flex; flex-direction: column; gap: var(--space-4); }
@@ -1331,7 +1398,6 @@
       background: rgba(255,255,255,0.55); border: 1px solid var(--glass-border); color: var(--text-secondary);
     }
     .gear-card-badge.status-active { background: rgba(81,207,102,0.14); color: var(--accent-green); border-color: rgba(81,207,102,0.25); }
-    .gear-card-badge.status-lent { background: rgba(167,139,250,0.14); color: var(--accent-violet); border-color: rgba(167,139,250,0.25); }
     .gear-card-badge.status-idle { background: rgba(245,200,66,0.14); color: #d4a017; border-color: rgba(245,200,66,0.25); }
     .gear-card-badge.status-sold { background: rgba(107,114,128,0.12); color: var(--text-muted); border-color: rgba(107,114,128,0.2); }
     .gear-card-note { font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.45; }
@@ -1372,14 +1438,15 @@
     .deal-card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); margin-top: var(--space-3); }
     .deal-status-pill { padding: 3px 11px; border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; }
     .deal-quote { font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); }
+    .deal-rebate { font-size: var(--text-xs); font-weight: 600; color: var(--accent-coral); background: rgba(255,127,110,0.10); padding: 2px 8px; border-radius: var(--radius-full); }
     .deal-paid-tag { font-size: var(--text-xs); font-weight: 600; padding: 2px 9px; border-radius: var(--radius-full); }
     .deal-paid-tag.unpaid { background: rgba(245,200,66,0.16); color: var(--accent-amber); }
     .deal-paid-tag.paid { background: rgba(74,173,106,0.14); color: var(--accent-green); }
     .deal-pf-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--space-3); }
     .deal-pf-tag {
       display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: var(--radius-full);
-      font-size: var(--text-xs); font-weight: 500; background: color-mix(in srgb, var(--pf) 14%, white);
-      color: var(--pf); border: 1px solid color-mix(in srgb, var(--pf) 30%, white);
+      font-size: var(--text-xs); font-weight: 500; background: rgba(0,0,0,0.04);
+      color: var(--text-secondary); border: 1px solid rgba(0,0,0,0.08);
     }
     .deal-card-foot { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); font-size: var(--text-xs); color: var(--text-secondary); }
     .deal-date { display: inline-flex; align-items: center; gap: 4px; }
@@ -1420,7 +1487,8 @@
     .arch-pf-chip {
       display: inline-flex; align-items: center; gap: 4px;
       padding: 3px 9px; border-radius: var(--radius-full);
-      font-size: 11px; font-weight: 600; color: #fff; background: var(--pf);
+      font-size: 11px; font-weight: 600; color: var(--text-secondary); background: rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.08);
     }
 
     /* Auto-synced item styling */
@@ -1901,6 +1969,42 @@
         <input type="text" class="form-input" id="projTitle" placeholder="例如：iPhone 17 Pro 深度体验">
       </div>
       <div class="form-group">
+        <label class="form-label" for="projTypeSelect">类型</label>
+        <select class="form-select" id="projTypeSelect" onchange="onProjTypeChange()">
+          <option value="">未选择</option>
+          <option value="商单">商单</option>
+          <option value="笔记">笔记</option>
+          <option value="__custom__">自定义</option>
+        </select>
+        <input type="text" class="form-input" id="projTypeCustom" placeholder="输入自定义类型" style="display:none;margin-top:8px;">
+      </div>
+      <script>
+        function onProjTypeChange() {
+          const sel = document.getElementById('projTypeSelect');
+          const custom = document.getElementById('projTypeCustom');
+          if (sel.value === '__custom__') { custom.style.display = 'block'; custom.focus(); }
+          else { custom.style.display = 'none'; }
+        }
+        function setProjType(type) {
+          const sel = document.getElementById('projTypeSelect');
+          const custom = document.getElementById('projTypeCustom');
+          const presets = ['商单','笔记'];
+          if (!type) { sel.value = ''; custom.value = ''; custom.style.display = 'none'; }
+          else if (presets.includes(type)) { sel.value = type; custom.value = ''; custom.style.display = 'none'; }
+          else { sel.value = '__custom__'; custom.value = type; custom.style.display = 'block'; }
+        }
+        function getProjType() {
+          const sel = document.getElementById('projTypeSelect').value;
+          const custom = document.getElementById('projTypeCustom').value.trim();
+          return sel === '__custom__' ? custom : sel;
+        }
+        function getProjectTypeClass(type) {
+          if (!type) return 'type-other';
+          const map = { '商单': 'type-deal', '笔记': 'type-note', '评测': 'type-review', '开箱': 'type-unbox', '对比': 'type-compare', '教程': 'type-tutorial' };
+          return map[type] || 'type-other';
+        }
+      </script>
+      <div class="form-group">
         <label class="form-label" for="projNote">备注</label>
         <textarea class="form-textarea" id="projNote" placeholder="可选描述..."></textarea>
       </div>
@@ -1948,7 +2052,6 @@
             <label class="form-label" for="gearStatus">状态</label>
             <select class="form-select" id="gearStatus">
               <option value="active">✅ 在用</option>
-              <option value="lent">🤝 出借</option>
               <option value="idle">😴 闲置</option>
               <option value="sold">💸 已售</option>
             </select>
@@ -1994,21 +2097,24 @@
         <label class="form-label">投放平台</label>
         <div class="deal-pf-checks" id="dealPfChecks"></div>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" for="dealStart">档期开始</label>
-          <input type="date" class="form-input" id="dealStart">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="dealEnd">档期结束</label>
-          <input type="date" class="form-input" id="dealEnd">
-        </div>
+      <div class="form-group">
+        <label class="form-label" for="dealDate">档期</label>
+        <input type="date" class="form-input" id="dealDate">
       </div>
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="dealQuote">报价（元）</label>
           <input type="number" class="form-input" id="dealQuote" placeholder="0" min="0">
         </div>
+        <div class="form-group">
+          <label class="form-label">返点</label>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <label class="check-label" style="margin:0;"><input type="checkbox" id="dealRebateEnabled"> 启用返点</label>
+            <input type="number" class="form-input" id="dealRebateAmount" placeholder="返点金额（元）" min="0" style="flex:1;">
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="dealStatus">状态</label>
           <select class="form-select" id="dealStatus">
@@ -2228,8 +2334,8 @@
     // Default Data
     const DEFAULT_PROJECTS = [
       {
-        id: 'p1', title: 'iPhone 17 Pro Max 深度评测', note: '重点测试影像系统',
-        stages: { script: 'done', shoot: 'done', edit: 'done', cover: 'done', publish: 'done' },
+        id: 'p1', title: 'iPhone 17 Pro Max 深度评测', type: '评测', note: '重点测试影像系统',
+        stages: { idea: 'done', script: 'done', shoot: 'done', edit: 'done', cover: 'done', publish: 'done' },
         platforms: ['xhs', 'bilibili', 'douyin'],
         published: { xhs: true, bilibili: true, douyin: false },
         publishedAt: { xhs: Date.now() - 86400000, bilibili: Date.now() - 86400000 },
@@ -2237,8 +2343,8 @@
         created: Date.now() - 86400000 * 3
       },
       {
-        id: 'p2', title: 'Sony A7V 开箱上手', note: '',
-        stages: { script: 'done', shoot: 'done', edit: 'active', cover: 'pending', publish: 'pending' },
+        id: 'p2', title: 'Sony A7V 开箱上手', type: '开箱', note: '',
+        stages: { idea: 'done', script: 'done', shoot: 'done', edit: 'active', cover: 'pending', publish: 'pending' },
         platforms: ['xhs', 'weibo'],
         published: {},
         publishedAt: {},
@@ -2246,8 +2352,8 @@
         created: Date.now() - 86400000
       },
       {
-        id: 'p3', title: 'AirPods Pro 3 对比测评', note: '和上一代对比',
-        stages: { script: 'pending', shoot: 'pending', edit: 'pending', cover: 'pending', publish: 'pending' },
+        id: 'p3', title: 'AirPods Pro 3 对比测评', type: '对比', note: '和上一代对比',
+        stages: { idea: 'pending', script: 'pending', shoot: 'pending', edit: 'pending', cover: 'pending', publish: 'pending' },
         platforms: [],
         published: {},
         publishedAt: {},
@@ -2264,11 +2370,12 @@
     }
 
     const STAGE_CONFIG = [
-      { key: 'script', label: '脚本', desc: '选题/脚本撰写', icon: '📝' },
-      { key: 'shoot', label: '拍摄', desc: '素材采集', icon: '🎬' },
-      { key: 'edit', label: '剪辑', desc: '剪辑/调色/特效', icon: '✂️' },
-      { key: 'cover', label: '封面', desc: '封面图制作', icon: '🖼️' },
-      { key: 'publish', label: '上传', desc: '分发到各平台', icon: '🚀' }
+      { key: 'idea', label: '选题', desc: '选题/方向确定', icon: '' },
+      { key: 'script', label: '脚本', desc: '脚本撰写', icon: '' },
+      { key: 'shoot', label: '拍摄', desc: '素材采集', icon: '' },
+      { key: 'edit', label: '剪辑', desc: '剪辑/调色/特效', icon: '' },
+      { key: 'cover', label: '封面', desc: '封面图制作', icon: '' },
+      { key: 'publish', label: '上传', desc: '分发到各平台', icon: '' }
     ];
 
     const PLATFORM_CONFIG = [
@@ -2324,12 +2431,13 @@
         if (btn.dataset.tab === 'gear') { renderGear(); }
         if (btn.dataset.tab === 'deals') { renderDeals(); }
         if (btn.dataset.tab === 'memos') { renderNotes(); }
-        if (btn.dataset.tab === 'workspace') { renderProjects(); }
+        if (btn.dataset.tab === 'workspace') { projectFilter = 'all'; renderProjects(); }
       });
     });
 
     // ---- Global search (filters the active module's content) ----
     let searchTerm = '';
+    let projectFilter = 'all';
 
     function matchTerm(haystack, term) {
       if (!term) return true;
@@ -2376,6 +2484,11 @@
     function renderProjects() {
       const all = getProjects();
       let projects = all.filter(p => !p.hidden && !p.trashed);
+      if (projectFilter === 'progress') {
+        projects = projects.filter(p => Object.values(p.stages).some(v => v !== 'done'));
+      } else if (projectFilter === 'completed') {
+        projects = projects.filter(p => Object.values(p.stages).every(v => v === 'done'));
+      }
       if (searchTerm) projects = filterByTerm(projects, ['title', 'note']);
       const container = document.getElementById('projectsList');
 
@@ -2388,6 +2501,14 @@
       if (projects.length === 0) {
         if (searchTerm) {
           container.innerHTML = '<p class="empty-state">没有找到包含「' + escapeHtml(searchTerm) + '」的创作任务 🔍</p>';
+          return;
+        }
+        if (projectFilter === 'progress') {
+          container.innerHTML = '<p class="empty-state">当前没有进行中的项目 🎉</p>';
+          return;
+        }
+        if (projectFilter === 'completed') {
+          container.innerHTML = '<p class="empty-state">还没有全流程完成的项目，继续加油 💪</p>';
           return;
         }
         if (trashedCount > 0 && hiddenCount === 0) {
@@ -2403,20 +2524,25 @@
       // Stage state cycle: pending → active → done → pending
       const STAGE_CYCLE = ['pending', 'active', 'done'];
       const STAGE_LABELS = { pending: '待开始', active: '进行中', done: '已完成' };
-      const STAGE_ICONS = { pending: '○', active: '◐', done: '✓' };
 
-      container.innerHTML = projects.map((p, idx) => {
+      const filterLabels = { progress: '进行中的项目', completed: '已完成' };
+      const filterBar = projectFilter !== 'all'
+        ? `<div class="project-filter-bar"><span>显示：${filterLabels[projectFilter]}</span><button type="button" class="project-filter-clear" onclick="clearProjectFilter()">清除过滤</button></div>`
+        : '';
+      container.innerHTML = filterBar + projects.map((p, idx) => {
         const total = STAGE_CONFIG.length;
         const doneCount = STAGE_CONFIG.filter(s => (p.stages[s.key] || 'pending') === 'done').length;
         const pct = Math.round(doneCount / total * 100);
+        const allDone = doneCount === total;
+        const activeStage = allDone
+          ? { label: '已完成', icon: '🎉' }
+          : (STAGE_CONFIG.find(s => (p.stages[s.key] || 'pending') !== 'done') || STAGE_CONFIG[total - 1]);
 
         const stageHtml = STAGE_CONFIG.map((s) => {
           const status = p.stages[s.key] || 'pending';
           return `
             <div class="stage-step ${status}" onclick="cycleStage('${p.id}','${s.key}')" title="${STAGE_LABELS[status]}">
-              <div class="stage-dot-wrap">
-                <div class="stage-dot ${status}">${STAGE_ICONS[status] || s.icon}</div>
-              </div>
+              <div class="stage-dot ${status}"></div>
               <div class="stage-mini-label">${s.label}</div>
             </div>`;
         }).join('');
@@ -2434,16 +2560,21 @@
                 </div>
                 <div class="project-actions">
                   <button class="project-action-btn" onclick="showEditProjectModal('${p.id}')" title="编辑">✏️</button>
-                  <button class="project-action-btn archive" onclick="archiveProject('${p.id}')" title="归档此任务">📦</button>
+                  ${allDone ? `<button class="project-action-btn archive" onclick="archiveProject('${p.id}')" title="归档此任务">📦</button>` : ''}
                   <button class="project-action-btn delete" onclick="trashProject('${p.id}')" title="移入回收站">🗑️</button>
                 </div>
               </div>
             </div>
+            ${p.type ? `<div class="project-type ${getProjectTypeClass(p.type)}">${escapeHtml(p.type)}</div>` : ''}
             ${p.note ? `<p class="project-note">${escapeHtml(p.note)}</p>` : ''}
-            <div class="stage-tracker">${stageHtml}</div>
+            <div class="project-progress-meta">
+              <span class="progress-current">当前：${activeStage.label}</span>
+              <span class="progress-pct">${pct}%</span>
+            </div>
             <div class="project-progress">
               <div class="project-progress-fill" style="width:${pct}%"></div>
             </div>
+            <div class="stage-tracker">${stageHtml}</div>
             ${renderProjectPlatforms(p)}
           </div>`;
       }).join('');
@@ -2455,8 +2586,8 @@
       const chips = platforms.map(key => {
         const pf = PLATFORM_CONFIG.find(x => x.key === key);
         if (!pf) return '';
-        const on = p.published && p.published[key];
-        return `<button type="button" class="proj-pf-chip ${on ? 'on' : ''}" style="--pf:${pf.color}" onclick="toggleProjectPlatform('${p.id}','${pf.key}')" title="${on ? '已发布' : '未发布'}：${pf.name}"><span class="pf-ic">${pf.icon}</span>${pf.name}</button>`;
+        const on = platforms.includes(key);
+        return `<button type="button" class="proj-pf-chip ${on ? 'on' : ''}" onclick="toggleProjectPlatform('${p.id}','${pf.key}')" title="${pf.name}">${pf.name}</button>`;
       }).join('');
       return `<div class="project-platforms">${chips}</div>`;
     }
@@ -2651,9 +2782,17 @@
       const wrap = document.getElementById('projPfChecks');
       const set = new Set(selected || []);
       wrap.innerHTML = PLATFORM_CONFIG.map(pf => `
-        <label class="proj-pf-check">
-          <input type="checkbox" value="${pf.key}" ${set.has(pf.key) ? 'checked' : ''}> ${pf.icon} ${pf.name}
-        </label>`).join('');
+        <button type="button" class="proj-pf-select-chip ${set.has(pf.key) ? 'selected' : ''}" data-key="${pf.key}" onclick="toggleProjPfSelect(this)">
+          ${pf.name}
+        </button>`).join('');
+    }
+
+    function toggleProjPfSelect(btn) {
+      btn.classList.toggle('selected');
+    }
+
+    function getSelectedProjPlatforms() {
+      return Array.from(document.querySelectorAll('#projPfChecks .proj-pf-select-chip.selected')).map(btn => btn.dataset.key);
     }
 
     function showAddProjectModal() {
@@ -2662,6 +2801,7 @@
         document.getElementById('projModalTitle').textContent = '新建视频项目';
         document.getElementById('projectId').value = '';
         document.getElementById('projTitle').value = '';
+        setProjType('');
         document.getElementById('projNote').value = '';
         renderProjPfChecks([]);
       } catch (e) { console.error('add modal fill error', e); }
@@ -2675,6 +2815,7 @@
         document.getElementById('projModalTitle').textContent = '编辑项目';
         document.getElementById('projectId').value = pid;
         document.getElementById('projTitle').value = p.title;
+        setProjType(p.type || '');
         document.getElementById('projNote').value = p.note || '';
         renderProjPfChecks(p.platforms || []);
       } catch (e) { console.error('edit modal fill error', e); }
@@ -2691,15 +2832,16 @@
     function saveProject() {
       const title = document.getElementById('projTitle').value.trim();
       if (!title) return;
+      const type = getProjType();
       const note = document.getElementById('projNote').value.trim();
       const id = document.getElementById('projectId').value;
-      const platforms = Array.from(document.querySelectorAll('#projPfChecks input:checked')).map(cb => cb.value);
+      const platforms = getSelectedProjPlatforms();
       const projects = getProjects();
 
       if (id) {
         const p = projects.find(x => x.id === id);
         if (p) {
-          p.title = title; p.note = note; p.platforms = platforms;
+          p.title = title; p.type = type; p.note = note; p.platforms = platforms;
           // 清理已移除平台的发布记录
           if (p.published) {
             Object.keys(p.published).forEach(k => { if (!platforms.includes(k)) delete p.published[k]; });
@@ -2710,8 +2852,8 @@
         }
       } else {
         projects.unshift({
-          id: 'p' + Date.now(), title, note, platforms,
-          stages: { script: false, shoot: false, edit: false, cover: false, publish: false },
+          id: 'p' + Date.now(), title, type, note, platforms,
+          stages: { idea: 'pending', script: 'pending', shoot: 'pending', edit: 'pending', cover: 'pending', publish: 'pending' },
           published: {}, publishedAt: {},
           created: Date.now()
         });
@@ -2895,7 +3037,6 @@
     ];
     const GEAR_STATUS_CONFIG = [
       { key: 'active', name: '在用', cls: 'status-active' },
-      { key: 'lent', name: '出借', cls: 'status-lent' },
       { key: 'idle', name: '闲置', cls: 'status-idle' },
       { key: 'sold', name: '已售', cls: 'status-sold' }
     ];
@@ -2905,7 +3046,15 @@
       { id: 'g3', name: 'MacBook Pro 16"', type: 'computer', status: 'active', date: '2023-06-01', price: 22999, note: '剪辑主力机', created: Date.now() - 86400000 * 400 }
     ];
 
-    function getDevices() { return Store.get('devices', DEFAULT_DEVICES); }
+    function getDevices() {
+      const list = Store.get('devices', DEFAULT_DEVICES);
+      let migrated = false;
+      list.forEach(d => {
+        if (d.status === 'lent') { d.status = 'idle'; migrated = true; }
+      });
+      if (migrated) Store.set('devices', list);
+      return list;
+    }
     function saveDevices(d) { Store.set('devices', d); }
 
     function gearTypeName(key) { const t = GEAR_TYPE_CONFIG.find(x => x.key === key); return t ? t.icon + ' ' + t.name : key; }
@@ -2920,7 +3069,6 @@
       const stats = {
         total: devices.length,
         active: devices.filter(d => d.status === 'active').length,
-        lent: devices.filter(d => d.status === 'lent').length,
         idle: devices.filter(d => d.status === 'idle').length,
         sold: devices.filter(d => d.status === 'sold').length
       };
@@ -2929,7 +3077,6 @@
         statsContainer.innerHTML = [
           { label: '设备总数', num: stats.total },
           { label: '在用', num: stats.active, cls: 'status-active' },
-          { label: '出借', num: stats.lent, cls: 'status-lent' },
           { label: '闲置', num: stats.idle, cls: 'status-idle' },
           { label: '已售', num: stats.sold, cls: 'status-sold' }
         ].map(s => `
@@ -3018,6 +3165,21 @@
     // ========================================
     // STATS
     // ========================================
+    function showProjectsByFilter(filter) {
+      projectFilter = filter;
+      document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      const workspaceBtn = document.querySelector('.tab-btn[data-tab="workspace"]');
+      if (workspaceBtn) { workspaceBtn.classList.add('active'); workspaceBtn.setAttribute('aria-selected','true'); }
+      document.getElementById('panel-workspace').classList.add('active');
+      renderProjects();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function clearProjectFilter() {
+      projectFilter = 'all';
+      renderProjects();
+    }
+
     function renderStats() {
       const projects = getProjects();
       const container = document.getElementById('statsContent');
@@ -3028,13 +3190,13 @@
       const trashedCount = projects.filter(p => p.trashed).length;
 
       container.innerHTML = `
-        <div class="project-card" style="cursor:default">
+        <div class="project-card clickable" onclick="showProjectsByFilter('progress')" title="查看进行中的项目">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <div><div class="stage-label">进行中的项目</div><div class="stage-desc">正在制作的内容</div></div>
             <div style="font-size:var(--text-2xl);font-weight:700;color:var(--accent-coral)">${inProgress}</div>
           </div>
         </div>
-        <div class="project-card" style="cursor:default">
+        <div class="project-card clickable" onclick="showProjectsByFilter('completed')" title="查看已完成的项目">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <div><div class="stage-label">已完成</div><div class="stage-desc">全流程完成的项目</div></div>
             <div style="font-size:var(--text-2xl);font-weight:700;color:var(--accent-teal)">${completed}</div>
@@ -3474,13 +3636,13 @@
     const DEFAULT_DEALS = [
       {
         id: 'd1', brand: '极客数码', product: '旗舰降噪耳机评测',
-        platforms: ['xhs', 'bilibili'], start: getTodayOffsetStr(1), end: getTodayOffsetStr(5),
+        platforms: ['xhs', 'bilibili'], date: getTodayOffsetStr(1),
         quote: 8000, status: 'producing', paid: 'unpaid', linkedProjectId: 'p1',
         note: '需横评3款竞品，15天内交付', created: Date.now() - 86400000 * 2
       },
       {
         id: 'd2', brand: '光影科技', product: '便携投影仪种草',
-        platforms: ['douyin', 'weixin'], start: getTodayOffsetStr(8), end: getTodayOffsetStr(12),
+        platforms: ['douyin', 'weixin'], date: getTodayOffsetStr(8),
         quote: 12000, status: 'accepted', paid: 'unpaid', linkedProjectId: '',
         note: '双平台投放，含脚本审核', created: Date.now() - 86400000
       }
@@ -3490,7 +3652,10 @@
     function saveDeals(d) { Store.set('deals', d); }
     function ensureDealIds() {
       const deals = getDeals(); let changed = false;
-      deals.forEach(d => { if (!d.id) { d.id = genDealId(); changed = true; } });
+      deals.forEach(d => {
+        if (!d.id) { d.id = genDealId(); changed = true; }
+        if (!d.date && d.start) { d.date = d.start; changed = true; }
+      });
       if (changed) saveDeals(deals);
     }
     function genDealId() { return 'd' + Date.now() + Math.random().toString(36).slice(2, 7); }
@@ -3509,8 +3674,8 @@
       const y = now.getFullYear(), m = now.getMonth();
       const inProgress = deals.filter(d => ['contact', 'accepted', 'producing', 'published'].includes(d.status));
       const monthDeals = deals.filter(d => {
-        if (!d.start) return false;
-        const sd = new Date(d.start);
+        if (!d.date) return false;
+        const sd = new Date(d.date);
         return sd.getFullYear() === y && sd.getMonth() === m;
       });
       const monthIncome = monthDeals.reduce((s, d) => s + (Number(d.quote) || 0), 0);
@@ -3545,10 +3710,10 @@
         const st = DEAL_STATUS_MAP[d.status] || DEAL_STATUS[0];
         const pfTags = (d.platforms || []).map(k => {
           const p = PLATFORM_CONFIG.find(x => x.key === k);
-          return p ? `<span class="deal-pf-tag" style="--pf:${p.color}">${p.icon} ${p.name}</span>` : '';
+          return p ? `<span class="deal-pf-tag">${p.name}</span>` : '';
         }).join('');
         const linked = d.linkedProjectId ? getProjects().find(x => x.id === d.linkedProjectId) : null;
-        const dateStr = (d.start && d.end) ? `${d.start} ~ ${d.end}` : (d.start || d.end || '未设档期');
+        const dateStr = d.date || d.start || '未设档期';
         return `
           <div class="deal-card">
             <div class="deal-card-head">
@@ -3562,6 +3727,7 @@
             <div class="deal-card-meta">
               <span class="deal-status-pill" style="background:${st.color}1a;color:${st.color}">${st.label}</span>
               <span class="deal-quote">¥${(Number(d.quote) || 0).toLocaleString()}</span>
+              ${d.rebateEnabled && d.rebateAmount ? `<span class="deal-rebate">返 ¥${Number(d.rebateAmount).toLocaleString()}</span>` : ''}
             </div>
             <div class="deal-pf-row">${pfTags}</div>
             <div class="deal-card-foot">
@@ -3590,9 +3756,10 @@
       document.getElementById('dealId').value = '';
       document.getElementById('dealBrand').value = '';
       document.getElementById('dealProduct').value = '';
-      document.getElementById('dealStart').value = '';
-      document.getElementById('dealEnd').value = '';
+      document.getElementById('dealDate').value = '';
       document.getElementById('dealQuote').value = '';
+      document.getElementById('dealRebateEnabled').checked = false;
+      document.getElementById('dealRebateAmount').value = '';
       document.getElementById('dealStatus').value = 'contact';
       document.getElementById('dealPaid').value = 'unpaid';
       document.getElementById('dealNote').value = '';
@@ -3600,7 +3767,7 @@
 
       const pfWrap = document.getElementById('dealPfChecks');
       pfWrap.innerHTML = PLATFORM_CONFIG.map(p =>
-        `<label class="deal-pf-check"><input type="checkbox" value="${p.key}"> ${p.icon} ${p.name}</label>`
+        `<label class="deal-pf-check"><input type="checkbox" value="${p.key}"> ${p.name}</label>`
       ).join('');
 
       const linkedSel = document.getElementById('dealLinked');
@@ -3616,9 +3783,10 @@
           document.getElementById('dealId').value = d.id;
           document.getElementById('dealBrand').value = d.brand || '';
           document.getElementById('dealProduct').value = d.product || '';
-          document.getElementById('dealStart').value = d.start || '';
-          document.getElementById('dealEnd').value = d.end || '';
+          document.getElementById('dealDate').value = d.date || d.start || '';
           document.getElementById('dealQuote').value = d.quote || '';
+          document.getElementById('dealRebateEnabled').checked = !!d.rebateEnabled;
+          document.getElementById('dealRebateAmount').value = d.rebateAmount || '';
           document.getElementById('dealStatus').value = d.status || 'contact';
           document.getElementById('dealPaid').value = d.paid || 'unpaid';
           document.getElementById('dealNote').value = d.note || '';
@@ -3641,9 +3809,10 @@
       if (!brand && !product) { alert('请至少填写品牌或产品'); return; }
       const id = document.getElementById('dealId').value;
       const platforms = Array.from(document.querySelectorAll('#dealPfChecks input:checked')).map(cb => cb.value);
-      const start = document.getElementById('dealStart').value;
-      const end = document.getElementById('dealEnd').value;
+      const date = document.getElementById('dealDate').value;
       const quote = Number(document.getElementById('dealQuote').value) || 0;
+      const rebateEnabled = document.getElementById('dealRebateEnabled').checked;
+      const rebateAmount = rebateEnabled ? (Number(document.getElementById('dealRebateAmount').value) || 0) : 0;
       const status = document.getElementById('dealStatus').value;
       const paid = document.getElementById('dealPaid').value;
       const linkedProjectId = document.getElementById('dealLinked').value;
@@ -3653,18 +3822,18 @@
       const deals = getDeals();
       if (id) {
         const d = deals.find(x => x.id === id);
-        if (d) Object.assign(d, { brand, product, platforms, start, end, quote, status, paid, linkedProjectId, note });
+        if (d) Object.assign(d, { brand, product, platforms, date, quote, rebateEnabled, rebateAmount, status, paid, linkedProjectId, note });
       } else {
-        deals.push({ id: genDealId(), brand, product, platforms, start, end, quote, status, paid, linkedProjectId, note, created: Date.now() });
+        deals.push({ id: genDealId(), brand, product, platforms, date, quote, rebateEnabled, rebateAmount, status, paid, linkedProjectId, note, created: Date.now() });
       }
       saveDeals(deals);
 
-      if (syncCal && start) {
+      if (syncCal && date) {
         const events = getEvents();
         const title = (brand || '') + (product ? ' · ' + product : '') + ' 商单';
         events.push({
-          id: 'e' + Date.now(), title, type: 'deal', date: start,
-          timeStart: '', timeEnd: '', note: '商单档期' + (end ? ' 至 ' + end : ''),
+          id: 'e' + Date.now(), title, type: 'deal', date,
+          timeStart: '', timeEnd: '', note: '商单档期',
           dealId: id || (deals[deals.length - 1] && deals[deals.length - 1].id) || genDealId(), created: Date.now()
         });
         saveEvents(events);
@@ -3819,9 +3988,9 @@
         const st = DEAL_STATUS_MAP[d.status] || DEAL_STATUS[0];
         const pfTags = (d.platforms || []).map(k => {
           const p = PLATFORM_CONFIG.find(x => x.key === k);
-          return p ? `<span class="arch-pf-chip" style="--pf:${p.color}">${p.icon}${p.name}</span>` : '';
+          return p ? `<span class="arch-pf-chip">${p.name}</span>` : '';
         }).join('');
-        const dateRng = (d.start && d.end) ? `${d.start} ~ ${d.end}` : (d.start || d.end || '');
+        const dateRng = d.date || d.start || '';
         return `
           <div class="arch-task-card">
             <div class="arch-task-date">${dateStr}</div>
