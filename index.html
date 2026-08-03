@@ -498,7 +498,7 @@
     }
     .project-action-btn:hover { background: rgba(0,0,0,0.08); color: var(--text-secondary); }
     .project-action-btn.delete:hover { color: var(--accent-red); background: rgba(224,85,85,0.08); }
-    .project-action-btn.hide:hover { color: var(--accent-violet); background: rgba(155,142,221,0.12); }
+    .project-action-btn.archive:hover { color: var(--accent-violet); background: rgba(155,142,221,0.12); }
 
     /* Stage Progress */
     /* Stage Progress — Horizontal Compact Stepper */
@@ -563,7 +563,7 @@
     }
 
     /* Hidden task list (in modal) */
-    /* ── Archive Page (已隐藏 · 按时间归档) ── */
+    /* ── Archive Page (已归档 · 按时间归档) ── */
     .archive-page {
       position: fixed; inset: 0; z-index: 200;
       background: rgba(238, 233, 226, 0.74);
@@ -2056,7 +2056,7 @@
       <div class="archive-header">
         <button class="archive-back" onclick="closeArchive()">‹ 返回</button>
         <div class="archive-title-wrap">
-          <h2 class="archive-title">🙈 已隐藏的视频任务</h2>
+          <h2 class="archive-title">📦 已归档的视频任务</h2>
           <span class="archive-sub">按时间归档 · 点击左侧月份可筛选</span>
         </div>
         <span class="archive-count" id="archiveCount">0 个</span>
@@ -2393,9 +2393,9 @@
         if (trashedCount > 0 && hiddenCount === 0) {
           container.innerHTML = '<p class="empty-state">已删除的任务都在回收站里 ♻️（共 ' + trashedCount + ' 个），30天内可找回</p>';
         } else if (hiddenCount > 0 && trashedCount > 0) {
-          container.innerHTML = '<p class="empty-state">任务都已收起或移入回收站啦～ 在下方「本周概览」可找回 👀🗑️</p>';
+          container.innerHTML = '<p class="empty-state">任务都已归档或移入回收站啦～ 在下方「本周概览」可找回 👀🗑️</p>';
         } else {
-          container.innerHTML = '<p class="empty-state">所有任务都已隐藏啦～ 在下方「本周概览 · 已隐藏」里可以找回 👀（共 ' + hiddenCount + ' 个）</p>';
+          container.innerHTML = '<p class="empty-state">所有任务都已归档啦～ 在下方「本周概览 · 已归档」里可以找回 👀（共 ' + hiddenCount + ' 个）</p>';
         }
         return;
       }
@@ -2434,7 +2434,7 @@
                 </div>
                 <div class="project-actions">
                   <button class="project-action-btn" onclick="showEditProjectModal('${p.id}')" title="编辑">✏️</button>
-                  <button class="project-action-btn hide" onclick="hideProject('${p.id}')" title="隐藏此任务">🙈</button>
+                  <button class="project-action-btn archive" onclick="archiveProject('${p.id}')" title="归档此任务">📦</button>
                   <button class="project-action-btn delete" onclick="trashProject('${p.id}')" title="移入回收站">🗑️</button>
                 </div>
               </div>
@@ -2597,7 +2597,7 @@
     });
 
     // Hide / unhide a project
-    function hideProject(pid) {
+    function archiveProject(pid) {
       const projects = getProjects();
       const p = projects.find(x => x.id === pid);
       if (p) {
@@ -2608,7 +2608,7 @@
         renderStats();
       }
     }
-    function unhideProject(pid) {
+    function unarchiveProject(pid) {
       const projects = getProjects();
       const p = projects.find(x => x.id === pid);
       if (p) {
@@ -2663,6 +2663,8 @@
       document.getElementById('projNote').value = '';
       renderProjPfChecks([]);
       document.getElementById('projectModal').classList.add('show');
+      projectModalArmed = false;
+      setTimeout(() => { projectModalArmed = true; }, 300);
     }
 
     function showEditProjectModal(pid) {
@@ -2674,8 +2676,13 @@
       document.getElementById('projNote').value = p.note || '';
       renderProjPfChecks(p.platforms || []);
       document.getElementById('projectModal').classList.add('show');
+      projectModalArmed = false;
+      setTimeout(() => { projectModalArmed = true; }, 300);
     }
 
+    // 弹窗守卫：打开后 300ms 内忽略遮罩点击，避免 webview 把"打开弹窗"的手势误判为"点击遮罩关闭"
+    let projectModalArmed = false;
+    let eventModalArmed = false;
     function closeProjectModal() { document.getElementById('projectModal').classList.remove('show'); }
 
     function saveProject() {
@@ -3030,9 +3037,9 @@
             <div style="font-size:var(--text-2xl);font-weight:700;color:var(--accent-teal)">${completed}</div>
           </div>
         </div>
-        <div class="project-card clickable" onclick="openArchive()" title="查看已隐藏的任务">
+        <div class="project-card clickable" onclick="openArchive()" title="查看已归档的任务">
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <div><div class="stage-label">🙈 已隐藏</div><div class="stage-desc">收起的视频任务</div></div>
+            <div><div class="stage-label">📦 已归档</div><div class="stage-desc">归档的视频任务</div></div>
             <div style="font-size:var(--text-2xl);font-weight:700;color:var(--accent-violet)">${hiddenCount}</div>
           </div>
         </div>
@@ -3101,7 +3108,7 @@
       }
 
       if (showList.length === 0) {
-        container.innerHTML = '<p class="empty-state">暂时没有隐藏的任务～</p>';
+        container.innerHTML = '<p class="empty-state">暂时没有归档的任务～</p>';
         return;
       }
 
@@ -3119,7 +3126,7 @@
               <div class="arch-task-meta">归档进度 ${pct}%</div>
               <div class="arch-task-progress"><div class="arch-task-progress-fill ${pct === 100 ? 'full' : ''}" style="width:${pct}%"></div></div>
             </div>
-            <button class="hidden-restore-btn" onclick="unhideProject('${p.id}')">👁️ 恢复</button>
+            <button class="hidden-restore-btn" onclick="unarchiveProject('${p.id}')">👁️ 恢复</button>
           </div>`;
       }).join('');
     }
@@ -3405,6 +3412,8 @@
         }
       }
       document.getElementById('eventModal').classList.add('show');
+      eventModalArmed = false;
+      setTimeout(() => { eventModalArmed = true; }, 300);
     }
     function editEvent(id) { showEventModal(id); }
 
@@ -4152,8 +4161,8 @@
       });
 
       // Close modals on overlay click
-      document.getElementById('eventModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeEventModal(); });
-      document.getElementById('projectModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeProjectModal(); });
+      document.getElementById('eventModal').addEventListener('click', e => { if (eventModalArmed && e.target === e.currentTarget) closeEventModal(); });
+      document.getElementById('projectModal').addEventListener('click', e => { if (projectModalArmed && e.target === e.currentTarget) closeProjectModal(); });
     });
   </script>
   <script>
