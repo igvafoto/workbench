@@ -4176,8 +4176,9 @@
       });
 
       // Close modals on overlay click
-      document.getElementById('eventModal').addEventListener('click', e => { if (eventModalArmed && e.target === e.currentTarget) closeEventModal(); });
-      document.getElementById('projectModal').addEventListener('click', e => { if (projectModalArmed && e.target === e.currentTarget) closeProjectModal(); });
+      // 弹窗关闭统一由按钮触发（取消 / 保存 / ✕），不再监听遮罩点击。
+      // 受限 webview 会把"打开弹窗"的点击手势重派发到全屏遮罩，导致误关弹窗。
+
     });
   </script>
   <script>
