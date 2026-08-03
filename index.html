@@ -2389,9 +2389,9 @@
       const dow = ['日','一','二','三','四','五','六'];
       const today = new Date();
       const todayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
-      let h = '<div class="dp-header"><button type="button" class="dp-nav" onclick="dpShift(-1)">‹</button>'
+      let h = '<div class="dp-header"><button type="button" class="dp-nav" onclick="dpShift(-1, event)">‹</button>'
             + '<span class="dp-title">' + y + '年 ' + (m + 1) + '月</span>'
-            + '<button type="button" class="dp-nav" onclick="dpShift(1)">›</button></div>';
+            + '<button type="button" class="dp-nav" onclick="dpShift(1, event)">›</button></div>';
       h += '<div class="dp-grid">';
       dow.forEach(d => { h += '<div class="dp-dow">' + d + '</div>'; });
       for (let i = 0; i < startDow; i++) h += '<div class="dp-day empty"></div>';
@@ -2407,7 +2407,8 @@
          + '</div>';
       pop.innerHTML = h;
     }
-    function dpShift(dir) {
+    function dpShift(dir, ev) {
+      if (ev && ev.stopPropagation) ev.stopPropagation();
       dpState.m += dir;
       if (dpState.m < 0) { dpState.m = 11; dpState.y--; }
       else if (dpState.m > 11) { dpState.m = 0; dpState.y++; }
