@@ -1271,6 +1271,83 @@
     }
     .pub-archive-entry:hover { background: var(--glass-bg-hover); border-color: var(--glass-border-hover); }
 
+    /* ===== PROJECT PLATFORM CHIPS ===== */
+    .project-platforms {
+      display: flex; flex-wrap: wrap; align-items: center;
+      gap: var(--space-2); margin-top: var(--space-3);
+    }
+    .proj-pf-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 10px; border-radius: var(--radius-full);
+      font-family: var(--font-family); font-size: 12px; font-weight: 600;
+      background: rgba(255,255,255,0.45); border: 1px solid var(--glass-border);
+      color: var(--text-muted); cursor: pointer;
+      transition: all 0.25s var(--ease-spring);
+      user-select: none;
+    }
+    .proj-pf-chip:hover { transform: translateY(-1px); border-color: var(--glass-border-hover); background: rgba(255,255,255,0.65); }
+    .proj-pf-chip .pf-ic { font-size: 13px; filter: grayscale(1) opacity(0.5); transition: filter 0.25s; }
+    .proj-pf-chip.on { background: var(--pf); color: #fff; border-color: transparent; box-shadow: 0 3px 10px rgba(0,0,0,0.12); }
+    .proj-pf-chip.on .pf-ic { filter: none; }
+    .proj-pf-checks { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+    .proj-pf-check { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-sm); color: var(--text-secondary); cursor: pointer; }
+    .proj-pf-check input { accent-color: var(--accent-coral); }
+
+    /* ===== GEAR — 器材库 ===== */
+    .gear-container { display: flex; flex-direction: column; gap: var(--space-4); }
+    .gear-content-area { padding: var(--space-5); }
+    .gear-content-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-5); flex-wrap: wrap; gap: var(--space-3); }
+    .gear-title { font-size: var(--text-lg); font-weight: 600; color: var(--text-primary); }
+    .gear-hint { font-size: var(--text-xs); color: var(--text-muted); font-weight: 500; display: block; margin-top: 2px; }
+    .gear-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: var(--space-3); margin-bottom: var(--space-5); }
+    .gear-stat-card {
+      background: var(--glass-bg); backdrop-filter: blur(var(--blur-lg)) saturate(2.2);
+      -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(2.2);
+      border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+      padding: var(--space-4); text-align: center; box-shadow: var(--shadow-sm);
+    }
+    .gear-stat-label { font-size: var(--text-xs); color: var(--text-secondary); font-weight: 500; margin-bottom: var(--space-2); }
+    .gear-stat-num { font-size: var(--text-xl); font-weight: 700; color: var(--text-primary); }
+    .gear-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-4); }
+    .gear-card {
+      background: rgba(255,255,255,0.5); border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md); padding: var(--space-4) var(--space-5);
+      transition: all 0.3s var(--ease-glass); position: relative;
+    }
+    .gear-card:hover { box-shadow: var(--shadow-sm); border-color: var(--glass-border-hover); transform: translateY(-2px); }
+    .gear-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-3); margin-bottom: var(--space-3); }
+    .gear-card-title { font-size: var(--text-base); font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+    .gear-card-actions { display: flex; gap: 4px; flex-shrink: 0; }
+    .gear-card-action {
+      width: 28px; height: 28px; border-radius: var(--radius-sm); border: none;
+      background: transparent; cursor: pointer; font-size: 14px; color: var(--text-muted);
+      transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center;
+    }
+    .gear-card-action:hover { background: rgba(0,0,0,0.05); color: var(--accent-coral); }
+    .gear-card-meta { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+    .gear-card-badge {
+      display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px;
+      border-radius: var(--radius-full); font-size: 11px; font-weight: 600;
+      background: rgba(255,255,255,0.55); border: 1px solid var(--glass-border); color: var(--text-secondary);
+    }
+    .gear-card-badge.status-active { background: rgba(81,207,102,0.14); color: var(--accent-green); border-color: rgba(81,207,102,0.25); }
+    .gear-card-badge.status-lent { background: rgba(167,139,250,0.14); color: var(--accent-violet); border-color: rgba(167,139,250,0.25); }
+    .gear-card-badge.status-idle { background: rgba(245,200,66,0.14); color: #d4a017; border-color: rgba(245,200,66,0.25); }
+    .gear-card-badge.status-sold { background: rgba(107,114,128,0.12); color: var(--text-muted); border-color: rgba(107,114,128,0.2); }
+    .gear-card-note { font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.45; }
+    .gear-add-entry {
+      display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+      width: 100%; padding: var(--space-4);
+      font-family: var(--font-family); font-size: var(--text-sm); font-weight: 600;
+      color: var(--accent-coral); background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur-lg)) saturate(2.2);
+      -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(2.2);
+      border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+      cursor: pointer; transition: all 0.3s var(--ease-glass);
+    }
+    .gear-add-entry:hover { background: var(--glass-bg-hover); border-color: var(--glass-border-hover); }
+    .gear-empty { text-align: center; padding: var(--space-12) var(--space-4); color: var(--text-muted); }
+
     /* ===== DEALS — 商单管理 ===== */
     .deal-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-bottom: var(--space-5); }
     .deal-stat-card {
@@ -1622,8 +1699,8 @@
       <button class="tab-btn" data-tab="memos" role="tab" aria-selected="false">
         <span class="tab-icon">📝</span> 备忘录
       </button>
-      <button class="tab-btn" data-tab="publish" role="tab" aria-selected="false">
-        <span class="tab-icon">📤</span> 发布
+      <button class="tab-btn" data-tab="gear" role="tab" aria-selected="false">
+        <span class="tab-icon">📷</span> 器材
       </button>
       <button class="tab-btn" data-tab="deals" role="tab" aria-selected="false">
         <span class="tab-icon">💰</span> 商单
@@ -1729,19 +1806,20 @@
       </main>
     </div>
 
-    <!-- Tab Panel: Publish -->
-    <div class="tab-panel" id="panel-publish" role="tabpanel">
-      <div class="publish-container">
-        <div class="glass pub-content-area" style="position:relative">
-          <div class="pub-content-header">
-            <h3 class="pub-platform-title">📤 发布管理</h3>
-            <span class="pub-hint">点击平台按钮点亮「已发布」</span>
+    <!-- Tab Panel: Gear -->
+    <div class="tab-panel" id="panel-gear" role="tabpanel">
+      <div class="gear-container">
+        <div class="glass gear-content-area" style="position:relative">
+          <div class="gear-content-header">
+            <div>
+              <h3 class="gear-title">📷 器材库</h3>
+              <span class="gear-hint">管理你的数码设备</span>
+            </div>
           </div>
-          <div class="pub-list" id="pubTaskList"></div>
+          <div class="gear-stats" id="gearStats"></div>
+          <div class="gear-list" id="gearList"></div>
         </div>
-        <button class="pub-archive-entry" onclick="openPubArchive()">
-          📦 已归档发布（<span id="pubArchiveCount">0</span>）
-        </button>
+        <button class="gear-add-entry" onclick="showGearModal()">＋ 添加设备</button>
       </div>
     </div>
 
@@ -1826,10 +1904,74 @@
         <label class="form-label" for="projNote">备注</label>
         <textarea class="form-textarea" id="projNote" placeholder="可选描述..."></textarea>
       </div>
+      <div class="form-group">
+        <label class="form-label">发布平台</label>
+        <div class="proj-pf-checks" id="projPfChecks"></div>
+      </div>
       </div>
       <div class="modal-actions">
         <button class="btn btn-secondary" onclick="closeProjectModal()">取消</button>
         <button class="btn btn-primary" onclick="saveProject()">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gear Modal -->
+  <div class="modal-overlay" id="gearModal">
+    <div class="modal-content">
+      <h3 class="modal-title" id="gearModalTitle">添加设备</h3>
+      <div class="modal-scroll-body">
+        <input type="hidden" id="gearId">
+        <div class="form-group">
+          <label class="form-label" for="gearName">设备名称</label>
+          <input type="text" class="form-input" id="gearName" placeholder="例如：Sony A7V">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="gearType">类型</label>
+            <select class="form-select" id="gearType">
+              <option value="camera">📷 相机</option>
+              <option value="lens">🔍 镜头</option>
+              <option value="phone">📱 手机</option>
+              <option value="computer">💻 电脑</option>
+              <option value="tablet">📟 平板</option>
+              <option value="drone">🚁 无人机</option>
+              <option value="gimbal">🎥 稳定器</option>
+              <option value="mic">🎙️ 麦克风</option>
+              <option value="light">💡 灯光</option>
+              <option value="watch">⌚ 手表</option>
+              <option value="earphone">🎧 耳机</option>
+              <option value="other">🧰 其他</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="gearStatus">状态</label>
+            <select class="form-select" id="gearStatus">
+              <option value="active">✅ 在用</option>
+              <option value="lent">🤝 出借</option>
+              <option value="idle">😴 闲置</option>
+              <option value="sold">💸 已售</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="gearDate">购买日期</label>
+            <input type="date" class="form-input" id="gearDate">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="gearPrice">价格（元）</label>
+            <input type="number" class="form-input" id="gearPrice" placeholder="0" min="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="gearNote">备注</label>
+          <textarea class="form-textarea" id="gearNote" placeholder="型号、配置、购买渠道等..."></textarea>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" onclick="closeGearModal()">取消</button>
+        <button class="btn btn-primary" onclick="saveGear()">保存</button>
       </div>
     </div>
   </div>
@@ -2019,24 +2161,6 @@
     </div>
   </div>
 
-  <!-- Publish Archive Page (已归档发布) -->
-  <div class="archive-page" id="pubArchivePage">
-    <div class="archive-inner">
-      <div class="archive-header">
-        <button class="archive-back" onclick="closePubArchive()">‹ 返回</button>
-        <div class="archive-title-wrap">
-          <h2 class="archive-title">📦 已归档发布</h2>
-          <span class="archive-sub">已归档的发布任务 · 按时间整理，可随时恢复</span>
-        </div>
-        <span class="archive-count" id="pubArchiveTotal" style="color:var(--accent-teal)">0 个</span>
-      </div>
-      <div class="archive-body">
-        <aside class="archive-timeline" id="pubArchiveTimeline"></aside>
-        <div class="archive-tasks" id="pubArchiveTasks"></div>
-      </div>
-    </div>
-  </div>
-
   <script>
     // ========================================
     // DATA STORE
@@ -2106,18 +2230,27 @@
       {
         id: 'p1', title: 'iPhone 17 Pro Max 深度评测', note: '重点测试影像系统',
         stages: { script: 'done', shoot: 'done', edit: 'done', cover: 'done', publish: 'done' },
+        platforms: ['xhs', 'bilibili', 'douyin'],
+        published: { xhs: true, bilibili: true, douyin: false },
+        publishedAt: { xhs: Date.now() - 86400000, bilibili: Date.now() - 86400000 },
         targetDate: getTodayOffset(2),
         created: Date.now() - 86400000 * 3
       },
       {
         id: 'p2', title: 'Sony A7V 开箱上手', note: '',
         stages: { script: 'done', shoot: 'done', edit: 'active', cover: 'pending', publish: 'pending' },
+        platforms: ['xhs', 'weibo'],
+        published: {},
+        publishedAt: {},
         targetDate: getTodayOffset(5),
         created: Date.now() - 86400000
       },
       {
         id: 'p3', title: 'AirPods Pro 3 对比测评', note: '和上一代对比',
         stages: { script: 'pending', shoot: 'pending', edit: 'pending', cover: 'pending', publish: 'pending' },
+        platforms: [],
+        published: {},
+        publishedAt: {},
         targetDate: null,
         created: Date.now()
       }
@@ -2188,7 +2321,7 @@
         document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
         document.getElementById(`panel-${btn.dataset.tab}`).classList.add('active');
         if (btn.dataset.tab === 'calendar') renderCalendar();
-        if (btn.dataset.tab === 'publish') { renderPubTasks(); }
+        if (btn.dataset.tab === 'gear') { renderGear(); }
         if (btn.dataset.tab === 'deals') { renderDeals(); }
         if (btn.dataset.tab === 'memos') { renderNotes(); }
         if (btn.dataset.tab === 'workspace') { renderProjects(); }
@@ -2214,7 +2347,7 @@
     function rerenderActiveTab() {
       const tab = activeTab();
       if (tab === 'calendar') renderCalendar();
-      else if (tab === 'publish') renderPubTasks();
+      else if (tab === 'gear') renderGear();
       else if (tab === 'deals') renderDeals();
       else if (tab === 'memos') renderNotes();
       else { renderProjects(); }
@@ -2311,8 +2444,35 @@
             <div class="project-progress">
               <div class="project-progress-fill" style="width:${pct}%"></div>
             </div>
+            ${renderProjectPlatforms(p)}
           </div>`;
       }).join('');
+    }
+
+    function renderProjectPlatforms(p) {
+      const platforms = p.platforms || [];
+      if (!platforms.length) return '';
+      const chips = platforms.map(key => {
+        const pf = PLATFORM_CONFIG.find(x => x.key === key);
+        if (!pf) return '';
+        const on = p.published && p.published[key];
+        return `<button type="button" class="proj-pf-chip ${on ? 'on' : ''}" style="--pf:${pf.color}" onclick="toggleProjectPlatform('${p.id}','${pf.key}')" title="${on ? '已发布' : '未发布'}：${pf.name}"><span class="pf-ic">${pf.icon}</span>${pf.name}</button>`;
+      }).join('');
+      return `<div class="project-platforms">${chips}</div>`;
+    }
+
+    function toggleProjectPlatform(pid, key) {
+      const projects = getProjects();
+      const p = projects.find(x => x.id === pid);
+      if (!p) return;
+      if (!p.published) p.published = {};
+      if (!p.publishedAt) p.publishedAt = {};
+      const on = !p.published[key];
+      p.published[key] = on;
+      if (on) p.publishedAt[key] = Date.now();
+      else delete p.publishedAt[key];
+      saveProjects(projects);
+      renderProjects();
     }
 
     // Cycle stage: pending → active → done → pending
@@ -2327,8 +2487,6 @@
         saveProjects(projects);
         renderProjects();
         renderStats();
-        // Auto-init publish state when a task becomes fully completed
-        ensurePubState();
       }
     }
 
@@ -2489,11 +2647,21 @@
       saveEvents(filtered);
     }
 
+    function renderProjPfChecks(selected) {
+      const wrap = document.getElementById('projPfChecks');
+      const set = new Set(selected || []);
+      wrap.innerHTML = PLATFORM_CONFIG.map(pf => `
+        <label class="proj-pf-check">
+          <input type="checkbox" value="${pf.key}" ${set.has(pf.key) ? 'checked' : ''}> ${pf.icon} ${pf.name}
+        </label>`).join('');
+    }
+
     function showAddProjectModal() {
       document.getElementById('projModalTitle').textContent = '新建视频项目';
       document.getElementById('projectId').value = '';
       document.getElementById('projTitle').value = '';
       document.getElementById('projNote').value = '';
+      renderProjPfChecks([]);
       document.getElementById('projectModal').classList.add('show');
     }
 
@@ -2504,6 +2672,7 @@
       document.getElementById('projectId').value = pid;
       document.getElementById('projTitle').value = p.title;
       document.getElementById('projNote').value = p.note || '';
+      renderProjPfChecks(p.platforms || []);
       document.getElementById('projectModal').classList.add('show');
     }
 
@@ -2514,15 +2683,26 @@
       if (!title) return;
       const note = document.getElementById('projNote').value.trim();
       const id = document.getElementById('projectId').value;
+      const platforms = Array.from(document.querySelectorAll('#projPfChecks input:checked')).map(cb => cb.value);
       const projects = getProjects();
 
       if (id) {
         const p = projects.find(x => x.id === id);
-        if (p) { p.title = title; p.note = note; }
+        if (p) {
+          p.title = title; p.note = note; p.platforms = platforms;
+          // 清理已移除平台的发布记录
+          if (p.published) {
+            Object.keys(p.published).forEach(k => { if (!platforms.includes(k)) delete p.published[k]; });
+          }
+          if (p.publishedAt) {
+            Object.keys(p.publishedAt).forEach(k => { if (!platforms.includes(k)) delete p.publishedAt[k]; });
+          }
+        }
       } else {
         projects.unshift({
-          id: 'p' + Date.now(), title, note,
+          id: 'p' + Date.now(), title, note, platforms,
           stages: { script: false, shoot: false, edit: false, cover: false, publish: false },
+          published: {}, publishedAt: {},
           created: Date.now()
         });
       }
@@ -2530,8 +2710,6 @@
       closeProjectModal();
       renderProjects();
       renderStats();
-      // Initialise publish state for the new project
-      ensurePubState();
     }
 
     // ── Trash / Recycle Bin ──
@@ -2688,183 +2866,142 @@
     }
 
     // ========================================
-    // PUBLISH MANAGEMENT — Independent System
+    // GEAR MANAGEMENT — 器材库
     // ========================================
 
-    // ========================================
-    // PUBLISH — task-centric, platform toggle grid
-    // Each fully-completed creation task (all 4 stages done) auto-appears here.
-    // Per-task platform publish state lives on the project:
-    //   p.published{ key: bool }, p.publishedAt{ key: ts }, p.pubArchived, p.pubArchivedAt
-    // ========================================
+    const GEAR_TYPE_CONFIG = [
+      { key: 'camera', name: '相机', icon: '📷' },
+      { key: 'lens', name: '镜头', icon: '🔍' },
+      { key: 'phone', name: '手机', icon: '📱' },
+      { key: 'computer', name: '电脑', icon: '💻' },
+      { key: 'tablet', name: '平板', icon: '📟' },
+      { key: 'drone', name: '无人机', icon: '🚁' },
+      { key: 'gimbal', name: '稳定器', icon: '🎥' },
+      { key: 'mic', name: '麦克风', icon: '🎙️' },
+      { key: 'light', name: '灯光', icon: '💡' },
+      { key: 'watch', name: '手表', icon: '⌚' },
+      { key: 'earphone', name: '耳机', icon: '🎧' },
+      { key: 'other', name: '其他', icon: '🧰' }
+    ];
+    const GEAR_STATUS_CONFIG = [
+      { key: 'active', name: '在用', cls: 'status-active' },
+      { key: 'lent', name: '出借', cls: 'status-lent' },
+      { key: 'idle', name: '闲置', cls: 'status-idle' },
+      { key: 'sold', name: '已售', cls: 'status-sold' }
+    ];
+    const DEFAULT_DEVICES = [
+      { id: 'g1', name: 'iPhone 17 Pro Max', type: 'phone', status: 'active', date: '2025-09-20', price: 9999, note: '主力拍摄手机', created: Date.now() - 86400000 * 300 },
+      { id: 'g2', name: 'Sony A7V', type: 'camera', status: 'active', date: '2024-11-11', price: 18999, note: '全画幅主力相机', created: Date.now() - 86400000 * 250 },
+      { id: 'g3', name: 'MacBook Pro 16"', type: 'computer', status: 'active', date: '2023-06-01', price: 22999, note: '剪辑主力机', created: Date.now() - 86400000 * 400 }
+    ];
 
-    let pubArchiveMonth = 'all';
+    function getDevices() { return Store.get('devices', DEFAULT_DEVICES); }
+    function saveDevices(d) { Store.set('devices', d); }
 
-    // Lazily initialise publish state for eligible (4-stage-done) projects
-    function ensurePubState() {
-      const projects = getProjects();
-      let changed = false;
-      projects.forEach(p => {
-        const allDone = STAGE_CONFIG.every(s => p.stages[s.key] === 'done');
-        if (!allDone) return;
-        if (!p.published) { p.published = {}; changed = true; }
-        if (!p.publishedAt) { p.publishedAt = {}; changed = true; }
-        PLATFORM_CONFIG.forEach(pf => {
-          if (!(pf.key in p.published)) { p.published[pf.key] = false; changed = true; }
-        });
-      });
-      if (changed) saveProjects(projects);
-    }
+    function gearTypeName(key) { const t = GEAR_TYPE_CONFIG.find(x => x.key === key); return t ? t.icon + ' ' + t.name : key; }
+    function gearStatusName(key) { const s = GEAR_STATUS_CONFIG.find(x => x.key === key); return s ? s.name : key; }
 
-    function renderPubTasks() {
-      ensurePubState();
-      const projects = getProjects();
-      let eligible = projects.filter(p =>
-        STAGE_CONFIG.every(s => p.stages[s.key] === 'done') &&
-        !p.hidden && !p.trashed && !p.pubArchived
-      );
-      if (searchTerm) eligible = filterByTerm(eligible, ['title', 'note']);
-      const container = document.getElementById('pubTaskList');
-      const acEl = document.getElementById('pubArchiveCount');
-      if (acEl) acEl.textContent = projects.filter(p => p.pubArchived).length;
+    function renderGear() {
+      const devices = getDevices();
+      let list = devices.slice().sort((a, b) => (b.created || 0) - (a.created || 0));
+      if (searchTerm) list = filterByTerm(list, ['name', 'note']);
 
-      if (eligible.length === 0) {
-        if (searchTerm) {
-          container.innerHTML = '<p class="empty-state">没有找到包含「' + escapeHtml(searchTerm) + '」的发布任务 🔍</p>';
-          return;
-        }
-        container.innerHTML = '<p class="empty-state">还没有已完成的任务～ 在创作台把「脚本 / 拍摄 / 剪辑 / 封面 / 上传」都打勾完成，就会自动出现在这里 ✨</p>';
+      // Stats
+      const stats = {
+        total: devices.length,
+        active: devices.filter(d => d.status === 'active').length,
+        lent: devices.filter(d => d.status === 'lent').length,
+        idle: devices.filter(d => d.status === 'idle').length,
+        sold: devices.filter(d => d.status === 'sold').length
+      };
+      const statsContainer = document.getElementById('gearStats');
+      if (statsContainer) {
+        statsContainer.innerHTML = [
+          { label: '设备总数', num: stats.total },
+          { label: '在用', num: stats.active, cls: 'status-active' },
+          { label: '出借', num: stats.lent, cls: 'status-lent' },
+          { label: '闲置', num: stats.idle, cls: 'status-idle' },
+          { label: '已售', num: stats.sold, cls: 'status-sold' }
+        ].map(s => `
+          <div class="gear-stat-card">
+            <div class="gear-stat-label">${s.label}</div>
+            <div class="gear-stat-num ${s.cls || ''}">${s.num}</div>
+          </div>`).join('');
+      }
+
+      const container = document.getElementById('gearList');
+      if (list.length === 0) {
+        container.innerHTML = searchTerm
+          ? '<p class="gear-empty">没有找到包含「' + escapeHtml(searchTerm) + '」的设备 🔍</p>'
+          : '<p class="gear-empty">还没有设备，点击下方按钮添加第一件器材吧～</p>';
         return;
       }
 
-      container.innerHTML = eligible.map(p => {
-        const total = PLATFORM_CONFIG.length;
-        const done = PLATFORM_CONFIG.filter(pf => p.published && p.published[pf.key]).length;
-        const btns = PLATFORM_CONFIG.map(pf => `
-          <button class="pub-pf-btn ${p.published && p.published[pf.key] ? 'on' : ''}"
-                  style="--pf:${pf.color}"
-                  onclick="togglePubPlatform('${p.id}','${pf.key}')"
-                  aria-pressed="${p.published && p.published[pf.key] ? 'true' : 'false'}"
-                  title="${pf.name}">
-            <span class="pf-ic">${pf.icon}</span>${pf.name}
-          </button>`).join('');
+      container.innerHTML = list.map(d => {
+        const type = GEAR_TYPE_CONFIG.find(x => x.key === d.type) || GEAR_TYPE_CONFIG[GEAR_TYPE_CONFIG.length - 1];
+        const status = GEAR_STATUS_CONFIG.find(x => x.key === d.status) || GEAR_STATUS_CONFIG[0];
         return `
-          <div class="pub-task-card">
-            <div class="pub-task-head">
-              <div class="pub-task-title">${escapeHtml(p.title)}</div>
-              <button class="pub-archive-btn" onclick="pubArchiveTask('${p.id}')" title="归档">📦</button>
+          <div class="gear-card">
+            <div class="gear-card-head">
+              <div class="gear-card-title">${escapeHtml(d.name)}</div>
+              <div class="gear-card-actions">
+                <button class="gear-card-action" onclick="showGearModal('${d.id}')" title="编辑">✏️</button>
+                <button class="gear-card-action" onclick="deleteGear('${d.id}')" title="删除">🗑️</button>
+              </div>
             </div>
-            <div class="pub-task-meta">${formatTime(p.created)} · 已发布 ${done}/${total} 个平台</div>
-            <div class="pub-platform-grid">${btns}</div>
+            <div class="gear-card-meta">
+              <span class="gear-card-badge">${type.icon} ${type.name}</span>
+              <span class="gear-card-badge status-${status.key}">${status.name}</span>
+              ${d.date ? `<span class="gear-card-badge">📅 ${d.date}</span>` : ''}
+              ${d.price ? `<span class="gear-card-badge">💰 ¥${Number(d.price).toLocaleString()}</span>` : ''}
+            </div>
+            ${d.note ? `<div class="gear-card-note">${escapeHtml(d.note)}</div>` : ''}
           </div>`;
       }).join('');
     }
 
-    function togglePubPlatform(pid, key) {
-      const projects = getProjects();
-      const p = projects.find(x => x.id === pid);
-      if (!p) return;
-      if (!p.published) p.published = {};
-      if (!p.publishedAt) p.publishedAt = {};
-      const on = !p.published[key];
-      p.published[key] = on;
-      if (on) p.publishedAt[key] = Date.now();
-      else delete p.publishedAt[key];
-      saveProjects(projects);
-      renderPubTasks();
+    function showGearModal(id) {
+      const isEdit = !!id;
+      const d = isEdit ? getDevices().find(x => x.id === id) : null;
+      document.getElementById('gearModalTitle').textContent = isEdit ? '编辑设备' : '添加设备';
+      document.getElementById('gearId').value = isEdit ? id : '';
+      document.getElementById('gearName').value = d ? d.name : '';
+      document.getElementById('gearType').value = d ? d.type : 'camera';
+      document.getElementById('gearStatus').value = d ? d.status : 'active';
+      document.getElementById('gearDate').value = d ? (d.date || '') : '';
+      document.getElementById('gearPrice').value = d ? (d.price || '') : '';
+      document.getElementById('gearNote').value = d ? (d.note || '') : '';
+      document.getElementById('gearModal').classList.add('show');
     }
+    function closeGearModal() { document.getElementById('gearModal').classList.remove('show'); }
 
-    function pubArchiveTask(pid) {
-      const projects = getProjects();
-      const p = projects.find(x => x.id === pid);
-      if (!p) return;
-      p.pubArchived = true;
-      p.pubArchivedAt = Date.now();
-      saveProjects(projects);
-      renderPubTasks();
-    }
+    function saveGear() {
+      const name = document.getElementById('gearName').value.trim();
+      if (!name) { alert('请填写设备名称'); return; }
+      const type = document.getElementById('gearType').value;
+      const status = document.getElementById('gearStatus').value;
+      const date = document.getElementById('gearDate').value;
+      const price = Number(document.getElementById('gearPrice').value) || 0;
+      const note = document.getElementById('gearNote').value.trim();
+      const id = document.getElementById('gearId').value;
+      const devices = getDevices();
 
-    function openPubArchive() {
-      pubArchiveMonth = 'all';
-      renderPubArchive();
-      document.getElementById('pubArchivePage').classList.add('show');
-    }
-    function closePubArchive() {
-      document.getElementById('pubArchivePage').classList.remove('show');
-    }
-    function setPubArchiveMonth(key) { pubArchiveMonth = key; renderPubArchive(); }
-
-    function renderPubArchive() {
-      const projects = getProjects();
-      const archived = projects.filter(p => p.pubArchived);
-      const container = document.getElementById('pubArchiveTasks');
-      const timeline = document.getElementById('pubArchiveTimeline');
-      if (!container) return;
-
-      const monthMap = {};
-      archived.forEach(p => {
-        const t = p.pubArchivedAt || p.created;
-        const d = new Date(t);
-        const key = d.getFullYear() + '-' + (d.getMonth() + 1);
-        if (!monthMap[key]) monthMap[key] = { key, year: d.getFullYear(), month: d.getMonth() + 1, list: [] };
-        monthMap[key].list.push(p);
-      });
-      const months = Object.values(monthMap).sort((a, b) => b.key.localeCompare(a.key));
-      months.forEach(m => m.list.sort((a, b) => (b.pubArchivedAt || b.created) - (a.pubArchivedAt || a.created)));
-
-      const totalEl = document.getElementById('pubArchiveTotal');
-      if (totalEl) totalEl.textContent = archived.length + ' 个';
-      const acEl = document.getElementById('pubArchiveCount');
-      if (acEl) acEl.textContent = archived.length;
-
-      const tlItems = [{ key: 'all', label: '全部', count: archived.length }].concat(
-        months.map(m => ({ key: m.key, label: m.year + '年' + m.month + '月', count: m.list.length }))
-      );
-      timeline.innerHTML = tlItems.map(it => `
-        <button class="tl-item ${pubArchiveMonth === it.key ? 'active' : ''}" onclick="setPubArchiveMonth('${it.key}')">
-          <span class="tl-dot"></span>
-          <span class="tl-label">${it.label}</span>
-          <span class="tl-count">${it.count}</span>
-        </button>`).join('');
-
-      let showList;
-      if (pubArchiveMonth === 'all') showList = archived.slice().sort((a, b) => (b.pubArchivedAt || b.created) - (a.pubArchivedAt || a.created));
-      else { const m = months.find(x => x.key === pubArchiveMonth); showList = m ? m.list : []; }
-
-      if (showList.length === 0) {
-        container.innerHTML = '<p class="empty-state">还没有归档的发布任务～ 在任务卡点 📦 就能收起来</p>';
-        return;
+      if (id) {
+        const d = devices.find(x => x.id === id);
+        if (d) { d.name = name; d.type = type; d.status = status; d.date = date; d.price = price; d.note = note; }
+      } else {
+        devices.unshift({ id: 'g' + Date.now(), name, type, status, date, price, note, created: Date.now() });
       }
-      container.innerHTML = showList.map(p => {
-        const t = p.pubArchivedAt || p.created;
-        const dateStr = new Date(t).toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' });
-        const total = PLATFORM_CONFIG.length;
-        const done = PLATFORM_CONFIG.filter(pf => p.published && p.published[pf.key]).length;
-        const chips = PLATFORM_CONFIG.filter(pf => p.published && p.published[pf.key]).map(pf =>
-          `<span class="arch-pf-chip" style="--pf:${pf.color}">${pf.icon}${pf.name}</span>`
-        ).join('');
-        return `
-          <div class="arch-task-card">
-            <div class="arch-task-date">${dateStr}</div>
-            <div class="arch-task-main">
-              <div class="arch-task-title">${escapeHtml(p.title)}</div>
-              <div class="arch-task-meta">已发布 ${done}/${total} 个平台</div>
-              <div class="arch-pf-row">${chips || '<span class="arch-task-meta">暂未发布任何平台</span>'}</div>
-            </div>
-            <button class="hidden-restore-btn" onclick="restoreFromPubArchive('${p.id}')">👁️ 恢复</button>
-          </div>`;
-      }).join('');
+      saveDevices(devices);
+      closeGearModal();
+      renderGear();
     }
 
-    function restoreFromPubArchive(pid) {
-      const projects = getProjects();
-      const p = projects.find(x => x.id === pid);
-      if (!p) return;
-      p.pubArchived = false;
-      delete p.pubArchivedAt;
-      saveProjects(projects);
-      renderPubArchive();
-      renderPubTasks();
+    function deleteGear(id) {
+      if (!confirm('确定删除这件设备？')) return;
+      const devices = getDevices().filter(x => x.id !== id);
+      saveDevices(devices);
+      renderGear();
     }
 
 
