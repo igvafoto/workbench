@@ -826,7 +826,8 @@
     .stage-step.done .stage-mini-label { color: var(--accent-teal); font-weight: 600; }
     .stage-step.active .stage-mini-label { color: var(--accent-coral); font-weight: 700; }
 
-    .project-note { font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-2); line-height: 1.4; }
+    .project-note { font-size: var(--text-xs); color: var(--text-muted); margin-bottom: var(--space-2); line-height: 1.4; min-height: 1.4em; }
+    @media (max-width: 1023px) { .project-note--empty { display: none; } }
     .project-type {
       display: inline-flex; align-items: center;
       padding: 3px 10px; border-radius: var(--radius-full);
@@ -2923,7 +2924,7 @@
               </div>
             </div>
             ${p.type ? `<div class="project-type ${getProjectTypeClass(p.type)}">${escapeHtml(p.type)}</div>` : ''}
-            ${p.note ? `<p class="project-note">${escapeHtml(p.note)}</p>` : ''}
+            <p class="project-note ${p.note ? '' : 'project-note--empty'}">${p.note ? escapeHtml(p.note) : '&nbsp;'}</p>
             <div class="project-progress-meta">
               <span class="progress-current">当前：${activeStage.label}</span>
               <span class="progress-pct">${pct}%</span>
