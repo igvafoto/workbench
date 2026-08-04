@@ -101,6 +101,122 @@
     }
 
     /* ============================================
+       THEME VARIANTS — Dark & Light (Default = Liquid Glass above)
+       ============================================ */
+    [data-theme="dark"] {
+      --glass-bg: rgba(255,255,255,0.06);
+      --glass-bg-hover: rgba(255,255,255,0.10);
+      --glass-bg-active: rgba(255,255,255,0.14);
+      --glass-border: rgba(255,255,255,0.10);
+      --glass-border-hover: rgba(255,255,255,0.18);
+      --glass-highlight: rgba(255,255,255,0.16);
+      --glass-shadow: rgba(0,0,0,0.5);
+      --text-primary: #ECEEF2;
+      --text-secondary: #A6ACB4;
+      --text-muted: #6B7178;
+      --accent-coral: #ff9b8c; --accent-coral-glow: rgba(255,155,140,0.25);
+      --accent-teal: #6fe0c2; --accent-teal-glow: rgba(111,224,194,0.20);
+      --accent-violet: #b9a4ff; --accent-violet-glow: rgba(185,164,255,0.22);
+      --accent-amber: #ffd86b; --accent-amber-glow: rgba(255,216,107,0.20);
+      --accent-red: #ff8585; --accent-green: #6fe07f;
+    }
+    [data-theme="dark"] .liquid-bg {
+      background:
+        radial-gradient(ellipse 70% 50% at 25% 0%, rgba(120,90,180,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 45% at 85% 10%, rgba(255,140,120,0.12) 0%, transparent 50%),
+        linear-gradient(175deg, #0E1014 0%, #14171d 55%, #0E1014 100%);
+    }
+    [data-theme="dark"] .orb--1 { background: rgba(150,120,220,0.16); }
+    [data-theme="dark"] .orb--2 { background: rgba(255,140,120,0.12); }
+    [data-theme="dark"] .orb--3 { background: rgba(94,207,176,0.10); }
+    [data-theme="dark"] .modal-content { background: #171a20; color: var(--text-primary); box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+    [data-theme="dark"] .modal-actions { border-top-color: rgba(255,255,255,0.10); }
+    [data-theme="dark"] .tab-btn.active,
+    [data-theme="dark"] .view-toggle button.active,
+    [data-theme="dark"] .memo-tab.active,
+    [data-theme="dark"] .pub-pf-tab.active {
+      background: rgba(255,255,255,0.12); color: var(--text-primary);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.16);
+    }
+    [data-theme="dark"] .dt-btn:hover { background: rgba(255,255,255,0.10); }
+    [data-theme="dark"] .form-input,
+    [data-theme="dark"] .form-select,
+    [data-theme="dark"] .form-textarea {
+      background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); color: var(--text-primary);
+    }
+    [data-theme="dark"] .form-input::placeholder,
+    [data-theme="dark"] .form-textarea::placeholder { color: var(--text-muted); }
+    [data-theme="dark"] .btn-secondary { background: rgba(255,255,255,0.10); color: var(--text-secondary); }
+    [data-theme="dark"] .btn-secondary:hover { background: rgba(255,255,255,0.16); }
+    [data-theme="dark"] .pub-item { background: rgba(255,255,255,0.04); }
+    [data-theme="dark"] .pub-item:hover { background: rgba(255,255,255,0.07); }
+    [data-theme="dark"] .day-event-chip.event-other { background: rgba(255,255,255,0.08); }
+    [data-theme="dark"] .arch-task-progress,
+    [data-theme="dark"] .project-progress { background: rgba(255,255,255,0.10); }
+    [data-theme="dark"] .search-clear { background: rgba(255,255,255,0.12); color: var(--text-secondary); }
+    [data-theme="dark"] .search-clear:hover { background: rgba(255,255,255,0.20); }
+
+    [data-theme="light"] {
+      --glass-bg: rgba(255,255,255,0.72);
+      --glass-bg-hover: rgba(255,255,255,0.85);
+      --glass-bg-active: rgba(255,255,255,0.95);
+      --glass-border: rgba(120,110,95,0.18);
+      --glass-border-hover: rgba(120,110,95,0.28);
+      --glass-highlight: rgba(255,255,255,1);
+      --glass-shadow: rgba(0,0,0,0.05);
+      --text-primary: #2C2A27;
+      --text-secondary: #6E6A63;
+      --text-muted: #A39E95;
+      --accent-coral: #D8856F; --accent-coral-glow: rgba(216,133,111,0.18);
+      --accent-teal: #5BA98A; --accent-teal-glow: rgba(91,169,138,0.18);
+      --accent-violet: #9A8BC4; --accent-violet-glow: rgba(154,139,196,0.20);
+      --accent-amber: #C9A24E; --accent-amber-glow: rgba(201,162,78,0.18);
+      --accent-red: #D8696b; --accent-green: #5BA95a;
+    }
+    [data-theme="light"] .liquid-bg {
+      background:
+        radial-gradient(ellipse 80% 55% at 25% 0%, rgba(216,133,111,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 45% at 85% 10%, rgba(201,162,78,0.10) 0%, transparent 50%),
+        linear-gradient(175deg, #F4F1EA 0%, #EFEBE3 50%, #F2EFE9 100%);
+    }
+    [data-theme="light"] .orb--1 { background: rgba(216,133,111,0.16); }
+    [data-theme="light"] .orb--2 { background: rgba(201,162,78,0.14); }
+    [data-theme="light"] .orb--3 { background: rgba(91,169,138,0.12); }
+
+    /* Home tools bar (外观 entry) */
+    .home-tools { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-5); gap: var(--space-3); }
+    .home-tools-date { font-size: var(--text-sm); color: var(--text-muted); }
+    .home-appearance-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px; font-family: var(--font-family); font-size: var(--text-sm); font-weight: 500;
+      color: var(--text-primary); background: var(--glass-bg);
+      border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+      cursor: pointer; transition: all 0.25s var(--ease-glass); backdrop-filter: blur(var(--blur-lg));
+      -webkit-backdrop-filter: blur(var(--blur-lg));
+    }
+    .home-appearance-btn:hover { background: var(--glass-bg-hover); border-color: var(--glass-border-hover); }
+
+    /* Appearance (theme) picker modal */
+    .appearance-modal { max-width: 380px; }
+    .appearance-desc { font-size: var(--text-xs); color: var(--text-secondary); margin: -8px 0 16px; }
+    .theme-options { display: flex; flex-direction: column; gap: 12px; }
+    .theme-opt {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      padding: 12px 14px; background: var(--glass-bg); border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s;
+      text-align: left; color: var(--text-primary); font-family: var(--font-family);
+    }
+    .theme-opt:hover { background: var(--glass-bg-hover); }
+    .theme-opt.selected { border-color: var(--accent-violet); box-shadow: 0 0 0 3px var(--accent-violet-glow); }
+    .theme-swatch { width: 36px; height: 36px; border-radius: 8px; flex: none; border: 1px solid rgba(0,0,0,0.12); }
+    .theme-swatch--default { background: linear-gradient(135deg, #e4eaf6, #f0e7d9); }
+    .theme-swatch--dark { background: linear-gradient(135deg, #0E1014, #1c1f27); }
+    .theme-swatch--light { background: linear-gradient(135deg, #F4F1EA, #ffffff); }
+    .theme-name { flex: 1; font-size: var(--text-sm); font-weight: 500; }
+    .theme-check { color: var(--accent-violet); font-weight: 600; opacity: 0; }
+    .theme-opt.selected .theme-check { opacity: 1; }
+
+    /* ============================================
        RESET & BASE
        ============================================ */
     *, *::before, *::after {
@@ -344,7 +460,7 @@
     }
     .home-see-all:hover { color: var(--accent-violet); background: rgba(155,142,221,0.10); }
 
-    .home-list { display: flex; flex-direction: column; gap: var(--space-3); }
+    .home-list { display: flex; flex-direction: column; gap: var(--space-4); }
     .home-empty { padding: var(--space-5); text-align: center; color: var(--text-muted); font-size: var(--text-sm); }
 
     .home-event-item, .home-project-item, .home-deal-item, .home-note-item {
@@ -1913,6 +2029,12 @@
     <!-- Tab Panel: Home -->
     <div class="tab-panels">
     <div class="tab-panel active" id="panel-home" role="tabpanel">
+      <div class="home-tools">
+        <span class="home-tools-date" id="homeToolsDate"></span>
+        <button class="home-appearance-btn" type="button" onclick="openAppearanceModal()">
+          <span>🎨</span> 外观
+        </button>
+      </div>
       <main class="main-grid home-grid" id="homeMain">
 
         <!-- Quick Stats -->
@@ -1972,6 +2094,34 @@
         </section>
 
       </main>
+    </div>
+
+    <!-- Appearance / Theme Picker Modal -->
+    <div class="modal-overlay" id="appearanceModal">
+      <div class="modal-content appearance-modal">
+        <div class="modal-title">外观</div>
+        <p class="appearance-desc">选择你喜欢的整体配色，下次打开会自动记住。</p>
+        <div class="theme-options">
+          <button type="button" class="theme-opt" data-theme="default" onclick="selectTheme('default')">
+            <span class="theme-swatch theme-swatch--default"></span>
+            <span class="theme-name">默认（玻璃）</span>
+            <span class="theme-check">✓</span>
+          </button>
+          <button type="button" class="theme-opt" data-theme="dark" onclick="selectTheme('dark')">
+            <span class="theme-swatch theme-swatch--dark"></span>
+            <span class="theme-name">深色</span>
+            <span class="theme-check">✓</span>
+          </button>
+          <button type="button" class="theme-opt" data-theme="light" onclick="selectTheme('light')">
+            <span class="theme-swatch theme-swatch--light"></span>
+            <span class="theme-name">浅色</span>
+            <span class="theme-check">✓</span>
+          </button>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" type="button" onclick="closeAppearanceModal()">完成</button>
+        </div>
+      </div>
     </div>
 
     <!-- Tab Panel: Workspace -->
@@ -3423,6 +3573,30 @@
       renderHomeDeals();
       renderHomeNotes();
       renderHomeTrash();
+      const ht = document.getElementById('homeToolsDate');
+      if (ht) ht.textContent = new Date().toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+    }
+
+    // ---- Appearance / Theme switching ----
+    function applyTheme(theme) {
+      theme = theme || 'default';
+      if (theme === 'default') document.documentElement.removeAttribute('data-theme');
+      else document.documentElement.setAttribute('data-theme', theme);
+      try { Store.set('theme', theme); } catch (e) {}
+      document.querySelectorAll('.theme-opt').forEach(function (el) {
+        el.classList.toggle('selected', el.dataset.theme === theme);
+      });
+    }
+    function selectTheme(theme) { applyTheme(theme); }
+    function openAppearanceModal() {
+      var cur = document.documentElement.getAttribute('data-theme') || 'default';
+      document.querySelectorAll('.theme-opt').forEach(function (el) {
+        el.classList.toggle('selected', el.dataset.theme === cur);
+      });
+      document.getElementById('appearanceModal').classList.add('show');
+    }
+    function closeAppearanceModal() {
+      document.getElementById('appearanceModal').classList.remove('show');
     }
 
     function renderHomeEvents() {
@@ -4751,6 +4925,7 @@
       purgeOldNoteTrash();       // auto-clear expired note trash
       ensureDealIds();           // backfill ids for older deals
       purgeOldDealTrash();       // auto-clear expired deal trash
+      applyTheme(Store.get('theme', 'default'));   // restore saved appearance
       updateGreeting(); updateDate();
       renderHome(); renderProjects(); renderNotes(); renderNoteEntryCounts();
 
