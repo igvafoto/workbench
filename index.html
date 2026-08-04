@@ -512,7 +512,7 @@
     .home-trash-header[aria-expanded="true"] .home-trash-chevron { transform: rotate(180deg); }
     .home-trash-list {
       margin-top: var(--space-3);
-      display: flex; flex-direction: column; gap: var(--space-3);
+      display: flex; flex-direction: column; gap: var(--space-4);
     }
     .home-trash-item {
       display: flex; align-items: center; gap: var(--space-3);
@@ -2052,7 +2052,7 @@
             <span class="section-icon" style="background:rgba(155,142,221,0.12);border:1px solid rgba(155,142,221,0.18)">📅</span>
             即将到来的日程
           </h2>
-          <div id="homeEventsList"></div>
+          <div id="homeEventsList" class="home-list"></div>
         </section>
 
         <!-- Active Projects -->
@@ -2061,7 +2061,7 @@
             <span class="section-icon" style="background:rgba(201,123,107,0.12);border:1px solid rgba(201,123,107,0.18)">🎬</span>
             进行中的项目
           </h2>
-          <div id="homeProjectsList"></div>
+          <div id="homeProjectsList" class="home-list"></div>
         </section>
 
         <!-- Recent Deals -->
@@ -2070,7 +2070,7 @@
             <span class="section-icon" style="background:rgba(244,162,97,0.12);border:1px solid rgba(244,162,97,0.18)">💰</span>
             最近商单
           </h2>
-          <div id="homeDealsList"></div>
+          <div id="homeDealsList" class="home-list"></div>
         </section>
 
         <!-- Recent Notes -->
@@ -2079,7 +2079,7 @@
             <span class="section-icon" style="background:rgba(201,166,107,0.14);border:1px solid rgba(201,166,107,0.18)">📝</span>
             最近笔记
           </h2>
-          <div id="homeNotesList"></div>
+          <div id="homeNotesList" class="home-list"></div>
         </section>
 
         <!-- Global Trash -->
