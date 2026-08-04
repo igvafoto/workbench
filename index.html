@@ -184,7 +184,7 @@
     [data-theme="light"] .orb--3 { background: rgba(91,169,138,0.12); }
 
     /* Home tools bar (外观 entry) */
-    .home-tools { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-5); gap: var(--space-3); }
+    .home-tools { display: flex; align-items: center; justify-content: flex-start; margin-bottom: var(--space-5); gap: var(--space-3); }
     .home-tools-date { font-size: var(--text-sm); color: var(--text-muted); }
     .home-appearance-btn {
       display: inline-flex; align-items: center; gap: 8px;
@@ -195,6 +195,22 @@
       -webkit-backdrop-filter: blur(var(--blur-lg));
     }
     .home-appearance-btn:hover { background: var(--glass-bg-hover); border-color: var(--glass-border-hover); }
+    .header-actions { display: flex; align-items: center; gap: var(--space-3); flex-shrink: 0; }
+    .header-appearance-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; padding: 0;
+      font-size: 18px; line-height: 1;
+      color: var(--text-primary); background: var(--glass-bg);
+      border: 1px solid var(--glass-border); border-radius: var(--radius-full);
+      cursor: pointer; transition: all 0.25s var(--ease-glass);
+      backdrop-filter: blur(var(--blur-lg)); -webkit-backdrop-filter: blur(var(--blur-lg));
+      flex-shrink: 0;
+    }
+    .header-appearance-btn:hover { background: var(--glass-bg-hover); border-color: var(--glass-border-hover); transform: translateY(-1px); }
+    @media (max-width: 560px) {
+      .header-actions { width: 100%; }
+      .header-appearance-btn { display: none; }
+    }
 
     /* Appearance (theme) picker modal */
     .appearance-modal { max-width: 380px; }
@@ -1995,10 +2011,15 @@
           <h1 class="greeting" id="greeting">早上好，<span class="greeting-name">依依</span></h1>
           <p class="date-display" id="dateDisplay"><time id="currentDate"></time></p>
         </div>
-        <div class="search-box" id="searchBox">
-          <span class="search-icon">🔍</span>
-          <input type="search" id="globalSearch" placeholder="搜索标题 / 备注 / 品牌…" autocomplete="off" aria-label="搜索内容" oninput="onSearchInput(this.value)">
-          <button class="search-clear" id="searchClear" type="button" aria-label="清除搜索" onclick="clearSearch()">✕</button>
+        <div class="header-actions">
+          <div class="search-box" id="searchBox">
+            <span class="search-icon">🔍</span>
+            <input type="search" id="globalSearch" placeholder="搜索标题 / 备注 / 品牌…" autocomplete="off" aria-label="搜索内容" oninput="onSearchInput(this.value)">
+            <button class="search-clear" id="searchClear" type="button" aria-label="清除搜索" onclick="clearSearch()">✕</button>
+          </div>
+          <button class="header-appearance-btn" type="button" onclick="openAppearanceModal()" aria-label="切换外观">
+            🎨
+          </button>
         </div>
       </div>
     </header>
@@ -2031,9 +2052,6 @@
     <div class="tab-panel active" id="panel-home" role="tabpanel">
       <div class="home-tools">
         <span class="home-tools-date" id="homeToolsDate"></span>
-        <button class="home-appearance-btn" type="button" onclick="openAppearanceModal()">
-          <span>🎨</span> 外观
-        </button>
       </div>
       <main class="main-grid home-grid" id="homeMain">
 
