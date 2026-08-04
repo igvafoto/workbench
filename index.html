@@ -603,6 +603,8 @@
       .section--full { grid-column: 1 / -1; }
       .section--wide { grid-column: auto; grid-row: auto; }
       .section { margin-bottom: 0; }
+      /* Desktop only: events share row 1 with projects; deals/notes share row 2 */
+      section[aria-labelledby="home-events-title"] { grid-column: auto; }
     }
 
     /* ══════════════════════════════════════════
