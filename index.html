@@ -2834,6 +2834,8 @@
     // ========================================
     function getProjects() { return Store.get('projects', DEFAULT_PROJECTS); }
     function saveProjects(p) { Store.set('projects', p); }
+    function getNotes() { return Store.get('notes', []); }
+    function saveNotes(n) { Store.set('notes', n); }
 
     function renderProjects() {
       const all = getProjects();
