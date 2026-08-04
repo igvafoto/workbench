@@ -602,6 +602,9 @@
       .section { margin-bottom: 0; }
       /* Desktop only: events share row 1 with projects; deals/notes share row 2 */
       section[aria-labelledby="home-events-title"] { grid-column: auto; }
+      /* Workspace only: creation tracker spans full width and splits into 3 equal columns */
+      #panel-workspace .section--wide { grid-column: 1 / -1; }
+      #panel-workspace #projectsList { grid-template-columns: repeat(3, 1fr); }
     }
 
     /* ══════════════════════════════════════════
