@@ -599,9 +599,10 @@
       .section--wide { grid-column: 1 / -1; }
     }
     @media (min-width: 1024px) {
-      .main-grid { grid-template-columns: 1.55fr 1fr; gap: var(--space-6); }
+      .main-grid { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
       .section--full { grid-column: 1 / -1; }
-      .section--wide { grid-column: 1 / 2; grid-row: span 2; }
+      .section--wide { grid-column: auto; grid-row: auto; }
+      .section { margin-bottom: 0; }
     }
 
     /* ══════════════════════════════════════════
