@@ -609,6 +609,23 @@
       .project-name { min-height: 2.6em; }
       .project-type { min-height: 1.7em; }
       .project-progress-meta { min-height: 1.4em; }
+      /* Desktop only: notes & deals lists split into 3 equal columns */
+      #panel-memos #notesList,
+      #panel-deals #dealList {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-4);
+      }
+      #panel-deals .deal-card,
+      #panel-memos .note-item {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      #panel-deals .deal-status-bar,
+      #panel-memos .note-footer {
+        margin-top: auto;
+      }
     }
 
     /* ══════════════════════════════════════════
