@@ -605,6 +605,10 @@
       /* Workspace only: creation tracker spans full width and splits into 3 equal columns */
       #panel-workspace .section--wide { grid-column: 1 / -1; }
       #panel-workspace #projectsList { grid-template-columns: repeat(3, 1fr); }
+      /* Desktop only: fix project card row heights so progress bars align */
+      .project-name { min-height: 2.6em; }
+      .project-type { min-height: 1.7em; }
+      .project-progress-meta { min-height: 1.4em; }
     }
 
     /* ══════════════════════════════════════════
@@ -848,6 +852,7 @@
     .project-type.type-compare { background: #dbeafe; color: #2563eb; }
     /* 自定义/其他：沿用原紫 */
     .project-type.type-other { background: var(--accent-violet); color: #fff; box-shadow: 0 2px 8px rgba(167,139,250,0.22); }
+    .project-type--empty { visibility: hidden; }
     .project-filter-bar {
       display: flex; justify-content: space-between; align-items: center;
       padding: 8px 12px; margin-bottom: var(--space-3);
@@ -2923,7 +2928,7 @@
                 </div>
               </div>
             </div>
-            ${p.type ? `<div class="project-type ${getProjectTypeClass(p.type)}">${escapeHtml(p.type)}</div>` : ''}
+            ${p.type ? `<div class="project-type ${getProjectTypeClass(p.type)}">${escapeHtml(p.type)}</div>` : '<div class="project-type project-type--empty">&nbsp;</div>'}
             <p class="project-note ${p.note ? '' : 'project-note--empty'}">${p.note ? escapeHtml(p.note) : '&nbsp;'}</p>
             <div class="project-progress-meta">
               <span class="progress-current">当前：${activeStage.label}</span>
