@@ -1,6 +1,6 @@
 /* Service Worker — 依依的创作工作台 PWA
    ES5 语法，兼容 iOS webview；app-shell 缓存 + 离线兜底 */
-var CACHE_NAME = "workbench-v45";
+var CACHE_NAME = "workbench-v46";
 var ASSETS = [
   "./",
   "./index.html",
